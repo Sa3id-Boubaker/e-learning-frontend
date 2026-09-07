@@ -1,158 +1,147 @@
-# Mantis Free Angular Bootstrap Admin Template [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Get%20Mantis%20Angular%20-%20The%20most%20Beautiful%20Bootstrap%20Designed%20Admin%20Dashboard%20Template%20&url=https://mantisdashboard.com&via=codedthemes&hashtags=angular,webdev,developers,javascript)
+# OMARISE — Frontend
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/codedthemes/mantis-free-angular-admin-template/blob/master/LICENSE)
-[![GitHub package version](https://img.shields.io/github/package-json/v/codedthemes/mantis-free-angular-admin-template)](https://github.com/codedthemes/mantis-free-angular-admin-template/)
-[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=flat-square&logo=github)](https://codedthemes.com/item/mantis-angular-free-admin-template/)
-[![Join Discord](https://img.shields.io/badge/Join-Discord-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.com/invite/p2E2WhCb6s)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular)](https://angular.dev)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap)](https://getbootstrap.com)
 
-Mantis is a free Angular admin dashboard template built with Angular and the latest Bootstrap 5. It is meant to provide the best possible User Experience with highly customizable, feature-rich pages. It is a comprehensive dashboard template featuring an easy-to-use and intuitive responsive design, suitable for viewing on both retina screens and laptops.
+OMARISE is an e-learning platform for taking online courses, joining live training sessions (live sessions and recordings), discussing on a forum, and receiving real-time notifications. This repository contains the **Angular frontend** of the platform.
 
-### Name Derived From Nature
-
-The Mantis Logo is inspired by the insect name 'Mantises', as they have triangular heads with flexible Necks. Also, the name is derived from two popular design systems, Material and Ant Design (M-Ant-is).
-
-
-✨ Support us! If you like this theme, click the ⭐ (Top right) and let it shine
-
-![IMG_8566.jpg](https://org-public-assets.s3.us-west-2.amazonaws.com/Free-Version-Banners/GITHUB-FREE-ANGULAR-REPO%20-%20Mantis.jpg)
+![OMARISE](./docs/screenshots/landing-page.png)
 
 ## Table of contents
 
-- [Getting Started](#getting-started)
-- [Download](#download)
-- [Why Mantis?](#why-mantis)
-- [What's included in Premium Version?](#whats-included-in-premium-version)
-- [Documentation](#documentation)
-- [Browser support](#browser-support)
-- [Technology Stack](#technology-stack)
-- [Mantis Figma UI Kit](#mantis-figma-ui-kit)
-- [Other Technologies](#other-technologies)
-- 💰[Save more with Big Bundle](#save-more-with-big-bundle)💰
-- [More Angular Dashboard Templates](#more-angular-dashboard-templates)
-- [Issues?](#issues)
+- [Tech stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation and running](#installation-and-running)
+- [Internationalization](#internationalization)
+- [User roles](#user-roles)
+- [Features](#features)
+- [Demo accounts](#demo-accounts)
+- [Known limitations](#known-limitations)
+- [Credits](#credits)
 - [License](#license)
-- [Community and Support](#communtiy-and-support) 
-- [Useful Resources](#useful-resources)
-- [Follow us](#follow-us)
 
-## Getting Started
+## Tech stack
 
-1. Clone from GitHub
+- **Angular 22** — standalone components, no NgModules for feature code (only `AppRoutingModule` remains an NgModule), `provideZonelessChangeDetection()` (no Zone.js), lazy-loading via `loadComponent` on every route
+- **TypeScript 6.0**
+- **Bootstrap 5.3** + [@ng-bootstrap/ng-bootstrap 20](https://ng-bootstrap.github.io/) for UI components (modals, dropdowns, etc.)
+- **@ngx-translate/core 18** + **@ngx-translate/http-loader 18** for i18n (JSON files loaded from `/assets/i18n/`)
+- **@ant-design/icons-angular 21** for icons
+- **ApexCharts 5** / **ng-apexcharts 2.4** for the dashboard charts
+- **FullCalendar 6** (`@fullcalendar/angular`, `core`, `daygrid`, `interaction`, `timegrid`) for the training calendar
+- **jsPDF 4** + **html2canvas 1.4** for generating certificate PDFs
+- **ngx-scrollbar 19**
+- **RxJS 7.8**
+- **ESLint 10** + **Prettier 3.8** for linting/formatting
 
+This frontend is built on top of the free **[Mantis Angular Admin Template](https://github.com/codedthemes/mantis-free-angular-admin-template)** (CodedThemes) — see the [Credits](#credits) section.
+
+## Prerequisites
+
+- **Node.js v24.19.0**
+- **npm** (bundled with Node.js)
+- The **OMARISE backend** must be running first (or alongside) the frontend — repository: [e-learning-backend](https://github.com/Sa3id-Boubaker/e-learning-backend). Refer to that repository for how to install and start it; by default, the frontend expects it on `http://localhost:8080`.
+
+## Installation and running
+
+```bash
+npm install
+ng serve
 ```
-git clone https://github.com/codedthemes/mantis-free-angular-admin-template.git
-```
 
-2. Install packages
+The application is then available at `http://localhost:4200`.
 
-```
-yarn
-```
+> **Note on the proxy**: in development, `ng serve` uses [`proxy.conf.json`](./proxy.conf.json) to forward `/api` calls to `http://localhost:8080`. If your backend runs at a different address, update the target in `proxy.conf.json` **and** the `apiUrl` value in [`src/environments/environment.ts`](./src/environments/environment.ts) (used for flows that don't go through the proxy, such as real-time notifications via `EventSource`). Do the same in [`src/environments/environment.prod.ts`](./src/environments/environment.prod.ts) for a production build.
 
-3. Run project
+## Internationalization
 
-```
-yarn start
-```
+The application is available in **English (en)**, **French (fr)** and **Arabic (ar)**, with full RTL support for Arabic.
 
-## Download
+- Translation files: [`src/assets/i18n/en.json`](./src/assets/i18n/en.json), [`fr.json`](./src/assets/i18n/fr.json), [`ar.json`](./src/assets/i18n/ar.json)
+- Language handling lives in `LanguageService` ([`src/app/theme/shared/service/language.service.ts`](./src/app/theme/shared/service/language.service.ts)), built on Angular **signals**:
+  - the chosen language is persisted in `localStorage` (key `omarise-lang`);
+  - it is applied at application startup (before the first render, via a `provideAppInitializer` in `main.ts`) to avoid any flash of the wrong language/direction;
+  - `<html lang>` and `<html dir>` are updated automatically (`dir="rtl"` for Arabic, `dir="ltr"` otherwise).
+- A language switcher is available in the UI (user menu / header) and lets you switch between the three languages at any time.
 
-- Mantis Free 
-    - [Live Preview](https://mantisdashboard.com/angular/free/) 
-    - [Download](https://codedthemes.com/item/mantis-angular-free-admin-template/)
-- Mantis Pro 
-    - [Live Preview](https://mantisdashboard.com/angular/default) 
-    - [Download](https://codedthemes.com/item/mantis-angular-admin-template/)
-      
-## Why Mantis? 
+## User roles
 
-Mantis offers everything you need to create dashboards. We have included the following high-end features in our initial release:
+The interface adapts to the signed-in account's role (`ADMIN`, `FORMATEUR`, `ETUDIANT`) — the navigation menu dynamically filters visible sections based on role (see `NavContentComponent.filterByRole`). For example, user management and admin-level enrollment views are only visible to an `ADMIN`, while creating courses/trainings is reserved for a `FORMATEUR`.
 
-- Modern aesthetics UI design
-- Bootstrap components
-- Fully Responsive, all modern browsers supported
-- Easy to use code structure
-- Flexible & High-Performance code
-- Easy Documentation Guide
+## Features
 
-## What's included in Premium Version?
-The [Pro version](https://codedthemes.com/item/mantis-angular-admin-template/) of Mantis Angular Dashboard template contains features like TypeScript, Apps, Authentication Methods (i.e. JWT), Advance Components, Form Plugins, Layouts, Widgets, and many more.
+### Authentication
 
-| [Mantis Free](https://mantisdashboard.com/angular/free/) | [Mantis](https://codedthemes.com/item/mantis-angular-admin-template/) |
-| ----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **9** Demo pages                                      | **45+** demo pages                                                                                                                                             |
-| -                                                     | ✓ Multi-language                                                                                                                                               |
-| -                                                     | ✓ Dark/Light Mode 🌓                                                                                                                                           |
-| -                                                     | ✓ TypeScript version                                                                                                                                           |
-| -                                                     | ✓ 6+ color Options           |
-| -                                                     | ✓ RTL                                                                                                                                                          |
-| -                                                     | ✓ [More components](https://mantisdashboard.com/angular/default/components/basic/alert)                                                                                     |
-| ✓ [MIT License](https://github.com/codedthemes/mantis-free-angular-admin-template/blob/master/LICENSE)                                           | ✓ [Pro License](https://codedthemes.com/item/mantis-angular-admin-template/?utm_source=free_demo&utm_medium=codedthemes&utm_campaign=button_download_premium) |
+- Sign in / sign up
+- Email verification
+- Forgot password → reset code verification → password reset
+- Forced password change (on first login, enforced via a dedicated HTTP interceptor)
+- Google Sign-In (Google Identity Services)
 
-## Documentation
+### Dashboard
 
-[Mantis Angular documentation](https://codedthemes.gitbook.io/mantis-angular/) helps you with installation, deployment, and troubleshooting.
+![Admin dashboard](./docs/screenshots/dashboard-admin.png)
 
-## Browser support
-<img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/chrome.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/edge.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/safari.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/firefox.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/opera.png" width="45" height="45" >
+Role-aware dashboard aggregating statistics on courses, trainings, enrollments, certificates, and (for an administrator) platform users, shown as charts (ApexCharts) and lists (most popular courses/trainings, recent activity, etc.).
 
-## Technology Stack
+### Courses
 
-- Bootstrap 5
-- Angular 22
+![Angular course certificate](./docs/screenshots/course-angular-certificate.png)
 
-## Mantis Figma UI Kit
+- Course catalog, a student's library of enrolled courses, and course management for trainers
+- Courses structured into chapters and videos
+- Quizzes (taking a quiz, and creation/management by trainers)
+- Completion certificates: viewing, PDF export, and public verification by certificate number (accessible without logging in)
+- Enrollment management and enrolled-student lists per course, with discounts/promo codes
 
- | FREE                                                                                                                                                                                                           | PRO                                                                                                                                                                                                     |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a href="https://codedthemes.com/item/mantis-free-figma-ui-kit/" traget="_blank"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Figma_Free_Mantis.png" width="450" alt="Figma Free"></a> | <a href="https://codedthemes.com/item/mantis-figma-ui-kit/" traget="_blank"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Figma_Pro_Mantis.png" width="450" alt="Figma Pro"></a> |
+### Trainings (live sessions)
 
-## Other Technologies 
-| Technology | Free | Pro |
-|-----------|------|------|
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Bootstrap.png" width="25" height="25"></p> | [**Free**](https://codedthemes.com/item/mantis-bootstrap-free-admin-template/) | [**Pro**](https://codedthemes.com/item/mantis-bootstrap-admin-dashboard/) |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/React.png" width="30" height="30"></p> | [**Free**](https://codedthemes.com/item/mantis-free-mui-admin-template/) | [**Pro**](https://codedthemes.com/item/mantis-mui-react-dashboard-template/) |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Vue.png" width="25" height="25"></p> | [**Free**](https://codedthemes.com/item/mantis-free-vuetify-vuejs-admin-template/) | [**Pro**](https://codedthemes.com/item/mantis-vue-admin-template/) |
+![Node.js live training session](./docs/screenshots/training-nodejs-live-session.png)
 
-## Save more with Big Bundle
+- Training list, a student's enrolled trainings, and creation/editing for trainers
+- Scheduled live sessions, with associated recordings
+- Session calendar (FullCalendar)
+- Enrollment management and enrolled-student lists per training
 
-[![bundle-image](https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Bundle+banner.png)](https://links.codedthemes.com/jhFBJ)
+### Forum
 
-## More Angular Dashboard Templates
+![Forum](./docs/screenshots/forum.png)
 
-| Dashboard | FREE | PRO | 
-| ----- | ---- | ---- |
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Berry%20with%20name.png"  height="30" style="display:inline-block; vertical-align:middle;"> | [**Free**](https://codedthemes.com/item/berry-angular-free-admin-template/) | [**Pro**](https://codedthemes.com/item/berry-angular-admin-dashboard-template/)</span>|
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Datta%20with%20name.png" height="30" style="display:inline-block; vertical-align:middle;">  | [**Free**](https://codedthemes.com/item/datta-able-angular-lite/) | [**Pro**](https://codedthemes.com/item/datta-able-angular/)</span>|
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Gradient%20with%20name.png" height="30" style="display:inline-block; vertical-align:middle;"> | [**Free**](https://codedthemes.com/item/gradient-able-angular-free-admin-template/) | [**Pro**](https://codedthemes.com/item/gradient-able-angular-admin-template/)</span>|
+- List of discussion threads, creating new topics
+- Thread detail view with a comment thread
 
-## Issues
+### Notifications
 
-Please generate a [Github issue](https://github.com/codedthemes/mantis-free-angular-admin-template/issues) if you found a bug in any version. We are try our best to resolve the issue.
+- Real-time notifications via **Server-Sent Events (SSE)** — the connection opens on login, closes on logout, with automatic reconnection handled by the browser
+- Notification bell in the header + a dedicated page listing notification history
 
-## License 
-- Licensed under [MIT](https://github.com/codedthemes/mantis-free-angular-admin-template/blob/master/LICENSE)
-- Copyright © [CodedThemes](https://codedthemes.com/)
+### Administration
 
-## Community and Support
- 
-- **GitHub Discussion** - [Ask questions and share ideas](https://github.com/codedthemes/mantis-free-react-admin-template/discussions)
-- **X/Twitter** — [@codedthemes](https://x.com/codedthemes), [@rakesh_nakrani](https://x.com/rakesh_nakrani) [@dobaria_brijesh](https://x.com/dobaria_brijesh)
-- **Join Discord** – [Connect with the community](https://discord.com/invite/dW9cBZMJ)
+- User management (roles, creating trainer/student accounts)
+- Managing course and training enrollments
 
-## Useful Resources
-- [More Admin Templates From CodedThemes](https://codedthemes.com/item/category/admin-templates/)
-- [Freebies From CodedThemes](https://codedthemes.com/item/category/free-templates/)
-- [Big Bundles](https://codedthemes.com/item/big-bundle/)
-- [Figma UI Kits](https://codedthemes.com/item/category/templates/figma/)
-- [Affiliate Program](https://codedthemes.com/affiliate/)
-- [Blogs](https://blog.codedthemes.com/)
+### Profile
 
-## Follow Us
-- [Twitter](https://twitter.com/codedthemes) 🐦
-- [Dribbble](https://dribbble.com/codedthemes) 🏀
-- [Github](https://github.com/codedthemes) 🐙
-- [LinkedIn](https://www.linkedin.com/company/codedthemes/) 💼
-- [Instagram](https://www.instagram.com/codedthemes/) 📷
-- [Facebook](https://www.facebook.com/codedthemes) 🟦
+- Viewing/editing the profile, changing password
+
+## Demo accounts
+
+This frontend repository does not hardcode any demo account or password. To create test accounts (admin, trainer, student), refer to the [OMARISE backend](https://github.com/Sa3id-Boubaker/e-learning-backend).
+
+## Known limitations
+
+- **No route guards on the frontend**: no route is protected by an Angular `CanActivate`/`AuthGuard` (confirmed in `app-routing.module.ts`) — access control relies on HTTP interceptors and the backend, not on navigation itself. Any URL can therefore be reached directly in the browser, even though the data actually shown still depends on what the API allows.
+- **Leftovers from the original template**:
+  - Demo folders from the Mantis template unrelated to OMARISE are still present under `src/app/demo/` (e.g. `admin-panel`, `application`, `chart`, `table`, `widget`, `forms`, `layouts`, `pages`, `component/advance-component`), but they are **not** referenced in `app-routing.module.ts` — only the `typography`, `color`, and `sample-page` pages from `demo/` remain actually routed.
+  - Several `README.md` files promoting the Pro version of Mantis remain in the code (e.g. `src/app/theme/shared/directive/README.md` and various `src/app/demo/**/README.md`).
+  - The `.github/workflows/prod.yml` workflow is still the original template's: it deploys to CodedThemes' own infrastructure (`mantisdashboard.com`) on every merge to `master`, and has nothing to do with deploying OMARISE.
+- **Two lockfiles** are present (`package-lock.json` and `yarn.lock`); this README assumes npm is used.
+
+## Credits
+
+This project's UI is built on top of the free **[Mantis Angular Admin Template](https://github.com/codedthemes/mantis-free-angular-admin-template)**, developed by [CodedThemes](https://codedthemes.com/) and distributed under the MIT license. The original [LICENSE](./LICENSE) file is kept unchanged.
+
+## License
+
+See the [LICENSE](./LICENSE) file (MIT).
