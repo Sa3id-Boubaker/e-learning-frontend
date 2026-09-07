@@ -18,7 +18,6 @@ OMARISE is an e-learning platform for taking online courses, joining live traini
 - [Features](#features)
 - [Demo accounts](#demo-accounts)
 - [Known limitations](#known-limitations)
-- [Credits](#credits)
 - [License](#license)
 
 ## Tech stack
@@ -34,8 +33,6 @@ OMARISE is an e-learning platform for taking online courses, joining live traini
 - **ngx-scrollbar 19**
 - **RxJS 7.8**
 - **ESLint 10** + **Prettier 3.8** for linting/formatting
-
-This frontend is built on top of the free **[Mantis Angular Admin Template](https://github.com/codedthemes/mantis-free-angular-admin-template)** (CodedThemes) — see the [Credits](#credits) section.
 
 ## Prerequisites
 
@@ -137,10 +134,6 @@ This frontend repository does not hardcode any demo account or password. To crea
   - Several `README.md` files promoting the Pro version of Mantis remain in the code (e.g. `src/app/theme/shared/directive/README.md` and various `src/app/demo/**/README.md`).
   - The `.github/workflows/prod.yml` workflow is still the original template's: it deploys to CodedThemes' own infrastructure (`mantisdashboard.com`) on every merge to `master`, and has nothing to do with deploying OMARISE.
 - **Two lockfiles** are present (`package-lock.json` and `yarn.lock`); this README assumes npm is used.
-
-## Credits
-
-This project's UI is built on top of the free **[Mantis Angular Admin Template](https://github.com/codedthemes/mantis-free-angular-admin-template)**, developed by [CodedThemes](https://codedthemes.com/) and distributed under the MIT license. The original [LICENSE](./LICENSE) file is kept unchanged.
 
 ## License
 
