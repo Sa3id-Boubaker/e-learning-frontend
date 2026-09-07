@@ -1,0 +1,26 @@
+.certificates-avatar-img,
+.certificates-avatar-initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.certificates-avatar-img {
+  object-fit: cover;
+}
+
+.certificates-avatar-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.12);
+}
+
+.certificate-number {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+}

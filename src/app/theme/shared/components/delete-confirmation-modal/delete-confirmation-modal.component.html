@@ -1,0 +1,32 @@
+@if (open) {
+  <div class="confirm-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="confirm-modal-panel"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirmModalTitle"
+      aria-describedby="confirmModalDescription"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="confirm-modal-body">
+        <h5 id="confirmModalTitle" class="mb-2">{{ title | translate }}</h5>
+        <p id="confirmModalDescription" class="text-muted mb-0">{{ description | translate }}</p>
+      </div>
+      <div class="confirm-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="loading" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-danger" [disabled]="loading" (click)="onConfirm()">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          }
+          {{ (loading ? 'common.deleting' : confirmLabel) | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,119 @@
+// FullCalendar renders its own DOM outside Angular's normal view encapsulation, so it can only
+// be reached with ::ng-deep — the standard, still-functional escape hatch for this exact case.
+// This block replaces FullCalendar's stock toolbar/grid skin with one that matches this app's
+// existing Bootstrap look (rounded outline buttons, muted borders, light header row) rather than
+// FullCalendar's own default theme.
+
+:host ::ng-deep .fc {
+  border-radius: var(--bs-border-radius);
+  overflow: hidden;
+}
+
+:host ::ng-deep .fc .fc-toolbar-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+:host ::ng-deep .fc .fc-button {
+  background: transparent;
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color);
+  border-radius: var(--bs-border-radius);
+  box-shadow: none;
+  text-transform: capitalize;
+}
+
+:host ::ng-deep .fc .fc-button:hover {
+  background: rgba(var(--bs-primary-rgb), 0.08);
+  border-color: var(--bs-primary);
+  color: var(--bs-primary);
+}
+
+:host ::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active,
+:host ::ng-deep .fc .fc-button-primary:not(:disabled):active {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}
+
+:host ::ng-deep .fc .fc-button:focus,
+:host ::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
+}
+
+:host ::ng-deep .fc .fc-col-header-cell-cushion {
+  padding: 0.5rem 0;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--bs-body-color);
+}
+
+:host ::ng-deep .fc .fc-col-header-cell {
+  background: var(--bs-tertiary-bg, var(--bs-light));
+}
+
+:host ::ng-deep .fc .fc-timegrid-slot-label-cushion {
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+}
+
+:host ::ng-deep .fc-theme-standard td,
+:host ::ng-deep .fc-theme-standard th {
+  border-color: var(--bs-border-color);
+}
+
+:host ::ng-deep .fc .fc-day-today {
+  background: rgba(var(--bs-primary-rgb), 0.06) !important;
+}
+
+// Each colored block is a session — clicking it opens the detail popover (eventClick), so the
+// cursor should say so on hover, same as any other clickable element in this app.
+:host ::ng-deep .fc-event {
+  cursor: pointer;
+}
+
+:host ::ng-deep .calendar-event-content {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow: hidden;
+}
+
+:host ::ng-deep .calendar-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .calendar-event-recording-icon {
+  flex-shrink: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+}
+
+:host ::ng-deep .calendar-event-status-scheduled {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+:host ::ng-deep .calendar-event-status-live {
+  background-color: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+}
+
+:host ::ng-deep .calendar-event-status-completed {
+  background-color: var(--bs-info) !important;
+  border-color: var(--bs-info) !important;
+}
+
+:host ::ng-deep .calendar-event-status-cancelled {
+  background-color: var(--bs-secondary-bg, #e9ecef) !important;
+  border-color: var(--bs-border-color) !important;
+  opacity: 0.7;
+
+  .calendar-event-title {
+    text-decoration: line-through;
+    color: var(--bs-secondary-color);
+  }
+}

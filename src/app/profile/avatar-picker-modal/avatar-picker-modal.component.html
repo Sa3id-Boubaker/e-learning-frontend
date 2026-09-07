@@ -1,0 +1,98 @@
+@if (open) {
+  <div class="avatar-picker-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="avatar-picker-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="avatarPickerTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="avatar-picker-header">
+        <h5 id="avatarPickerTitle" class="mb-0">{{ 'profile.avatarPicker.title' | translate }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="avatar-picker-body">
+        <div class="text-center mb-4">
+          <div class="avatar-picker-preview">
+            @if (previewUrl) {
+              <img [src]="previewUrl" [alt]="'profile.avatarPicker.previewAlt' | translate" />
+            } @else {
+              <span class="avatar-picker-preview-placeholder">?</span>
+            }
+          </div>
+        </div>
+
+        <div class="mb-2 fw-semibold">{{ 'profile.avatarPicker.presetAvatars' | translate }}</div>
+
+        @if (presetsLoading) {
+          <div class="avatar-picker-presets placeholder-glow">
+            @for (item of skeletonPlaceholders; track item) {
+              <span class="placeholder avatar-picker-thumb-skeleton"></span>
+            }
+          </div>
+        } @else if (presetsError) {
+          <div class="text-danger small mb-3">
+            {{ presetsError }}
+            <button type="button" class="btn btn-link btn-sm p-0 ms-1" (click)="loadPresets()">{{ 'common.retry' | translate }}</button>
+          </div>
+        } @else {
+          <div class="avatar-picker-presets" role="list">
+            @for (preset of presets; track preset.id) {
+              <button
+                type="button"
+                class="avatar-picker-thumb"
+                role="listitem"
+                [class.selected]="preset.id === selectedPreset?.id"
+                [attr.aria-pressed]="preset.id === selectedPreset?.id"
+                [attr.aria-label]="'profile.avatarPicker.selectAvatarAria' | translate: { id: preset.id }"
+                (click)="selectPreset(preset)"
+              >
+                <img [src]="preset.url" [alt]="'profile.avatarPicker.avatarOptionAlt' | translate: { id: preset.id }" />
+              </button>
+            }
+          </div>
+        }
+
+        <div class="avatar-picker-divider my-4"><span>{{ 'profile.avatarPicker.or' | translate }}</span></div>
+
+        <div
+          class="avatar-picker-upload-zone"
+          role="button"
+          tabindex="0"
+          [class.drag-over]="dragOver"
+          [class.uploading]="uploading"
+          (click)="fileInput.click()"
+          (keyup.enter)="fileInput.click()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+        >
+          @if (uploading) {
+            <span class="spinner-border spinner-border-sm" role="status"></span>
+            <span class="ms-2">{{ 'courses.videoFormModal.uploading' | translate }}</span>
+          } @else {
+            <span>{{ 'profile.avatarPicker.dragDropPrompt' | translate }}</span>
+            <span class="text-muted d-block small">{{ 'courses.formModal.imageFormatsHint' | translate }}</span>
+          }
+        </div>
+        <input #fileInput type="file" accept="image/jpeg,image/png,image/gif,image/webp" hidden (change)="onFileInputChange($event)" />
+
+        @if (uploadError) {
+          <div class="text-danger small mt-2">{{ uploadError }}</div>
+        }
+      </div>
+
+      <div class="avatar-picker-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
+        <button type="button" class="btn btn-primary" [disabled]="!canApplyPreset() || applying" (click)="applyPreset()">
+          {{ (applying ? 'common.saving' : 'profile.avatarPicker.done') | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

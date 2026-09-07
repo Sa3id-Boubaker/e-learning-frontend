@@ -1,0 +1,74 @@
+@if (open) {
+  <div class="quiz-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="quiz-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quizFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="quiz-form-modal-header">
+        <h5 id="quizFormModalTitle" class="mb-0">
+          {{ (mode === 'create' ? 'courses.quizFormModal.createTitle' : 'courses.quizFormModal.editTitle') | translate }}
+        </h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="quiz-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-group mb-3">
+            <label class="form-label" for="quizTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="quizTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('title')">{{ messageFor('title') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="quizDescription">{{ 'courses.chapterFormModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="quizDescription"
+              rows="3"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('description')">{{ messageFor('description') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="quizPassingScore">{{ 'courses.quizFormModal.passingScoreLabel' | translate }}</label>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              class="form-control"
+              id="quizPassingScore"
+              formControlName="passingScore"
+              [class.is-invalid]="controlInvalid('passingScore')"
+            />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('passingScore')">{{ messageFor('passingScore') }}</div>
+          </div>
+        </form>
+      </div>
+
+      <div class="quiz-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="saving || form.invalid || !hasChanges" (click)="submit()">
+          {{
+            (saving ? 'common.saving' : mode === 'create' ? 'courses.quizFormModal.createTitle' : 'common.saveChanges') | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,52 @@
+<div class="dropdown-header d-flex align-items-center justify-content-between">
+  <h5 class="m-0">{{ 'notifications.dropdown.title' | translate }}</h5>
+  <a href="javascript:void(0)" class="bg-transparent" [title]="'notifications.dropdown.markAllAsRead' | translate" (click)="onMarkAllAsRead($event)">
+    <i class="text-success d-flex f-20" antIcon theme="outline" type="check-circle"></i>
+  </a>
+</div>
+<div class="dropdown-divider mb-0"></div>
+<ng-scrollbar style="min-height: 200px; max-height: 320px" visibility="hover">
+  <div class="dropdown-header p-0 text-wrap header-notification-scroll">
+    @if (loading) {
+      <div class="d-flex justify-content-center py-4">
+        <div class="spinner-border spinner-border-sm text-primary" role="status">
+          <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+        </div>
+      </div>
+    } @else if (notifications.length === 0) {
+      <div class="text-center text-muted small py-4">{{ 'notifications.dropdown.noneYet' | translate }}</div>
+    } @else {
+      <div class="list-group list-group-flush w-100">
+        @for (notification of notifications; track notification.id) {
+          <a
+            href="javascript:void(0)"
+            class="list-group-item list-group-item-action"
+            [class.notification-item-unread]="!notification.read"
+            [class.notification-item-navigable]="!!getNotificationRoute(notification)"
+            (click)="onNotificationClick(notification)"
+          >
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <div class="user-avatar" [class.bg-light-primary]="notification.read" [class.bg-light-success]="!notification.read">
+                  <i class="d-flex" antIcon theme="outline" [type]="getNotificationIcon(notification.type)"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <span class="float-end text-muted small">{{ formatRelativeTime(notification.createdAt) }}</span>
+                <p class="mb-1" [class.fw-semibold]="!notification.read">{{ notification.title }}</p>
+                <span class="text-muted small notification-dropdown-message">{{ notification.message }}</span>
+              </div>
+              @if (getNotificationRoute(notification)) {
+                <i antIcon type="right" theme="outline" class="notification-dropdown-chevron align-self-center flex-shrink-0 ms-2"></i>
+              }
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</ng-scrollbar>
+<div class="dropdown-divider mt-0"></div>
+<div class="text-center py-2">
+  <a [routerLink]="['/notifications']" class="link-primary">{{ 'notifications.dropdown.viewAll' | translate }}</a>
+</div>

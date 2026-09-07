@@ -1,0 +1,67 @@
+/**======================================================================
+=========================================================================
+Template Name: MAntis Angular - Angular Admin Template
+Author: codedThemes
+Support: https://codedthemes.support-hub.io/
+File: style.css
+=========================================================================
+=================================================================================== */
+
+// main framework
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/variables-dark';
+
+@import 'scss/settings/color-variables';
+@import 'scss/settings/theme-variables';
+@import 'scss/settings/bootstrap-variables';
+
+// bootstrap import
+@import 'scss/bootstrap/bootstrap.scss';
+
+@import '../node_modules/bootstrap/scss/utilities';
+@import '../node_modules/bootstrap/scss/utilities/api';
+
+// main framework
+@import 'scss/themes/generic.scss';
+@import 'scss/themes/general.scss';
+
+@import 'scss/themes/components/components.scss';
+
+// theme
+@import 'scss/themes/layouts/menu/sidebar.scss';
+@import 'scss/themes/layouts/navbar/navbar.scss';
+@import 'scss/themes/layouts/pc-common.scss';
+@import 'scss/themes/layouts/breadcrumb/breadcrumb.scss';
+@import 'scss/themes/layouts/footer/footer.scss';
+
+@import 'scss/themes/preset-style.scss';
+
+// Omarise brand logo — the wordmark PNG has no intrinsic size constraint like the SVG it
+// replaced, so it needs an explicit height here or it renders at native (huge) resolution.
+.b-brand img {
+  height: 32px;
+  width: auto;
+}
+
+.auth-header img {
+  height: 48px;
+  width: auto;
+}
+
+// Arabic UI font — Public Sans has no Arabic glyphs, so browsers silently fall back to a
+// system font for ar text. Cairo is loaded (see index.html) and swapped in only under RTL,
+// via the same --bs-font-sans-serif custom property Bootstrap's own body font-family reads.
+[dir='rtl'] {
+  --bs-font-sans-serif: 'Cairo', 'Public Sans', sans-serif;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+}
+
+// Suppresses every transition for one frame while LanguageService flips `dir` — see the comment
+// there. Without this, switching language visibly slides the sidebar/header across the screen as
+// they swap edges, since the sidebar-collapse animation's own width/left/right transitions pick
+// up the direction change too.
+html.lang-switching,
+html.lang-switching * {
+  transition: none !important;
+}

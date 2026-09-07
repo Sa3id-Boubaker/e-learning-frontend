@@ -1,0 +1,9 @@
+<h5 class="mb-3">{{ 'dashboard.admin.top5Title' | translate }}</h5>
+<div class="card">
+  <div class="card-body">
+    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [plotOptions]="chartOptions.plotOptions!"
+      [dataLabels]="chartOptions.dataLabels!" [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!"
+      [colors]="chartOptions.colors!" [legend]="chartOptions.legend!" [tooltip]="chartOptions.tooltip!"
+      [grid]="chartOptions.grid!" />
+  </div>
+</div>

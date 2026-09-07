@@ -1,0 +1,89 @@
+.course-card {
+  position: relative;
+}
+
+.course-card-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bs-border-radius);
+  background: var(--bs-light);
+  color: var(--bs-secondary-color);
+  font-size: 28px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.course-card-completed-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+}
+
+.course-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50rem;
+  background: rgba(var(--bs-primary-rgb), 0.1);
+  color: var(--bs-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.course-progress {
+  padding-top: 1rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.course-progress-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.course-progress-percentage {
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+}
+
+.course-progress-complete {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.9375rem;
+
+  i[antIcon] {
+    font-size: 1.125rem;
+  }
+}
+
+.course-progress-track {
+  height: 0.5rem;
+  border-radius: 50rem;
+  background: var(--bs-tertiary-bg, var(--bs-light));
+  overflow: hidden;
+}
+
+.course-progress-fill {
+  height: 100%;
+  border-radius: 50rem;
+  background: #1565c0;
+  transition: width 0.4s ease;
+}
+
+.course-progress-fill-complete {
+  background: #2e7d32;
+}

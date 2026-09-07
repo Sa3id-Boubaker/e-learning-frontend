@@ -1,0 +1,157 @@
+@if (open) {
+  <div class="video-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="video-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="videoFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="video-form-modal-header">
+        <h5 id="videoFormModalTitle" class="mb-0">
+          {{ (mode === 'create' ? 'courses.videoFormModal.addTitle' : 'courses.videoFormModal.editTitle') | translate }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          [attr.aria-label]="'common.close' | translate"
+          [disabled]="saving"
+          (click)="onCancel()"
+        ></button>
+      </div>
+
+      <div class="video-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          @if (mode === 'create') {
+            <div class="mb-3">
+              <label class="form-label">{{ 'courses.videoFormModal.fileLabel' | translate }}</label>
+              <div
+                class="video-form-file-zone"
+                role="button"
+                tabindex="0"
+                [class.drag-over]="dragOver"
+                [class.disabled]="saving"
+                (click)="fileInput.click()"
+                (keyup.enter)="fileInput.click()"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)"
+              >
+                @if (selectedFile) {
+                  <div class="video-form-file-selected">
+                    <i antIcon type="play-circle" theme="outline"></i>
+                    <span>{{ selectedFile.name }}</span>
+                  </div>
+                } @else {
+                  <div class="video-form-file-placeholder">
+                    <i antIcon type="inbox" theme="outline"></i>
+                    <span>{{ 'courses.videoFormModal.dragDropPrompt' | translate }}</span>
+                    <span class="text-muted small">{{ 'courses.videoFormModal.fileFormatsHint' | translate }}</span>
+                  </div>
+                }
+              </div>
+              <input
+                #fileInput
+                type="file"
+                accept="video/mp4,video/webm,video/quicktime"
+                hidden
+                [disabled]="saving"
+                (change)="onFileInputChange($event)"
+              />
+              @if (fileError) {
+                <div class="text-danger small mt-2">{{ fileError }}</div>
+              }
+            </div>
+
+            @if (saving) {
+              <div class="mb-3">
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span>{{ 'courses.videoFormModal.uploading' | translate }}</span>
+                  <span>{{ uploadProgress }}%</span>
+                </div>
+                <div class="progress" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+                </div>
+              </div>
+            }
+          }
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="videoTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="videoTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('title')">{{ messageFor('title') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="videoDescription">{{ 'courses.chapterFormModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="videoDescription"
+              rows="3"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('description')">{{ messageFor('description') }}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="videoOrder">{{ 'courses.chapterFormModal.orderLabel' | translate }}</label>
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  class="form-control"
+                  id="videoOrder"
+                  formControlName="order"
+                  [class.is-invalid]="controlInvalid('order')"
+                />
+                <div class="invalid-feedback d-block" *ngIf="controlInvalid('order')">{{ messageFor('order') }}</div>
+              </div>
+            </div>
+            @if (mode === 'edit' && video) {
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label">{{ 'courses.videoFormModal.durationLabel' | translate }}</label>
+                  <p class="form-control-plaintext mb-0">{{ formatDuration(video.duration) }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </form>
+      </div>
+
+      <div class="video-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="saving || form.invalid || (mode === 'create' && !selectedFile) || (mode === 'edit' && !hasChanges)"
+          (click)="submit()"
+        >
+          {{
+            (saving
+              ? mode === 'create'
+                ? 'courses.videoFormModal.uploading'
+                : 'common.saving'
+              : mode === 'create'
+                ? 'courses.videoFormModal.addTitle'
+                : 'common.saveChanges'
+            ) | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

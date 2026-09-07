@@ -1,0 +1,24 @@
+// This page recompiles its own scoped copy of Bootstrap (with the LearnHub template's variable
+// overrides, $primary swapped to Omarise's brand blue — see ./scss/_variables.scss) rather than
+// reusing the app's global Bootstrap build. The template relies on an extended spacer scale
+// (up to $spacer*6, i.e. py-13/gap-8/mt-10) and negative-margin utilities (mb-n8) that the app's
+// own global Bootstrap build doesn't generate, since it wasn't compiled with those overrides.
+// Angular's emulated view encapsulation scopes every selector produced here (including ones
+// Bootstrap itself generates) to this component's template only, so none of this leaks into, or
+// conflicts with, the rest of the app's global Bootstrap classes.
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+@import 'bootstrap/scss/functions';
+@import './scss/variables';
+@import 'bootstrap/scss/bootstrap';
+@import './scss/custom';
+
+// Must stay last — see ./scss/_grid-fix.scss for why the grid needs a specificity patch under
+// Angular's view encapsulation.
+@import './scss/grid-fix';
+
+// Letterboxing backdrop for the AI training category's portrait illustration (imageFit: 'contain')
+// — matches the pastel mint background baked into the other 3 (square, full-bleed) illustrations.
+.training-category-contain-bg {
+  background-color: #e8f6ee;
+}

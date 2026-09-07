@@ -1,0 +1,35 @@
+:host {
+  display: contents;
+}
+
+.recording-video-player {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  max-height: 320px;
+  border-radius: var(--bs-border-radius);
+  background: #000;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  background: transparent;
+  color: var(--bs-secondary-color);
+}
+
+.btn-icon:hover {
+  color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.btn-icon.text-danger:hover {
+  color: var(--bs-danger) !important;
+  background: rgba(var(--bs-danger-rgb), 0.08);
+}

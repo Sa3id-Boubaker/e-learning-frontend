@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="'trainings.list.pageTitle' | translate">
+      <ng-template #headerOptionsTemplate>
+        @if (canManageAny) {
+          <button type="button" class="btn btn-primary btn-sm" (click)="openCreatePage()">
+            <i antIcon type="plus" theme="outline" class="me-1"></i>
+            {{ 'trainings.list.createTraining' | translate }}
+          </button>
+        }
+      </ng-template>
+
+      <div>
+        @if (loading) {
+          <div class="d-flex flex-column align-items-center justify-content-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+            </div>
+            <p class="text-muted mt-3 mb-0">{{ 'trainings.list.loadingTrainings' | translate }}</p>
+          </div>
+        } @else if (loadError) {
+          <div class="text-center py-4">
+            <p class="text-danger mb-3">{{ loadError }}</p>
+            <button type="button" class="btn btn-primary" (click)="loadTrainings()">{{ 'common.retry' | translate }}</button>
+          </div>
+        } @else if (trainings.length === 0) {
+          <div class="text-center text-muted py-4">{{ 'trainings.list.empty' | translate }}</div>
+        } @else {
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th><span class="visually-hidden">{{ 'courses.myCourses.imageColumn' | translate }}</span></th>
+                  <th>{{ 'courses.myCourses.titleColumn' | translate }}</th>
+                  @if (isAdmin) {
+                    <th>{{ 'trainings.list.instructorColumn' | translate }}</th>
+                  }
+                  <th>{{ 'trainings.list.durationColumn' | translate }}</th>
+                  <th>{{ 'courses.myCourses.priceColumn' | translate }}</th>
+                  <th>{{ 'trainings.list.startDateColumn' | translate }}</th>
+                  <th class="text-end"><span class="visually-hidden">{{ 'courses.enrollmentManagement.actionsColumn' | translate }}</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (training of trainings; track training.id) {
+                  <tr
+                    class="training-list-row"
+                    role="button"
+                    tabindex="0"
+                    [attr.aria-label]="'courses.myCourses.openAria' | translate: { title: training.title }"
+                    (click)="openTrainingDetail(training)"
+                    (keyup.enter)="openTrainingDetail(training)"
+                  >
+                    <td>
+                      @if (training.image) {
+                        <img [src]="training.image" [alt]="training.title" class="training-list-thumb-img" />
+                      } @else {
+                        <span class="training-list-thumb-placeholder"><i antIcon type="picture" theme="outline"></i></span>
+                      }
+                    </td>
+                    <td class="fw-semibold">{{ training.title }}</td>
+                    @if (isAdmin) {
+                      <td class="text-muted">{{ instructorNames[training.instructorId] || '—' }}</td>
+                    }
+                    <td class="text-muted">{{ 'trainings.list.durationDays' | translate: { count: getDurationDays(training) } }}</td>
+                    <td><app-training-price-display [training]="training" /></td>
+                    <td class="text-muted">{{ training.startDate | date: 'fullDate' }}</td>
+                    <td class="text-end" (click)="$event.stopPropagation()">
+                      @if (isStudent) {
+                        <button type="button" class="btn btn-primary btn-sm" (click)="openPurchaseModal(training)">
+                          {{ 'trainings.list.buy' | translate }}
+                        </button>
+                      } @else if (canManage(training)) {
+                        @if (isAdmin) {
+                          <button
+                            type="button"
+                            class="btn btn-icon btn-sm"
+                            [attr.aria-label]="'courses.myCourses.viewEnrolledStudentsAria' | translate: { title: training.title }"
+                            (click)="openTrainingEnrolledStudents(training)"
+                          >
+                            <i antIcon type="team" theme="outline"></i>
+                          </button>
+                        }
+                        <button
+                          type="button"
+                          class="btn btn-icon btn-sm"
+                          [attr.aria-label]="'courses.chapterItem.editAria' | translate: { title: training.title }"
+                          (click)="openEditPage(training)"
+                        >
+                          <i antIcon type="edit" theme="outline"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-icon btn-sm text-danger"
+                          [attr.aria-label]="'courses.chapterItem.deleteAria' | translate: { title: training.title }"
+                          (click)="openDeleteModal(training)"
+                        >
+                          <i antIcon type="delete" theme="outline"></i>
+                        </button>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<app-delete-confirmation-modal
+  [open]="deleteModalOpen"
+  [title]="deleteModalTitle"
+  [description]="deleteModalDescription"
+  [loading]="deleteLoading"
+  (closed)="onDeleteModalClosed()"
+  (confirmed)="confirmDelete()"
+/>
+
+<app-training-purchase-modal [open]="purchaseModalOpen" [training]="trainingForPurchase" (closed)="onPurchaseModalClosed()" />

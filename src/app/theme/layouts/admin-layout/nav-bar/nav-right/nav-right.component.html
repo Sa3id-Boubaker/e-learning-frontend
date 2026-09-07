@@ -1,0 +1,138 @@
+<ul class="list-unstyled">
+  @if (currentUser$ | async; as headerUser) {
+    @if (headerUser.role === 'ETUDIANT') {
+      <li class="pc-h-item">
+        <a [routerLink]="['/my-courses']" class="pc-head-link me-0 bg-gray-200" [title]="'nav.header.myCourses' | translate">
+          <i antIcon type="read" theme="outline"></i>
+        </a>
+      </li>
+    }
+    @if (headerUser.role === 'FORMATEUR' || headerUser.role === 'ADMIN') {
+      <li class="pc-h-item">
+        <a [routerLink]="['/courses/manage']" class="pc-head-link me-0 bg-gray-200" [title]="'nav.header.manageCourses' | translate">
+          <i antIcon type="unordered-list" theme="outline"></i>
+        </a>
+      </li>
+    }
+    @if (headerUser.role === 'ADMIN') {
+      <li class="pc-h-item">
+        <a [routerLink]="['/admin/users']" class="pc-head-link me-0 bg-gray-200" [title]="'nav.header.manageUsers' | translate">
+          <i antIcon type="team" theme="outline"></i>
+        </a>
+      </li>
+    }
+  }
+  <li class="pc-h-item" ngbDropdown>
+    <a href="javascript:void(0)" class="pc-head-link dropdown-toggle arrow-none me-0 bg-gray-200" ngbDropdownToggle
+      [title]="'nav.header.settings.language' | translate">
+      <i antIcon type="global" theme="outline"></i>
+    </a>
+    <div class="dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
+      @for (lang of languageOptions; track lang.code) {
+        <a href="javascript:void(0)" class="dropdown-item d-flex align-items-center justify-content-between gap-3" (click)="selectLanguage(lang.code)">
+          <span>{{ lang.label }}</span>
+          @if (languageService.currentLang() === lang.code) {
+            <i class="text-primary" antIcon theme="outline" type="check"></i>
+          }
+        </a>
+      }
+    </div>
+  </li>
+  <li class="pc-h-item" ngbDropdown #notificationsDropdown="ngbDropdown" (openChange)="notificationsDropdownOpen = $event">
+    <a href="javascript:void(0)" class="pc-head-link dropdown-toggle arrow-none me-0 bg-gray-200" data-bs-toggle="dropdown" ngbDropdownToggle>
+      <i antIcon type="bell" theme="outline"></i>
+      @if (unreadCount$ | async; as unreadCount) {
+        @if (unreadCount > 0) {
+          <span class="badge bg-primary pc-h-badge">{{ unreadCount > 9 ? '9+' : unreadCount }}</span>
+        }
+      }
+    </a>
+    <div class="dropdown-notification dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
+      <app-notification-dropdown [open]="notificationsDropdownOpen" (navigated)="notificationsDropdown.close()" />
+    </div>
+  </li>
+  <li class="pc-h-item header-user-profile" ngbDropdown>
+    @if (currentUser$ | async; as currentUser) {
+      <a href="javascript:void(0)" class="pc-head-link arrow-none me-0" ngbDropdownToggle>
+        @if (currentUser.profileImage) {
+          <img [src]="currentUser.profileImage" alt="user avatar" class="user-avatar" />
+        } @else {
+          <span class="user-avatar user-avatar-fallback">{{ initialsFor(currentUser) }}</span>
+        }
+      </a>
+      <div class="dropdown-user-profile dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              @if (currentUser.profileImage) {
+                <img [src]="currentUser.profileImage" alt="user avatar" class="user-avatar wid-35" />
+              } @else {
+                <span class="user-avatar user-avatar-fallback wid-35">{{ initialsFor(currentUser) }}</span>
+              }
+            </div>
+            <div class="flex-grow-1 ms-3 text-start">
+              <h6 class="mb-0">{{ displayNameFor(currentUser) | translate }}</h6>
+              <span>{{ currentUser.email }}</span>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="tabsSection" />
+      </div>
+    } @else {
+      <a href="javascript:void(0)" class="pc-head-link arrow-none me-0" ngbDropdownToggle>
+        <span class="user-avatar user-avatar-fallback">?</span>
+      </a>
+      <div class="dropdown-user-profile dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <span class="user-avatar user-avatar-fallback wid-35">?</span>
+            </div>
+            <div class="flex-grow-1 ms-3 text-start">
+              <h6 class="mb-0">{{ 'nav.header.myAccount' | translate }}</h6>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="tabsSection" />
+      </div>
+    }
+
+    <ng-template #tabsSection>
+      <ul ngbNav #nav="ngbNav" class="drp-tabs nav-fill nav-tabs">
+        <li ngbNavItem="1">
+          <a ngbNavLink>
+            <i antIcon theme="outline" type="user" class="me-2"></i>
+            {{ 'nav.header.profileTab' | translate }}
+          </a>
+          <ng-template ngbNavContent>
+            @for (task of profile; track task) {
+              <div>
+                <a href="javascript:void(0)" class="dropdown-item" (click)="onProfileAction(task.title, $event)">
+                  <i class="text-muted" antIcon theme="outline" type="{{ task.icon }}"></i>
+                  <span>{{ task.titleKey | translate }}</span>
+                </a>
+              </div>
+            }
+          </ng-template>
+        </li>
+        <li ngbNavItem="2">
+          <a ngbNavLink>
+            <i class="me-2" antIcon theme="outline" type="setting"></i>
+            {{ 'nav.header.settingTab' | translate }}
+          </a>
+          <ng-template ngbNavContent>
+            @for (task of setting; track task) {
+              <div>
+                <a href="javascript:void(0)" class="dropdown-item">
+                  <i class="text-muted" antIcon theme="outline" type="{{ task.icon }}"></i>
+                  <span>{{ task.titleKey | translate }}</span>
+                </a>
+              </div>
+            }
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </ng-template>
+  </li>
+</ul>

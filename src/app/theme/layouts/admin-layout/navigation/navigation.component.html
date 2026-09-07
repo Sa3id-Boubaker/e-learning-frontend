@@ -1,0 +1,15 @@
+<nav>
+  <div class="navbar-wrapper">
+    <div class="m-header">
+      <a [routerLink]="['/dashboard/default']" class="b-brand">
+        <img src="assets/images/omarise-logo-full.png" alt="Omarise" class="logo logo-dark logo-lg" />
+        <img src="assets/images/omarise-logo.png" alt="Omarise" class="logo logo-sm" />
+      </a>
+    </div>
+    <app-nav-content
+      (NavCollapsedMob)="navCollapseMob()"
+      (SubmenuCollapse)="navSubmenuCollapse()"
+      class="scroll-div w-100 compact"
+    />
+  </div>
+</nav>

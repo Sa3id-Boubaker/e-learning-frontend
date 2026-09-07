@@ -1,0 +1,89 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'courses.detail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'courses.detail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/courses/manage']" class="btn btn-primary">{{ 'courses.enrolledStudents.backToMyCourses' | translate }}</a>
+  </div>
+} @else if (accessDenied) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'courses.courseCertificates.accessDeniedBody' | translate }}</p>
+    <a [routerLink]="['/courses/manage']" class="btn btn-primary">{{ 'courses.enrolledStudents.backToMyCourses' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadCourse()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (course) {
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <a [routerLink]="['/courses', course.id]" class="text-muted small text-decoration-none">
+        &larr; {{ 'courses.courseCertificates.backToCourse' | translate }}
+      </a>
+      <h3 class="mb-0 mt-1">{{ 'courses.courseCertificates.pageTitle' | translate: { title: course.title } }}</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="('courses.allCertificates.cardTitle' | translate: { count: totalElements })">
+        <div #tableContainer>
+          @if (certificates.length === 0) {
+            <div class="text-center text-muted py-4">{{ 'courses.courseCertificates.noneIssuedYet' | translate }}</div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>{{ 'courses.enrollmentModal.studentLabel' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.scoreColumn' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.issuedColumn' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.certificateNumberColumn' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (certificate of certificates; track certificate.id) {
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center gap-2">
+                          @if (certificate.studentProfileImage) {
+                            <img [src]="certificate.studentProfileImage" [alt]="certificate.studentName" class="certificates-avatar-img" />
+                          } @else {
+                            <span class="certificates-avatar-initials">{{ initialsFor(certificate.studentName) }}</span>
+                          }
+                          {{ certificate.studentName }}
+                        </div>
+                      </td>
+                      <td><span class="badge bg-light-success text-success">{{ certificate.quizScore }}%</span></td>
+                      <td class="text-muted">{{ certificate.issuedAt | date: 'mediumDate' }}</td>
+                      <td class="certificate-number">{{ certificate.certificateNumber }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                  {{ 'common.previous' | translate }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                  {{ 'common.next' | translate }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </app-card>
+    </div>
+  </div>
+}

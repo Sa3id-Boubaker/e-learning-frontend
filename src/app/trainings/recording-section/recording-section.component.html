@@ -1,0 +1,105 @@
+@if (isCompleted && (loading || loadError || recording || canManage)) {
+  <div class="list-group-item recording-section">
+    <span class="fw-semibold d-block mb-2">{{ session.title }}</span>
+
+    @if (loading) {
+      <div class="d-flex align-items-center gap-2 text-muted small">
+        <span class="spinner-border spinner-border-sm" role="status"></span>
+        {{ 'trainings.recordingSection.loadingRecording' | translate }}
+      </div>
+    } @else if (loadError) {
+      <div class="text-danger small">
+        {{ loadError }}
+        <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" (click)="loadRecording()">
+          {{ 'common.retry' | translate }}
+        </button>
+      </div>
+    } @else if (recording) {
+      <video [src]="recording.videoUrl" controls class="recording-video-player"></video>
+
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <span class="text-muted small">
+          {{ 'trainings.recordingSection.durationLabel' | translate: { duration: formatRecordingDuration(recording.duration) } }}
+        </span>
+        @if (canManage) {
+          <div class="d-flex gap-1">
+            <button type="button" class="btn-icon" [attr.aria-label]="'trainings.recordingSection.editAria' | translate" (click)="openMetadataModal()">
+              <i antIcon type="edit" theme="outline"></i>
+            </button>
+            <button
+              type="button"
+              class="btn-icon"
+              [attr.aria-label]="'trainings.recordingSection.replaceAria' | translate"
+              [disabled]="uploading"
+              (click)="openReplacePicker()"
+            >
+              <i antIcon type="upload" theme="outline"></i>
+            </button>
+            <button
+              type="button"
+              class="btn-icon text-danger"
+              [attr.aria-label]="'trainings.recordingSection.deleteAria' | translate"
+              (click)="openDeleteModal()"
+            >
+              <i antIcon type="delete" theme="outline"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      @if (recording.description) {
+        <p class="text-muted small mt-1 mb-0">{{ recording.description }}</p>
+      }
+    } @else if (canManage) {
+      <button type="button" class="btn btn-outline-primary btn-sm" [disabled]="uploading" (click)="openUploadPicker()">
+        <i antIcon type="upload" theme="outline" class="me-1"></i>
+        {{ 'trainings.recordingSection.uploadRecording' | translate }}
+      </button>
+    }
+
+    @if (uploading) {
+      <div class="mt-2">
+        <div class="d-flex justify-content-between small text-muted mb-1">
+          <span>{{ 'courses.videoFormModal.uploading' | translate }}</span>
+          <span>{{ uploadProgress }}%</span>
+        </div>
+        <div class="progress" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+        </div>
+      </div>
+    }
+
+    @if (fileError) {
+      <div class="text-danger small mt-2">{{ fileError }}</div>
+    } @else if (serverMessage) {
+      <div class="text-danger small mt-2">{{ serverMessage }}</div>
+    }
+
+    @if (canManage) {
+      <input
+        #fileInput
+        type="file"
+        accept="video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska"
+        hidden
+        [disabled]="uploading"
+        (change)="onFileInputChange($event)"
+      />
+    }
+  </div>
+}
+
+<app-recording-metadata-form
+  [open]="metadataModalOpen"
+  [recording]="recording"
+  (closed)="onMetadataModalClosed()"
+  (saved)="onMetadataSaved($event)"
+/>
+
+<app-delete-confirmation-modal
+  [open]="deleteModalOpen"
+  title="trainings.recordingSection.deleteTitle"
+  description="common.actionCannotBeUndone"
+  [loading]="deleteLoading"
+  (closed)="onDeleteModalClosed()"
+  (confirmed)="confirmDelete()"
+/>

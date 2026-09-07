@@ -1,0 +1,7 @@
+// inset-inline-end (not right) so this flips sides automatically in RTL without a [dir="rtl"] override.
+.guest-language-switcher {
+  position: fixed;
+  top: 16px;
+  inset-inline-end: 16px;
+  z-index: 1050;
+}

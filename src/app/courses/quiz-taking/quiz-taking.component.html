@@ -1,0 +1,129 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadLatestResult()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else {
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-1">{{ quiz.title }}</h5>
+      @if (quiz.description) {
+        <p class="text-muted mb-0">{{ quiz.description }}</p>
+      }
+    </div>
+  </div>
+
+  @if (mode === 'result' && result) {
+    <div class="card mt-4">
+      <div class="card-body text-center py-5">
+        @if (result.passed) {
+          <i antIcon type="check-circle" theme="outline" class="quiz-result-icon quiz-result-icon-pass"></i>
+          <h4 class="mt-3 mb-1 text-success">{{ 'courses.quizTaking.passed' | translate }}</h4>
+        } @else {
+          <i antIcon type="exclamation-circle" theme="outline" class="quiz-result-icon quiz-result-icon-fail"></i>
+          <h4 class="mt-3 mb-1">{{ 'courses.quizTaking.notPassedYet' | translate }}</h4>
+        }
+        <p class="text-muted mb-4">
+          {{ 'courses.quizTaking.scoreLine' | translate: { score: result.score, passingScore: result.passingScore } }}
+        </p>
+
+        @if (result.passed) {
+          <!-- Already passed — the backend rejects further submit calls, so retaking isn't offered here at all. -->
+          <button type="button" class="btn btn-success btn-lg" [disabled]="generatingCertificate" (click)="getCertificate()">
+            <i antIcon type="safety-certificate" theme="outline" class="me-1"></i>
+            {{ (generatingCertificate ? 'courses.quizTaking.generating' : 'courses.quizTaking.getCertificate') | translate }}
+          </button>
+        } @else {
+          <button type="button" class="btn btn-primary" (click)="retake()">{{ 'courses.quizTaking.retakeQuiz' | translate }}</button>
+        }
+      </div>
+    </div>
+  } @else if (mode === 'taking') {
+    <div class="card mt-4">
+      <div class="card-body">
+        <ol class="quiz-question-list">
+          @for (question of sortedQuestions; track question.id; let qi = $index) {
+            <li class="quiz-question-card">
+              <div class="quiz-question-text">{{ qi + 1 }}. {{ question.questionText }}</div>
+              <div class="quiz-option-list">
+                @for (option of question.options; track option.id) {
+                  <label class="quiz-option-row">
+                    <input
+                      type="radio"
+                      [name]="'question-' + question.id"
+                      [checked]="isSelected(question.id, option.id)"
+                      (change)="selectAnswer(question.id, option.id)"
+                    />
+                    <span>{{ option.text }}</span>
+                  </label>
+                }
+              </div>
+            </li>
+          }
+        </ol>
+
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          @if (unansweredCount > 0) {
+            <span class="text-muted small">
+              {{
+                (unansweredCount === 1 ? 'courses.quizTaking.questionsLeftSingular' : 'courses.quizTaking.questionsLeftPlural')
+                  | translate: { count: unansweredCount }
+              }}
+            </span>
+          } @else {
+            <span></span>
+          }
+          <button type="button" class="btn btn-primary" [disabled]="!canSubmit" (click)="submitQuizAnswers()">
+            {{ (submitting ? 'courses.quizTaking.submitting' : 'courses.quizTaking.submitQuiz') | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <button type="button" class="quiz-history-toggle" (click)="toggleHistory()" [attr.aria-expanded]="historyOpen">
+        <span class="d-inline-flex align-items-center gap-2">
+          <i antIcon type="history" theme="outline"></i>
+          {{ 'courses.quizTaking.attemptHistory' | translate }}
+        </span>
+        <i antIcon [type]="historyOpen ? 'down' : 'right'" theme="outline"></i>
+      </button>
+
+      @if (historyOpen) {
+        <div class="mt-3">
+          @if (historyLoading) {
+            <div class="d-flex justify-content-center py-3">
+              <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+              </div>
+            </div>
+          } @else if (attempts.length === 0) {
+            <p class="text-muted small mb-0">{{ 'courses.quizTaking.noAttemptsYet' | translate }}</p>
+          } @else {
+            <ul class="quiz-attempt-list">
+              @for (attempt of attempts; track $index) {
+                <li class="quiz-attempt-row">
+                  <span class="quiz-attempt-date">{{ attempt.submittedAt | date: 'medium' }}</span>
+                  <span class="quiz-attempt-score">{{ attempt.score }}%</span>
+                  @if (attempt.passed) {
+                    <span class="badge bg-light-success text-success">{{ 'courses.quizTaking.passedBadge' | translate }}</span>
+                  } @else {
+                    <span class="badge bg-light-warning text-warning">{{ 'courses.quizTaking.notPassed' | translate }}</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

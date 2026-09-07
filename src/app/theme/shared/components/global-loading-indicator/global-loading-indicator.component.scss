@@ -1,0 +1,41 @@
+:host {
+  display: contents;
+}
+
+.global-loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 2000;
+  overflow: hidden;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.global-loading-bar-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--bs-primary, #1890ff), transparent);
+  animation: global-loading-bar-sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes global-loading-bar-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(350%);
+  }
+}

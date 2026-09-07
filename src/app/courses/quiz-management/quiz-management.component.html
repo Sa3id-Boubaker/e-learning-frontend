@@ -1,0 +1,133 @@
+<div class="card">
+  <div class="card-body">
+    @if (!quiz) {
+      <div class="empty-state">
+        <i antIcon type="form" theme="outline" class="empty-state-icon"></i>
+        <p class="mb-3">{{ 'courses.quizManagement.noQuizYet' | translate }}</p>
+        <button type="button" class="btn btn-primary" (click)="openCreateQuizModal()">
+          <i antIcon type="plus" theme="outline" class="me-1"></i>
+          {{ 'courses.quizManagement.createQuiz' | translate }}
+        </button>
+      </div>
+    } @else {
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <h5 class="mb-1">{{ quiz.title }}</h5>
+          @if (quiz.description) {
+            <p class="text-muted mb-2">{{ quiz.description }}</p>
+          }
+          <span class="text-muted small">{{ 'courses.quizManagement.passingScore' | translate: { score: quiz.passingScore } }}</span>
+        </div>
+        <div class="d-flex gap-1 flex-shrink-0">
+          <button type="button" class="btn-icon" [attr.aria-label]="'courses.quizManagement.editQuizAria' | translate" (click)="openEditQuizModal()">
+            <i antIcon type="edit" theme="outline"></i>
+          </button>
+          <button
+            type="button"
+            class="btn-icon text-danger"
+            [attr.aria-label]="'courses.quizManagement.deleteQuizAria' | translate"
+            (click)="openDeleteQuizModal()"
+          >
+            <i antIcon type="delete" theme="outline"></i>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+@if (quiz) {
+  <div class="card mt-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">{{ 'courses.quizManagement.questionsCount' | translate: { count: questions.length } }}</h5>
+        <button type="button" class="btn btn-primary btn-sm" (click)="openCreateQuestionModal()">
+          <i antIcon type="plus" theme="outline" class="me-1"></i>
+          {{ 'courses.quizManagement.addQuestion' | translate }}
+        </button>
+      </div>
+
+      @if (questions.length === 0) {
+        <p class="text-muted mb-0">{{ 'courses.quizManagement.noQuestionsYet' | translate }}</p>
+      } @else {
+        <ol class="question-list">
+          @for (question of questions; track question.id; let qi = $index) {
+            <li class="question-card">
+              <div class="d-flex justify-content-between align-items-start gap-3">
+                <div class="question-text">{{ qi + 1 }}. {{ question.questionText }}</div>
+                <div class="d-flex gap-1 flex-shrink-0">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    [attr.aria-label]="'courses.quizManagement.editQuestionAria' | translate: { index: qi + 1 }"
+                    (click)="openEditQuestionModal(question)"
+                  >
+                    <i antIcon type="edit" theme="outline"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon text-danger"
+                    [attr.aria-label]="'courses.quizManagement.deleteQuestionAria' | translate: { index: qi + 1 }"
+                    (click)="openDeleteQuestionModal(question)"
+                  >
+                    <i antIcon type="delete" theme="outline"></i>
+                  </button>
+                </div>
+              </div>
+
+              <ul class="option-list">
+                @for (option of question.options; track option.id) {
+                  <li class="option-row" [class.option-row-correct]="option.correct">
+                    @if (option.correct) {
+                      <i antIcon type="check" theme="outline" class="option-check"></i>
+                    }
+                    <span>{{ option.text }}</span>
+                  </li>
+                }
+              </ul>
+            </li>
+          }
+        </ol>
+      }
+    </div>
+  </div>
+}
+
+<app-quiz-form-modal
+  [open]="quizFormModalOpen"
+  [mode]="quizFormMode"
+  [quiz]="quiz"
+  [courseId]="courseId"
+  (closed)="onQuizFormModalClosed()"
+  (saved)="onQuizSaved($event)"
+/>
+
+<app-delete-confirmation-modal
+  [open]="quizDeleteModalOpen"
+  title="courses.quizManagement.deleteQuizTitle"
+  description="courses.quizManagement.deleteQuizDescription"
+  [loading]="quizDeleteLoading"
+  (closed)="onQuizDeleteModalClosed()"
+  (confirmed)="confirmDeleteQuiz()"
+/>
+
+@if (quiz) {
+  <app-question-form-modal
+    [open]="questionFormModalOpen"
+    [mode]="questionFormMode"
+    [question]="selectedQuestion"
+    [quizId]="quiz.id"
+    [nextOrder]="nextQuestionOrder"
+    (closed)="onQuestionFormModalClosed()"
+    (saved)="onQuestionSaved($event)"
+  />
+}
+
+<app-delete-confirmation-modal
+  [open]="questionDeleteModalOpen"
+  [title]="questionDeleteModalTitle"
+  description="common.actionCannotBeUndone"
+  [loading]="questionDeleteLoading"
+  (closed)="onQuestionDeleteModalClosed()"
+  (confirmed)="confirmDeleteQuestion()"
+/>

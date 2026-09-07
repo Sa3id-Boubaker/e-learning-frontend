@@ -1,0 +1,191 @@
+@if (!accessChecked) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (!isAdmin) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-0">{{ 'common.noAccessToPage' | translate }}</p>
+  </div>
+} @else {
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="('courses.enrollmentManagement.enrollmentsCount' | translate: { count: totalElements })">
+        <ng-template #headerOptionsTemplate>
+          <button type="button" class="btn btn-primary btn-sm" (click)="openNewEnrollmentModal()">
+            <i antIcon type="plus" theme="outline" class="me-1"></i>
+            {{ 'courses.enrollmentModal.newEnrollmentTitle' | translate }}
+          </button>
+        </ng-template>
+
+        <div class="row g-2 mb-3">
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label small text-muted mb-1" for="enrollmentCourseFilter">{{ 'courses.enrollmentModal.courseLabel' | translate }}</label>
+            <select id="enrollmentCourseFilter" class="form-select form-select-sm" [formControl]="courseFilterControl">
+              <option value="">{{ 'courses.enrollmentManagement.allCourses' | translate }}</option>
+              @for (course of courses; track course.id) {
+                <option [value]="course.id">{{ course.title }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label small text-muted mb-1" for="enrollmentStudentFilter">{{ 'courses.enrollmentModal.studentLabel' | translate }}</label>
+            <div class="enrollment-search">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text"><i antIcon type="search" theme="outline"></i></span>
+                <input
+                  id="enrollmentStudentFilter"
+                  type="text"
+                  class="form-control"
+                  autocomplete="off"
+                  [placeholder]="'courses.enrollmentModal.searchByNameOrEmail' | translate"
+                  [formControl]="studentFilterSearchControl"
+                  (focus)="onStudentFilterInputFocus()"
+                  (blur)="onStudentFilterInputBlur()"
+                />
+                @if (studentFilterSearching) {
+                  <span class="input-group-text">
+                    <span class="spinner-border spinner-border-sm text-primary" role="status">
+                      <span class="visually-hidden">{{ 'common.searching' | translate }}</span>
+                    </span>
+                  </span>
+                } @else if (selectedStudentFilter) {
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    [attr.aria-label]="'courses.enrollmentManagement.clearStudentFilter' | translate"
+                    (click)="clearStudentFilter()"
+                  >
+                    <i antIcon type="close-circle" theme="outline"></i>
+                  </button>
+                }
+              </div>
+              @if (studentFilterResultsOpen) {
+                <div class="enrollment-search-results">
+                  @if (studentFilterResults.length > 0) {
+                    @for (student of studentFilterResults; track student.id) {
+                      <button type="button" class="enrollment-search-result" (click)="selectStudentFilter(student)">
+                        <span class="fw-semibold d-block">{{ student.firstName }} {{ student.lastName }}</span>
+                        <span class="text-muted small d-block">{{ student.email }}</span>
+                      </button>
+                    }
+                  } @else if (!studentFilterSearching) {
+                    <div class="enrollment-search-empty">{{ 'courses.enrollmentModal.noStudentsFound' | translate }}</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label small text-muted mb-1" for="enrollmentStatusFilter">{{ 'courses.enrollmentManagement.statusLabel' | translate }}</label>
+            <select id="enrollmentStatusFilter" class="form-select form-select-sm" [formControl]="statusFilterControl">
+              <option value="">{{ 'courses.enrollmentManagement.allStatuses' | translate }}</option>
+              <option value="ACTIVE">{{ 'courses.enrollmentStatus.active' | translate }}</option>
+              <option value="REVOKED">{{ 'courses.enrollmentStatus.revoked' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div #tableContainer>
+          @if (loading) {
+            <div class="d-flex flex-column align-items-center justify-content-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+              </div>
+            </div>
+          } @else if (loadError) {
+            <div class="text-center py-4">
+              <p class="text-danger mb-3">{{ loadError }}</p>
+              <button type="button" class="btn btn-primary" (click)="loadEnrollments()">{{ 'common.retry' | translate }}</button>
+            </div>
+          } @else if (enrollments.length === 0) {
+            <div class="text-center text-muted py-4">{{ 'courses.enrollmentManagement.noneFound' | translate }}</div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>{{ 'courses.enrollmentModal.studentLabel' | translate }}</th>
+                    <th>{{ 'courses.enrollmentModal.courseLabel' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.amountColumn' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.statusLabel' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.enrolledColumn' | translate }}</th>
+                    <th class="text-end">{{ 'courses.enrollmentManagement.actionsColumn' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (enrollment of enrollments; track enrollment.id) {
+                    <tr>
+                      <td>
+                        @if (enrollment.studentName) {
+                          <span class="fw-semibold d-block" [title]="enrollment.studentId">{{ enrollment.studentName }}</span>
+                          @if (enrollment.studentEmail) {
+                            <span class="text-muted small d-block">{{ enrollment.studentEmail }}</span>
+                          }
+                        } @else {
+                          <span class="enrollments-student-id">{{ enrollment.studentId }}</span>
+                        }
+                      </td>
+                      <td><a [routerLink]="['/courses', enrollment.courseId]">{{ enrollment.courseTitle }}</a></td>
+                      <td>{{ enrollment.amountAtEnrollment | currencyDt }}</td>
+                      <td>
+                        <span class="badge" [ngClass]="getEnrollmentStatusBadgeClass(enrollment.enrollmentStatus)">{{
+                          getEnrollmentStatusLabel(enrollment.enrollmentStatus) | translate
+                        }}</span>
+                      </td>
+                      <td class="text-muted">{{ formatSessionDate(enrollment.enrolledAt) }}</td>
+                      <td class="text-end">
+                        @if (enrollment.enrollmentStatus === 'ACTIVE') {
+                          <button
+                            type="button"
+                            class="btn btn-icon btn-sm text-danger"
+                            [attr.aria-label]="'courses.enrollmentManagement.revokeAccessAria' | translate: { course: enrollment.courseTitle }"
+                            (click)="openRevokeModal(enrollment)"
+                          >
+                            <i antIcon type="delete" theme="outline"></i>
+                          </button>
+                        }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                  {{ 'common.previous' | translate }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                  {{ 'common.next' | translate }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </app-card>
+    </div>
+  </div>
+
+  <app-course-enrollment-form-modal
+    [open]="newEnrollmentModalOpen"
+    (closed)="onNewEnrollmentModalClosed()"
+    (created)="onEnrollmentCreated($event)"
+  />
+
+  <app-delete-confirmation-modal
+    [open]="revokeModalOpen"
+    [title]="revokeModalTitle"
+    description="courses.enrollmentManagement.revokeDescription"
+    confirmLabel="courses.enrollmentManagement.revokeConfirmLabel"
+    [loading]="revokeLoading"
+    (closed)="onRevokeModalClosed()"
+    (confirmed)="confirmRevoke()"
+  />
+}

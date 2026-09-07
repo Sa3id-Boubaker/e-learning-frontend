@@ -1,0 +1,359 @@
+@if (!userChecked) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (isStudent) {
+  <div class="mb-4">
+    <h3 class="mb-1">
+      {{
+        (currentUser?.firstName ? 'dashboard.student.welcomeWithName' : 'dashboard.student.welcome')
+          | translate: { name: currentUser?.firstName }
+      }}
+    </h3>
+    <p class="text-muted mb-0">{{ 'dashboard.student.subtitle' | translate }}</p>
+  </div>
+
+  @if (studentLoading) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+    </div>
+  } @else if (studentLoadError) {
+    <div class="text-center py-5">
+      <p class="text-danger mb-3">{{ studentLoadError }}</p>
+      <button type="button" class="btn btn-primary" (click)="loadStudentWelcome()">{{ 'common.retry' | translate }}</button>
+    </div>
+  } @else {
+    <div class="row">
+      <div class="col-md-12 col-xl-6">
+        <h5 class="mb-3">{{ 'dashboard.student.continueLearning' | translate }}</h5>
+        <div class="card">
+          <div class="list-group list-group-flush">
+            @for (course of inProgressCourses; track course.courseId) {
+              <a [routerLink]="['/courses', course.courseId]" class="list-group-item list-group-item-action px-3 py-3">
+                <div class="d-flex align-items-center gap-3">
+                  @if (course.image) {
+                    <img [src]="course.image" [alt]="course.title" class="welcome-course-thumb" />
+                  } @else {
+                    <span class="welcome-course-thumb-placeholder"><i antIcon type="picture" theme="outline"></i></span>
+                  }
+                  <div class="flex-grow-1 min-w-0">
+                    <div class="d-flex align-items-center justify-content-between mb-2 gap-2">
+                      <h6 class="mb-0 text-truncate">{{ course.title }}</h6>
+                      <span class="badge bg-light-primary text-primary flex-shrink-0">{{ course.progressPercentage }}%</span>
+                    </div>
+                    <div
+                      class="course-progress-track"
+                      role="progressbar"
+                      [attr.aria-valuenow]="course.progressPercentage"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="course-progress-fill" [style.width.%]="course.progressPercentage"></div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            } @empty {
+              <div class="text-center text-muted py-4">{{ 'dashboard.student.noCoursesInProgress' | translate }}</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-xl-6">
+        <h5 class="mb-3">{{ 'dashboard.student.upcomingLiveSessions' | translate }}</h5>
+        <div class="card">
+          <div class="list-group list-group-flush">
+            @for (session of upcomingSessions; track session.id) {
+              <a [routerLink]="['/trainings', session.trainingId]" class="list-group-item list-group-item-action px-3 py-3">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="welcome-date-badge">
+                    <span class="welcome-date-badge-month">{{ formatSessionMonthAbbrev(session.startAt) }}</span>
+                    <span class="welcome-date-badge-day">{{ formatSessionDayNumber(session.startAt) }}</span>
+                  </div>
+                  <div class="flex-grow-1 min-w-0">
+                    <h6 class="mb-1 text-truncate">{{ session.sessionTitle }}</h6>
+                    <p class="mb-0 text-muted small text-truncate">
+                      {{ session.trainingTitle }} &middot; {{ formatSessionTime(session.startAt) }}
+                    </p>
+                  </div>
+                  <i antIcon type="right" theme="outline" class="text-muted flex-shrink-0"></i>
+                </div>
+              </a>
+            } @empty {
+              <div class="text-center text-muted py-4">{{ 'dashboard.student.noUpcomingSessions' | translate }}</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-xl-12 mt-2">
+        <h5 class="mb-3">{{ 'dashboard.student.recentCertificates' | translate }}</h5>
+        <div class="card">
+          <div class="list-group list-group-flush">
+            @for (certificate of recentCertificates; track certificate.id) {
+              <a [routerLink]="['/courses', certificate.courseId, 'certificate']" class="list-group-item list-group-item-action px-3 py-3">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="welcome-certificate-icon">
+                    <i antIcon type="safety-certificate" theme="outline"></i>
+                  </span>
+                  <div class="flex-grow-1 min-w-0">
+                    <h6 class="mb-1 text-truncate">{{ certificate.courseTitle }}</h6>
+                    <p class="mb-0 text-muted small">
+                      {{ 'dashboard.student.issuedOn' | translate: { date: formatSessionDate(certificate.issuedAt) } }}
+                    </p>
+                  </div>
+                  <i antIcon type="right" theme="outline" class="text-muted flex-shrink-0"></i>
+                </div>
+              </a>
+            } @empty {
+              <div class="text-center text-muted py-4">{{ 'dashboard.student.noCertificatesYet' | translate }}</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (recommendedTrainings.length > 0) {
+        <div class="col-md-12 col-xl-12 mt-2">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">{{ 'dashboard.student.recommendedTrainings' | translate }}</h5>
+            <a [routerLink]="['/trainings']" class="link-primary small">{{ 'dashboard.student.viewAll' | translate }}</a>
+          </div>
+          <div class="row">
+            @for (training of recommendedTrainings; track training.trainingId) {
+              <div class="col-md-6 col-xl-4">
+                <a [routerLink]="['/trainings', training.trainingId]" class="card welcome-recommended-card text-decoration-none h-100">
+                  <div class="card-body">
+                    @if (training.image) {
+                      <img [src]="training.image" [alt]="training.title" class="welcome-recommended-thumb" />
+                    } @else {
+                      <span class="welcome-recommended-thumb-placeholder"><i antIcon type="picture" theme="outline"></i></span>
+                    }
+                    <h6 class="mb-2">{{ training.title }}</h6>
+                    <p class="mb-0 text-muted small welcome-recommended-description">{{ training.description }}</p>
+                  </div>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+} @else if (isFormateur) {
+  <div class="mb-4">
+    <h3 class="mb-1">{{ 'dashboard.formateur.title' | translate }}</h3>
+    <p class="text-muted mb-0">{{ 'dashboard.formateur.subtitle' | translate }}</p>
+  </div>
+
+  @if (formateurLoading) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+    </div>
+  } @else if (formateurLoadError) {
+    <div class="text-center py-5">
+      <p class="text-danger mb-3">{{ formateurLoadError }}</p>
+      <button type="button" class="btn btn-primary" (click)="loadFormateurPerformance()">{{ 'common.retry' | translate }}</button>
+    </div>
+  } @else if (formateurHasNoContent) {
+    <div class="text-center py-5">
+      <p class="text-muted mb-0">{{ 'dashboard.formateur.noContentYet' | translate }}</p>
+    </div>
+  } @else {
+    <div class="row">
+      @for (card of formateurStatCards; track card.title) {
+        <div class="col-md-6 col-xl-4">
+          <app-card [showHeader]="false" blockClass="dashboard-card">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h6 class="mb-0 f-w-400 text-muted">{{ card.title }}</h6>
+              <span class="badge bg-light-{{ card.colorClass }} border border-{{ card.colorClass }}">
+                <i antIcon type="{{ card.icon }}" theme="outline"></i>
+              </span>
+            </div>
+            <h4 class="mb-2">{{ card.value }}</h4>
+            <p class="mb-0 text-muted text-sm">{{ card.subtext }}</p>
+          </app-card>
+        </div>
+      }
+
+      <div class="col-md-12 col-xl-12">
+        <h5 class="mb-3">{{ 'dashboard.formateur.contentPerformance' | translate }}</h5>
+        <div class="card tbl-card">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>{{ 'dashboard.admin.titleColumn' | translate }}</th>
+                  <th>{{ 'dashboard.admin.typeColumn' | translate }}</th>
+                  <th class="text-end">{{ 'dashboard.admin.enrollmentsColumn' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of formateurPerformance; track row.id) {
+                  <tr>
+                    <td>{{ row.title }}</td>
+                    <td>
+                      <span class="badge bg-light-secondary text-secondary">
+                        {{ (row.type === 'Course' ? 'forum.postType.course' : 'forum.postType.training') | translate }}
+                      </span>
+                    </td>
+                    <td class="text-end">{{ row.enrollmentCount }}</td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="3" class="text-center text-muted py-4">{{ 'dashboard.admin.noEnrollmentActivity' | translate }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+} @else if (!isAdmin) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">
+      {{
+        (currentUser?.firstName ? 'dashboard.student.welcomeWithName' : 'dashboard.student.welcome')
+          | translate: { name: currentUser?.firstName }
+      }}
+    </h4>
+    <p class="text-muted mb-0">{{ 'dashboard.other.useSidebar' | translate }}</p>
+  </div>
+} @else if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+    <p class="text-muted mt-3 mb-0">{{ 'dashboard.admin.loadingDashboard' | translate }}</p>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadDashboard()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else {
+  <div class="row">
+    @for (card of statCards; track card.title) {
+      <div class="col-md-6 col-xl-3">
+        <app-card [showHeader]="false" blockClass="dashboard-card">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0 f-w-400 text-muted">{{ card.title }}</h6>
+            <span class="badge bg-light-{{ card.colorClass }} border border-{{ card.colorClass }}">
+              <i antIcon type="{{ card.icon }}" theme="outline"></i>
+            </span>
+          </div>
+          <h4 class="mb-2">{{ card.value }}</h4>
+          <p class="mb-0 text-muted text-sm">{{ card.subtext }}</p>
+        </app-card>
+      </div>
+    }
+
+    <div class="col-md-12 col-xl-8">
+      <app-sales-report-chart
+        [categories]="chartCategories"
+        [revenueSeries]="chartRevenueSeries"
+        [enrollmentSeries]="chartEnrollmentSeries"
+        [totalLabel]="weeklyRevenueLabel"
+      />
+    </div>
+    <div class="col-md-12 col-xl-4">
+      <app-income-overview-chart [categories]="chartCategories" [revenueSeries]="chartRevenueSeries" [totalLabel]="weeklyRevenueLabel" />
+    </div>
+
+    <div class="col-md-12 col-xl-8">
+      <h5 class="mb-3">{{ 'dashboard.admin.recentEnrollments' | translate }}</h5>
+      <div class="card tbl-card">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>{{ 'dashboard.admin.studentColumn' | translate }}</th>
+                <th>{{ 'dashboard.admin.itemColumn' | translate }}</th>
+                <th>{{ 'dashboard.admin.statusColumn' | translate }}</th>
+                <th class="text-end">{{ 'dashboard.admin.amountColumn' | translate }}</th>
+                <th class="text-end">{{ 'dashboard.admin.dateColumn' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of recentEnrollments; track row.id) {
+                <tr>
+                  <td>{{ row.studentName }}</td>
+                  <td>
+                    {{ row.itemTitle }}
+                    <span class="badge bg-light-secondary text-secondary ms-1">
+                      {{ (row.type === 'Course' ? 'forum.postType.course' : 'forum.postType.training') | translate }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge" [ngClass]="getEnrollmentStatusBadgeClass(row.status)">{{ getEnrollmentStatusLabel(row.status) | translate }}</span>
+                  </td>
+                  <td class="text-end">{{ row.amount | currencyDt }}</td>
+                  <td class="text-end text-muted">{{ formatSessionDate(row.date) }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-4">{{ 'dashboard.admin.noEnrollmentsYet' | translate }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-xl-4">
+      <app-analytics-chart [courseCount]="courseCount" [trainingCount]="trainingCount" />
+    </div>
+
+    <div class="col-md-12 col-xl-12">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="mb-0">{{ 'dashboard.admin.recentForumActivity' | translate }}</h5>
+        <span class="text-muted small">{{ 'dashboard.admin.commentsTotal' | translate: { count: commentsCount } }}</span>
+      </div>
+      <div class="card">
+        <div class="list-group list-group-flush">
+          @for (post of recentPosts; track post.id) {
+            <div class="list-group-item px-3">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <div class="avatar avatar-s rounded-circle bg-light-primary text-primary">
+                    <i class="f-16" antIcon type="message" theme="outline"></i>
+                  </div>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="mb-1">{{ post.title }}</h6>
+                  <p class="mb-0 text-muted">{{ post.author.firstName }} {{ post.author.lastName }} &middot; {{ formatSessionDate(post.createdAt) }}</p>
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <div class="text-center text-muted py-4">{{ 'dashboard.admin.noForumActivity' | translate }}</div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-xl-12">
+      @if (topPerformers.length > 0) {
+        <app-top-performers-chart
+          [labels]="topPerformerLabels"
+          [courseRevenue]="topPerformerCourseRevenue"
+          [trainingRevenue]="topPerformerTrainingRevenue"
+          [enrollmentCounts]="topPerformerEnrollmentCounts"
+        />
+      } @else {
+        <h5 class="mb-3">{{ 'dashboard.admin.top5Title' | translate }}</h5>
+        <div class="card">
+          <div class="card-body text-center text-muted py-4">{{ 'dashboard.admin.noEnrollmentActivity' | translate }}</div>
+        </div>
+      }
+    </div>
+  </div>
+}

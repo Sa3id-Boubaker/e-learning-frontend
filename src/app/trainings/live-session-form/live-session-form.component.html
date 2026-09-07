@@ -1,0 +1,156 @@
+@if (!accessChecked || loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">
+      {{ (mode === 'edit' && training ? 'trainings.liveSessionForm.sessionNotFound' : 'trainings.detail.notFoundTitle') | translate }}
+    </h4>
+    <p class="text-muted mb-3">{{ 'trainings.liveSessionForm.mayHaveBeenRemoved' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (accessDenied) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.accessDeniedBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadTraining()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (!canAccessForm) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'common.noAccessToPage' | translate }}</p>
+    <a [routerLink]="[backUrl]" class="btn btn-primary">{{ 'trainings.liveSessionForm.backToTraining' | translate }}</a>
+  </div>
+} @else if (training) {
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="pageTitle">
+        <p class="text-muted small mb-3">
+          {{ 'trainings.liveSessionForm.trainingLabel' | translate }} <strong>{{ training.title }}</strong>
+        </p>
+
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-group mb-3">
+            <label class="form-label" for="sessionTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="sessionTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            @if (controlInvalid('title')) {
+              <div class="invalid-feedback d-block">{{ messageFor('title') }}</div>
+            }
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="sessionDescription">{{ 'courses.formModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="sessionDescription"
+              rows="4"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            @if (controlInvalid('description')) {
+              <div class="invalid-feedback d-block">{{ messageFor('description') }}</div>
+            }
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="sessionStartAt">{{ 'trainings.liveSessionForm.startLabel' | translate }}</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="sessionStartAt"
+                  formControlName="startAt"
+                  [class.is-invalid]="controlInvalid('startAt')"
+                />
+                @if (controlInvalid('startAt')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('startAt') }}</div>
+                }
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="sessionEndAt">{{ 'trainings.liveSessionForm.endLabel' | translate }}</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="sessionEndAt"
+                  formControlName="endAt"
+                  [class.is-invalid]="controlInvalid('endAt') || dateRangeInvalid"
+                />
+                @if (controlInvalid('endAt')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('endAt') }}</div>
+                } @else if (dateRangeInvalid) {
+                  <div class="invalid-feedback d-block">{{ 'trainings.liveSessionForm.endAfterStart' | translate }}</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="sessionMeetingUrl">{{ 'trainings.liveSessionForm.meetingUrlLabel' | translate }}</label>
+            <input
+              type="url"
+              class="form-control"
+              id="sessionMeetingUrl"
+              placeholder="https://meet.google.com/..."
+              formControlName="meetingUrl"
+              [class.is-invalid]="controlInvalid('meetingUrl')"
+            />
+            @if (controlInvalid('meetingUrl')) {
+              <div class="invalid-feedback d-block">{{ messageFor('meetingUrl') }}</div>
+            } @else {
+              <div class="form-text">{{ 'trainings.liveSessionForm.meetingUrlHint' | translate }}</div>
+            }
+          </div>
+
+          @if (mode === 'edit') {
+            <div class="form-group mb-3">
+              <label class="form-label d-block">{{ 'courses.enrollmentManagement.statusLabel' | translate }}</label>
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span class="badge" [ngClass]="getLiveSessionStatusBadgeClass(form.controls.status.value)">{{
+                  getLiveSessionStatusLabel(form.controls.status.value) | translate
+                }}</span>
+                @if (form.controls.status.value !== 'CANCELLED') {
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelSession()">
+                    {{ 'trainings.liveSessionForm.cancelSession' | translate }}
+                  </button>
+                } @else {
+                  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="reactivateSession()">
+                    {{ 'trainings.liveSessionForm.reactivateSession' | translate }}
+                  </button>
+                }
+              </div>
+              <div class="form-text mb-0">{{ 'trainings.liveSessionForm.statusHint' | translate }}</div>
+            </div>
+          }
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <a [routerLink]="[backUrl]" class="btn btn-outline-secondary" [class.disabled]="saving">{{ 'common.cancel' | translate }}</a>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="saving || form.invalid || form.hasError('dateRange') || (mode === 'edit' && !hasChanges)"
+            >
+              {{
+                (saving ? 'common.saving' : mode === 'create' ? 'trainings.liveSessionForm.createSession' : 'common.saveChanges') | translate
+              }}
+            </button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+}

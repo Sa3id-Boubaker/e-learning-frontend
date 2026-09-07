@@ -1,0 +1,39 @@
+<!-- Vertical layout -->
+<div class="nav-content-shell">
+  <ng-scrollbar class="nav-content-scroll" visibility="hover" id="nav-ps-mantis">
+    <div class="navbar-content">
+      <ul class="nav coded-inner-navbar" (click)="fireOutClick()" (mouseleave)="navMob()">
+        @for (item of filteredNavigations$ | async; track item) {
+        @if (item.type === 'group') {
+        <app-nav-group [item]="item" />
+        }
+        }
+      </ul>
+    </div>
+  </ng-scrollbar>
+
+  <div class="nav-user-footer">
+    @if (currentUser$ | async; as user) {
+      <a [routerLink]="['/profile']" class="nav-user-footer-identity" [title]="'nav.header.viewProfile' | translate">
+        @if (user.profileImage) {
+          <img [src]="user.profileImage" [alt]="'nav.header.userAvatarAlt' | translate" class="nav-user-footer-avatar" />
+        } @else {
+          <span class="nav-user-footer-avatar nav-user-footer-avatar-fallback">{{ initialsFor(user) }}</span>
+        }
+        <span class="nav-user-footer-text">
+          <span class="nav-user-footer-name">{{ displayNameFor(user) | translate }}</span>
+          <span class="nav-user-footer-role">{{ roleLabelFor(user) }}</span>
+        </span>
+      </a>
+      <button
+        type="button"
+        class="nav-user-footer-logout"
+        (click)="logout()"
+        [title]="'nav.header.profile.logout' | translate"
+        [attr.aria-label]="'nav.header.profile.logout' | translate"
+      >
+        <i antIcon type="logout" theme="outline"></i>
+      </button>
+    }
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<h5 class="mb-3">{{ 'dashboard.admin.coursesVsTrainings' | translate }}</h5>
+<div class="card">
+  <div class="card-body px-2">
+    <div class="chart">
+      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [labels]="chartOptions.labels!"
+        [colors]="chartOptions.colors!" [dataLabels]="chartOptions.dataLabels!" [legend]="chartOptions.legend!"
+        [tooltip]="chartOptions.tooltip!" />
+    </div>
+  </div>
+</div>

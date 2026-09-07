@@ -1,0 +1,132 @@
+@if (open) {
+  <div class="course-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="course-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="courseFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="course-form-modal-header">
+        <h5 id="courseFormModalTitle" class="mb-0">
+          {{ (mode === 'create' ? 'courses.formModal.addCourseTitle' : 'courses.formModal.editCourseTitle') | translate }}
+        </h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="course-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="mb-3">
+            <label class="form-label">{{ 'courses.formModal.imageLabel' | translate }}</label>
+            <div
+              class="course-form-image-zone"
+              role="button"
+              tabindex="0"
+              [class.drag-over]="dragOver"
+              (click)="fileInput.click()"
+              (keyup.enter)="fileInput.click()"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+            >
+              @if (imagePreviewUrl) {
+                <img [src]="imagePreviewUrl" [alt]="'courses.formModal.imagePreviewAlt' | translate" class="course-form-image-preview" />
+              } @else {
+                <div class="course-form-image-placeholder">
+                  <i antIcon type="inbox" theme="outline"></i>
+                  <span>{{ 'courses.formModal.dragDropPrompt' | translate }}</span>
+                  <span class="text-muted small">{{ 'courses.formModal.imageFormatsHint' | translate }}</span>
+                </div>
+              }
+            </div>
+            <input #fileInput type="file" accept="image/jpeg,image/png,image/gif,image/webp" hidden (change)="onFileInputChange($event)" />
+            @if (imageError) {
+              <div class="text-danger small mt-2">{{ imageError }}</div>
+            }
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="courseTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="courseTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('title')">{{ messageFor('title') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="courseDescription">{{ 'courses.formModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="courseDescription"
+              rows="4"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('description')">{{ messageFor('description') }}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="courseCategory">{{ 'courses.formModal.categoryLabel' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="courseCategory"
+                  formControlName="category"
+                  [class.is-invalid]="controlInvalid('category')"
+                />
+                <div class="invalid-feedback d-block" *ngIf="controlInvalid('category')">{{ messageFor('category') }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="coursePrice">{{ 'courses.formModal.priceLabel' | translate }}</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control"
+                    id="coursePrice"
+                    formControlName="price"
+                    [class.is-invalid]="controlInvalid('price')"
+                  />
+                  <span class="input-group-text">{{ 'common.currency' | translate }}</span>
+                  <div class="invalid-feedback d-block" *ngIf="controlInvalid('price')">{{ messageFor('price') }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="coursePublished" formControlName="published" />
+            <label class="form-check-label" for="coursePublished">{{ 'courses.formModal.publishedLabel' | translate }}</label>
+          </div>
+        </form>
+      </div>
+
+      <div class="course-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="saving || form.invalid || (mode === 'edit' && !hasChanges)"
+          (click)="submit()"
+        >
+          {{
+            (saving ? 'common.saving' : mode === 'create' ? 'courses.formModal.createCourse' : 'common.saveChanges') | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

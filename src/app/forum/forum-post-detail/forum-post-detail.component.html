@@ -1,0 +1,107 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'forum.postDetail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'forum.postDetail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/forum']" class="btn btn-primary">{{ 'forum.postDetail.backToForum' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadPost()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (post) {
+  <div class="mb-3">
+    <a [routerLink]="['/forum']" class="forum-back-link">
+      <i antIcon type="arrow-left" theme="outline" class="me-1"></i>
+      {{ 'forum.postDetail.backToForum' | translate }}
+    </a>
+  </div>
+
+  <app-forum-post-card
+    [post]="post"
+    [currentUser]="currentUser"
+    [clickable]="false"
+    (changed)="onPostChanged($event)"
+    (editRequested)="openEditModal()"
+    (deleted)="onPostDeleted()"
+  />
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="mb-3">{{ 'forum.postDetail.commentsCount' | translate: { count: post.commentCount } }}</h5>
+
+      <div #commentsContainer>
+        @if (commentsLoading) {
+          <div class="d-flex justify-content-center py-4">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+            </div>
+          </div>
+        } @else if (commentsLoadError) {
+          <div class="text-center py-4">
+            <p class="text-danger mb-3">{{ commentsLoadError }}</p>
+            <button type="button" class="btn btn-primary btn-sm" (click)="loadComments()">{{ 'common.retry' | translate }}</button>
+          </div>
+        } @else if (comments.length === 0) {
+          <div class="text-center text-muted py-4">{{ 'forum.postDetail.noCommentsYet' | translate }}</div>
+        } @else {
+          <div class="d-flex flex-column gap-3 mb-3">
+            @for (comment of comments; track comment.id) {
+              <app-forum-comment-item
+                [comment]="comment"
+                [currentUser]="currentUser"
+                (updated)="onCommentUpdated($event)"
+                (deleted)="onCommentDeleted($event)"
+              />
+            }
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small">
+              {{
+                (totalElements === 1 ? 'forum.postDetail.commentCountSingular' : 'forum.postDetail.commentCountPlural')
+                  | translate: { count: totalElements }
+              }}
+            </span>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                {{ 'common.previous' | translate }}
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                {{ 'common.next' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <hr />
+
+      <div class="form-group mb-0">
+        <label class="form-label" for="forumCommentBody">{{ 'forum.postDetail.addComment' | translate }}</label>
+        <textarea class="form-control" id="forumCommentBody" rows="3" [formControl]="commentBodyControl"></textarea>
+        <div class="d-flex justify-content-end mt-2">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            [disabled]="commentBodyControl.invalid || submittingComment"
+            (click)="submitComment()"
+          >
+            @if (submittingComment) {
+              <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            }
+            {{ 'forum.postDetail.postComment' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-forum-post-form-modal [open]="editModalOpen" [editingPost]="post" (closed)="onEditModalClosed()" (saved)="onPostSaved($event)" />
+}

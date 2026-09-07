@@ -1,0 +1,24 @@
+@if (open && video) {
+  <div class="video-player-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="video-player-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="videoPlayerModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="video-player-modal-header">
+        <h5 id="videoPlayerModalTitle" class="mb-0">{{ video.title }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="video-player-modal-body">
+        <video [src]="video.videoUrl" controls autoplay class="video-player-modal-video" (ended)="onVideoEnded()"></video>
+      </div>
+    </div>
+  </div>
+}

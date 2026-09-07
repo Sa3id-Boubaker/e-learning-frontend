@@ -1,0 +1,70 @@
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="auth-header">
+        <a [routerLink]="['/']"><img src="assets/images/omarise-logo-full.png" alt="Omarise" /></a>
+      </div>
+
+      <div class="card my-5 verify-card" [class.state-success]="view === 'success'" [class.state-error]="view === 'session-expired'">
+        <div class="card-body">
+          <div *ngIf="view === 'session-expired'; else activeState" class="state-block text-center">
+            <h3 class="mb-3"><b>{{ 'auth.verifyEmail.sessionExpiredTitle' | translate }}</b></h3>
+            <p class="text-muted mb-4">{{ 'auth.verifyEmail.sessionExpiredBody' | translate }}</p>
+            <a [routerLink]="['/register']" class="btn btn-primary">{{ 'auth.verifyEmail.backToSignUp' | translate }}</a>
+          </div>
+
+          <ng-template #activeState>
+            <div *ngIf="view === 'success'" class="alert alert-success mb-3" role="alert">{{ serverMessage }}</div>
+
+            <div *ngIf="view === 'form'">
+              <div class="text-center mb-4">
+                <h3 class="mb-2"><b>{{ 'auth.verifyEmail.title' | translate }}</b></h3>
+                <p class="text-muted mb-0">{{ 'auth.verifyEmail.subtitle' | translate }}</p>
+              </div>
+
+              <div class="alert alert-danger mb-3" *ngIf="serverMessage" role="alert">{{ serverMessage }}</div>
+
+              <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+                <div class="otp-field mb-3">
+                  <label class="form-label otp-label" for="code">{{ 'auth.verifyEmail.codeLabel' | translate }}</label>
+                  <input
+                    id="code"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="6"
+                    autocomplete="one-time-code"
+                    class="form-control otp-input"
+                    formControlName="code"
+                    (input)="onCodeInput($event)"
+                    [class.is-invalid]="controlInvalid()"
+                    placeholder="000000"
+                  />
+                  <div class="invalid-feedback d-block" *ngIf="controlInvalid()">{{ codeMessage() }}</div>
+                </div>
+
+                <div class="d-grid mb-3">
+                  <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading || form.invalid">
+                    {{ (loading ? 'auth.verifyEmail.verifying' : 'auth.verifyEmail.submit') | translate }}
+                  </button>
+                </div>
+              </form>
+
+              <div class="resend-row">
+                <button
+                  type="button"
+                  class="btn btn-link p-0 text-decoration-none resend-link"
+                  [disabled]="resendDisabled || resendLoading"
+                  (click)="resendCode()"
+                >
+                  {{ resendText() }}
+                </button>
+                <div class="text-success mt-2" *ngIf="resendMessage && !resendDisabled">{{ resendMessage }}</div>
+                <div class="text-danger mt-2" *ngIf="resendMessage && resendDisabled">{{ resendMessage }}</div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

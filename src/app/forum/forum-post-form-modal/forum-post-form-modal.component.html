@@ -1,0 +1,170 @@
+@if (open) {
+  <div class="forum-post-modal-backdrop" (click)="onClose()">
+    <div
+      #panel
+      class="forum-post-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="forumPostModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onClose()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="forum-post-modal-header">
+        <div>
+          <h5 id="forumPostModalTitle" class="mb-1">{{ modalTitle }}</h5>
+          <p class="text-muted small mb-0">{{ 'forum.postFormModal.requiredFieldsHint' | translate }}</p>
+        </div>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" [disabled]="submitting" (click)="onClose()"></button>
+      </div>
+
+      <div class="forum-post-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="forumPostTitle">{{ 'forum.postFormModal.titleLabel' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="forumPostTitle"
+            [placeholder]="'forum.postFormModal.titlePlaceholder' | translate"
+            [formControl]="titleControl"
+          />
+        </div>
+
+        @if (!editingPost) {
+          <div class="form-group mb-3">
+            <label class="form-label" for="forumPostType">{{ 'forum.postFormModal.typeLabel' | translate }}</label>
+            <select id="forumPostType" class="form-select" [formControl]="typeControl">
+              @for (option of typeOptions; track option) {
+                <option [value]="option">{{ getForumPostTypeLabel(option) | translate }}</option>
+              }
+            </select>
+          </div>
+        }
+
+        @if (!editingPost) {
+          @if (typeControl.value === 'COURSE') {
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="forumPostCourse">{{ 'forum.postFormModal.courseLabel' | translate }}</label>
+                <select id="forumPostCourse" class="form-select" [formControl]="courseControl">
+                  <option value="" disabled>
+                    {{ (coursesLoading ? 'common.loading' : 'courses.enrollmentModal.selectCourse') | translate }}
+                  </option>
+                  @for (course of courses; track course.id) {
+                    <option [value]="course.id">{{ course.title }}</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="forumPostChapter">{{ 'forum.postFormModal.chaptersLabel' | translate }}</label>
+                <select
+                  id="forumPostChapter"
+                  class="form-select"
+                  [formControl]="chapterControl"
+                  [disabled]="!courseControl.value || (chapters.length === 0 && !chaptersLoading)"
+                >
+                  <option value="">{{ (chaptersLoading ? 'common.loading' : 'forum.postFormModal.selectChapter') | translate }}</option>
+                  @for (chapter of chapters; track chapter.id) {
+                    <option [value]="chapter.id">{{ chapter.title }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="forumPostVideo">{{ 'forum.postFormModal.lessonsLabel' | translate }}</label>
+              <select
+                id="forumPostVideo"
+                class="form-select"
+                [formControl]="videoControl"
+                [disabled]="!chapterControl.value || (videos.length === 0 && !videosLoading)"
+              >
+                <option value="">{{ (videosLoading ? 'common.loading' : 'forum.postFormModal.selectLesson') | translate }}</option>
+                @for (video of videos; track video.id) {
+                  <option [value]="video.id">{{ video.title }}</option>
+                }
+              </select>
+            </div>
+          } @else {
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="forumPostTraining">{{ 'forum.postFormModal.trainingLabel' | translate }}</label>
+                <select id="forumPostTraining" class="form-select" [formControl]="trainingControl">
+                  <option value="" disabled>
+                    {{ (trainingsLoading ? 'common.loading' : 'trainings.enrollmentModal.selectTraining') | translate }}
+                  </option>
+                  @for (training of trainings; track training.id) {
+                    <option [value]="training.id">{{ training.title }}</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="forumPostLiveSession">{{ 'forum.postFormModal.liveSessionsLabel' | translate }}</label>
+                <select
+                  id="forumPostLiveSession"
+                  class="form-select"
+                  [formControl]="liveSessionControl"
+                  [disabled]="!trainingControl.value || (liveSessions.length === 0 && !liveSessionsLoading)"
+                >
+                  <option value="">
+                    {{ (liveSessionsLoading ? 'common.loading' : 'forum.postFormModal.selectLiveSession') | translate }}
+                  </option>
+                  @for (session of liveSessions; track session.id) {
+                    <option [value]="session.id">{{ session.title }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="forumPostRecording">{{ 'forum.postFormModal.recordingsLabel' | translate }}</label>
+              <select id="forumPostRecording" class="form-select" [formControl]="recordingControl" [disabled]="!recording">
+                <option value="">
+                  {{
+                    (recordingLoading
+                      ? 'common.loading'
+                      : recording
+                        ? 'forum.postFormModal.selectRecording'
+                        : 'forum.postFormModal.noRecordingAvailable'
+                    ) | translate
+                  }}
+                </option>
+                @if (recording) {
+                  <option [value]="recording.id">{{ recording.title }}</option>
+                }
+              </select>
+            </div>
+          }
+        }
+
+        <div class="form-group mb-1">
+          <label class="form-label" for="forumPostBody">{{ 'forum.postFormModal.bodyLabel' | translate }}</label>
+          <div class="forum-post-body-wrapper">
+            <textarea class="form-control" id="forumPostBody" rows="6" [formControl]="bodyControl"></textarea>
+            <div class="forum-post-body-icons">
+              <i antIcon type="upload" theme="outline"></i>
+              <i antIcon type="smile" theme="outline"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="forum-post-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="submitting" (click)="onClose()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!canSubmit" (click)="submit()">
+          @if (submitting) {
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          }
+          {{ submitLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

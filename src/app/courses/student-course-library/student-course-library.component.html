@@ -1,0 +1,122 @@
+@if (!accessChecked) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (!isStudent) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-0">{{ 'common.noAccessToPage' | translate }}</p>
+  </div>
+} @else {
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <h3 class="mb-0">{{ 'courses.studentLibrary.pageTitle' | translate }}</h3>
+    </div>
+  </div>
+
+  <div #gridContainer>
+    @if (loading) {
+      <div class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+        </div>
+      </div>
+    } @else if (loadError) {
+      <div class="text-center py-5">
+        <p class="text-danger mb-3">{{ loadError }}</p>
+        <button type="button" class="btn btn-primary" (click)="loadCourses()">{{ 'common.retry' | translate }}</button>
+      </div>
+    } @else if (courses.length === 0) {
+      <div class="text-center py-5">
+        <p class="text-muted mb-3">{{ 'courses.studentLibrary.noneEnrolledYet' | translate }}</p>
+        <a [routerLink]="['/courses']" class="btn btn-primary">{{ 'courses.studentLibrary.browseCourses' | translate }}</a>
+      </div>
+    } @else {
+      <div class="row">
+        @for (course of courses; track course.courseId) {
+          <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card course-card h-100">
+              @if (course.completed) {
+                <span class="badge bg-light-success text-success course-card-completed-badge">
+                  <i antIcon type="check-circle" theme="outline" class="me-1"></i>
+                  {{ 'courses.studentLibrary.completedBadge' | translate }}
+                </span>
+              }
+              <div class="card-body d-flex flex-column">
+                <div class="course-card-icon">
+                  @if (course.image) {
+                    <img [src]="course.image" [alt]="course.courseTitle" />
+                  } @else {
+                    <i antIcon type="picture" theme="outline"></i>
+                  }
+                </div>
+
+                @if (course.category) {
+                  <span class="course-meta-badge align-self-start mt-3">
+                    <i antIcon [type]="getCategoryIcon(course.category)" theme="outline"></i>
+                    {{ course.category }}
+                  </span>
+                }
+
+                <h5 class="mt-2 mb-3">{{ course.courseTitle }}</h5>
+
+                <div class="course-progress mt-auto">
+                  @if (course.completed) {
+                    <div class="course-progress-complete">
+                      <i antIcon type="trophy" theme="outline"></i>
+                      <span>{{ 'courses.detail.courseCompletedBadge' | translate }}</span>
+                    </div>
+                  } @else {
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="course-progress-label">{{ 'courses.detail.yourProgress' | translate }}</span>
+                      <span class="course-progress-percentage">
+                        {{ 'courses.detail.percentComplete' | translate: { percent: course.progressPercentage } }}
+                      </span>
+                    </div>
+                  }
+                  <div
+                    class="course-progress-track"
+                    role="progressbar"
+                    [attr.aria-valuenow]="course.progressPercentage"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <div
+                      class="course-progress-fill"
+                      [class.course-progress-fill-complete]="course.completed"
+                      [style.width.%]="course.progressPercentage"
+                    ></div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-sm w-100 mt-3"
+                  [class.btn-primary]="!course.completed"
+                  [class.btn-outline-success]="course.completed"
+                  (click)="openCourse(course)"
+                >
+                  {{ (course.completed ? 'courses.studentLibrary.reviewCourse' : 'courses.studentLibrary.continueCourse') | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+        <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+            {{ 'common.previous' | translate }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+            {{ 'common.next' | translate }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

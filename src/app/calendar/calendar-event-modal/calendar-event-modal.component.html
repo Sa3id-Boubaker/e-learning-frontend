@@ -1,0 +1,77 @@
+@if (open && event) {
+  <div class="calendar-event-modal-backdrop" (click)="onClose()">
+    <div
+      #panel
+      class="calendar-event-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="calendarEventModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onClose()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="calendar-event-modal-header">
+        <h5 id="calendarEventModalTitle" class="mb-0">{{ event.sessionTitle }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onClose()"></button>
+      </div>
+
+      <div class="calendar-event-modal-body">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge" [ngClass]="getLiveSessionStatusBadgeClass(event.status)">{{ getLiveSessionStatusLabel(event.status) | translate }}</span>
+          <span class="text-muted small">{{ event.trainingTitle }}</span>
+        </div>
+
+        @if (event.description) {
+          <p class="text-muted small mb-3">{{ event.description }}</p>
+        }
+
+        <p class="small mb-3">
+          <strong>{{ formatSessionDateTime(event.startAt) }}</strong>
+          –
+          <strong>{{ formatSessionDateTime(event.endAt) }}</strong>
+        </p>
+
+        @if (isJoinableLiveSessionStatus(event.status) && !event.meetingUrl) {
+          @if (meetingUrlUnavailableReason === 'checking') {
+            <p class="text-muted small mb-2">
+              <i antIcon type="video-camera" theme="outline" class="me-1"></i>
+              {{ 'calendar.eventModal.checkingAccess' | translate }}
+            </p>
+          } @else if (meetingUrlUnavailableReason === 'not-enrolled') {
+            <div class="alert alert-warning small mb-3" role="alert">
+              <p class="mb-2">{{ 'calendar.eventModal.needEnrollmentToJoin' | translate }}</p>
+              <a [routerLink]="['/trainings', event.trainingId]" class="btn btn-outline-primary btn-sm" (click)="onClose()">
+                {{ 'trainings.myTrainings.viewTraining' | translate }}
+              </a>
+            </div>
+          } @else {
+            <p class="text-muted small mb-2">
+              <i antIcon type="video-camera" theme="outline" class="me-1"></i>
+              {{ 'trainings.detail.meetingLinkUnavailable' | translate }}
+            </p>
+          }
+        }
+
+        <div class="d-flex flex-wrap gap-2">
+          @if (isJoinableLiveSessionStatus(event.status) && event.meetingUrl) {
+            <a [href]="event.meetingUrl" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              <i antIcon type="video-camera" theme="outline" class="me-1"></i>
+              {{ 'calendar.eventModal.joinMeeting' | translate }}
+            </a>
+          }
+          @if (event.hasRecording) {
+            <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="loadingRecording" (click)="onWatchRecording()">
+              @if (loadingRecording) {
+                <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+              } @else {
+                <i antIcon type="play-circle" theme="outline" class="me-1"></i>
+              }
+              {{ 'calendar.eventModal.watchRecording' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

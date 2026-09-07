@@ -1,0 +1,78 @@
+@if (open && course) {
+  <div class="discount-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="discount-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="discountModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="discount-modal-header">
+        <h5 id="discountModalTitle" class="mb-0">{{ 'courses.discountModal.title' | translate }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          [attr.aria-label]="'common.close' | translate"
+          [disabled]="saving || removing"
+          (click)="onCancel()"
+        ></button>
+      </div>
+
+      <div class="discount-modal-body">
+        <p class="text-muted mb-3">{{ 'courses.discountModal.basePriceLine' | translate: { title: course.title, price: course.price } }}</p>
+
+        @if (hasActiveDiscount) {
+          <div class="alert alert-info py-2 mb-3">
+            {{
+              'courses.discountModal.activeDiscount'
+                | translate: { percent: course.discountPercentage, finalPrice: course.finalPrice }
+            }}
+          </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-group mb-3">
+            <label class="form-label" for="discountPercentage">{{ 'courses.discountModal.newPercentageLabel' | translate }}</label>
+            <div class="input-group">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                class="form-control"
+                id="discountPercentage"
+                formControlName="discountPercentage"
+                [class.is-invalid]="controlInvalid()"
+              />
+              <span class="input-group-text">%</span>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid()">{{ messageFor() }}</div>
+          </div>
+
+          <div class="discount-preview">
+            <span class="text-muted small">{{ 'courses.discountModal.newPrice' | translate }}</span>
+            <span class="fw-semibold">{{ previewFinalPrice !== null ? (previewFinalPrice | currencyDt) : '—' }}</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="discount-modal-footer">
+        @if (hasActiveDiscount) {
+          <button type="button" class="btn btn-outline-secondary me-auto" [disabled]="saving || removing" (click)="removeDiscount()">
+            {{ (removing ? 'courses.discountModal.removing' : 'courses.discountModal.removeDiscount') | translate }}
+          </button>
+        }
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving || removing" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="saving || removing || form.invalid" (click)="submit()">
+          {{ (saving ? 'courses.discountModal.applying' : 'courses.discountModal.applyDiscount') | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

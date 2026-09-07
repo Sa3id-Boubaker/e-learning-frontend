@@ -1,0 +1,19 @@
+.calendar-widget-row {
+  width: 100%;
+  text-align: left;
+}
+
+.calendar-widget-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.min-w-0 {
+  min-width: 0;
+}

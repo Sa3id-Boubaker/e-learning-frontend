@@ -1,0 +1,134 @@
+// Adapted from the downloaded "LearnHub" template's own _variables.scss. $primary is swapped
+// from the template's original green to Omarise's actual brand blue (src/scss/settings/color-variables.scss
+// $blue: #1677ff) so this page matches the rest of the app instead of looking like a different product.
+$gray-50: #fafafa;
+$gray-100: #f5f5f5;
+$gray-200: #e5e5e5;
+$gray-300: #d4d4d4;
+$gray-400: #a3a3a3;
+$gray-500: #737373;
+$gray-600: #525252;
+$gray-700: #404040;
+$gray-800: #262626;
+$gray-900: #171717;
+$gray-950: #0a0a0a;
+
+$orange: #e66239;
+$red: #fb2c36;
+$green: #09c82c;
+$cyan: #00b8db;
+$yellow: #f0b100;
+$omarise-blue: #1677ff;
+
+$primary: $omarise-blue;
+$secondary: $gray-200;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+
+$min-contrast-ratio: 2;
+$link-hover-decoration: none;
+$link-color: $gray-700;
+$link-hover-color: $primary;
+$headings-color: $gray-900;
+$body-color: $gray-600;
+
+$light: $gray-100;
+$border-color: $gray-200;
+$border-color-translucent: $gray-200;
+
+$enable-negative-margins: true;
+$enable-rounded: true;
+
+$headings-font-weight: 600;
+$grid-gutter-width: 2.5rem;
+
+$position-values: (
+  0: 0,
+  10: 10%,
+  25: 25%,
+  50: 50%,
+  60: 60%,
+  65: 65%,
+  70: 70%,
+  75: 75%,
+  100: 100%,
+  auto: auto
+);
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer * 0.75,
+  4: $spacer * 1,
+  5: $spacer * 1.25,
+  6: $spacer * 1.5,
+  7: $spacer * 1.75,
+  8: $spacer * 2,
+  9: $spacer * 3,
+  10: $spacer * 3.5,
+  11: $spacer * 4,
+  12: $spacer * 5,
+  13: $spacer * 6
+);
+
+// The template pulls "Geist" from Google Fonts. Kept as-is (see landing.component.scss's
+// font-face import) — this app's own "Inter" is loaded globally too, but scoping this page's
+// font locally keeps it visually matching the original template design.
+$font-family-base: 'Geist', sans-serif;
+$font-size-root: null;
+$font-size-base: 0.975rem;
+$font-size-sm: $font-size-base * 0.85;
+$font-size-lg: $font-size-base * 1.25;
+
+$font-xs: 13px;
+$navbar-nav-link-padding-x: 1rem;
+$input-border-radius: 50px;
+$h1-font-size: $font-size-base * 2.5;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+$border-radius: 0.375rem;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 2rem;
+$border-radius-pill: 50rem;
+$badge-font-size: 0.875rem;
+
+$btn-border-radius: 50rem;
+$btn-border-radius-sm: 50rem;
+$btn-border-radius-lg: 50rem;
+$btn-font-weight: 600;
+$input-btn-font-size: 15px;
+
+$input-btn-padding-y: 0.55rem;
+$input-btn-padding-x: 1.25rem;
+$table-th-font-weight: 400;
+
+$link-decoration: none;
+
+// Icon
+$icon-size-xxs: 1rem;
+$icon-size-xs: 1.5rem;
+$icon-size-sm: 2rem;
+$icon-size-md: 2.5rem;
+$icon-size-lg: 3rem;
+$icon-size-xl: 3.5rem;
+$icon-size-xxl: 4rem;
+$icon-size-xxxl: 7rem;
+
+// Avatar
+$avatar-size-xs: 1.5rem;
+$avatar-size-sm: 2rem;
+$avatar-size-md: 2.5rem;
+$avatar-size-lg: 3.5rem;
+$avatar-size-xl: 5rem;
+$avatar-size-xxl: 7.5rem;
+$avatar-size-xxxl: 11rem;

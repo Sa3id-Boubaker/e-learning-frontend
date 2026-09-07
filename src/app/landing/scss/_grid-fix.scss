@@ -1,0 +1,37 @@
+// Angular's emulated view encapsulation appends a [_ngcontent-xxx] attribute to every simple
+// selector in a compound selector. Bootstrap 5.3's grid reset relies on `.row > *` and `.col-*`
+// having EQUAL specificity so source order (col-* declared later) decides the cascade. But
+// `.row > *` has TWO simple selectors (.row and the universal *) — Angular attributes both,
+// adding two specificity points — while `.col-md-6` is one simple selector, gaining only one.
+// That extra point makes the scoped `.row[_ngcontent] > *[_ngcontent]` (0,3,0) beat
+// `.col-md-6[_ngcontent]` (0,2,0) outright, regardless of source order, so every column
+// silently collapses to the `.row > *` reset's width: 100% and grids never split into columns.
+//
+// Fix: redeclare just the column classes actually used on this page, with the class repeated so
+// Angular's single attribute addition still lands us at (0,3,0) — equal to `.row > *`, so normal
+// source-order cascade (these rules come after the full Bootstrap import) resolves it correctly,
+// exactly like unscoped Bootstrap already does everywhere else in this app.
+@mixin col-fix($selector, $flex-basis, $width) {
+  #{$selector}#{$selector} {
+    flex: $flex-basis;
+    width: $width;
+    max-width: $width;
+  }
+}
+
+@media (min-width: 768px) {
+  @include col-fix('.col-md-4', 0 0 auto, 33.33333333%);
+  @include col-fix('.col-md-6', 0 0 auto, 50%);
+  @include col-fix('.col-md-8', 0 0 auto, 66.66666667%);
+}
+
+@media (min-width: 992px) {
+  @include col-fix('.col-lg-3', 0 0 auto, 25%);
+  @include col-fix('.col-lg-4', 0 0 auto, 33.33333333%);
+  @include col-fix('.col-lg-5', 0 0 auto, 41.66666667%);
+  @include col-fix('.col-lg-6', 0 0 auto, 50%);
+}
+
+@media (min-width: 1200px) {
+  @include col-fix('.col-xl-6', 0 0 auto, 50%);
+}

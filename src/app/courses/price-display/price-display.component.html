@@ -1,0 +1,13 @@
+<span
+  class="price-display"
+  [class.price-display-large]="size === 'large'"
+  [class.price-display-discounted]="course.discountPercentage > 0"
+>
+  <span class="price-final">{{ course.finalPrice | currencyDt }}</span>
+  @if (course.discountPercentage > 0) {
+    <span class="price-secondary">
+      <span class="price-original">{{ course.price | currencyDt }}</span>
+      <span class="price-badge">-{{ course.discountPercentage }}%</span>
+    </span>
+  }
+</span>

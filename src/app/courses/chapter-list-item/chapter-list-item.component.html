@@ -1,0 +1,158 @@
+<li class="chapter-card">
+  <div
+    class="chapter-card-header"
+    role="button"
+    tabindex="0"
+    [attr.aria-expanded]="expanded"
+    [attr.aria-label]="
+      (expanded ? 'courses.chapterItem.collapseChapter' : 'courses.chapterItem.expandChapter') | translate: { title: chapter.title }
+    "
+    (click)="toggleExpanded()"
+    (keyup.enter)="toggleExpanded()"
+  >
+    <span class="chapter-badge">{{ chapterIndex + 1 }}</span>
+
+    <div class="chapter-heading">
+      <div class="chapter-title">{{ chapter.title }}</div>
+      <div class="chapter-subtitle">{{ chapterSubtitle }}</div>
+      @if (chapter.description) {
+        <div class="chapter-description">{{ chapter.description }}</div>
+      }
+    </div>
+
+    @if (canManage) {
+      <div class="chapter-actions" (click)="$event.stopPropagation()">
+        <button
+          type="button"
+          class="btn-icon"
+          [attr.aria-label]="'courses.chapterItem.editAria' | translate: { title: chapter.title }"
+          (click)="editChapter.emit(chapter)"
+        >
+          <i antIcon type="edit" theme="outline"></i>
+        </button>
+        <button
+          type="button"
+          class="btn-icon text-danger"
+          [attr.aria-label]="'courses.chapterItem.deleteAria' | translate: { title: chapter.title }"
+          (click)="deleteChapter.emit(chapter)"
+        >
+          <i antIcon type="delete" theme="outline"></i>
+        </button>
+      </div>
+    }
+
+    <i antIcon type="right" theme="outline" class="chapter-chevron" [class.chapter-chevron-open]="expanded"></i>
+  </div>
+
+  @if (expanded) {
+    <div class="chapter-videos">
+      @if (canManage) {
+        <div class="chapter-videos-toolbar">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="openCreateVideoModal()">
+            <i antIcon type="plus" theme="outline" class="me-1"></i>
+            {{ 'courses.chapterItem.addVideo' | translate }}
+          </button>
+        </div>
+      }
+
+      @if (videos.length === 0) {
+        <div class="empty-state">
+          <i antIcon type="video-camera" theme="outline"></i>
+          <p class="mb-0">{{ 'courses.chapterItem.noVideosYet' | translate }}</p>
+        </div>
+      } @else {
+        <ul class="video-list">
+          @for (video of videos; track video.id; let vi = $index) {
+            <li
+              class="video-row"
+              [class.video-row-locked]="isVideoLocked(video)"
+              role="button"
+              tabindex="0"
+              [attr.aria-label]="
+                (isVideoLocked(video) ? 'courses.chapterItem.videoLockedAria' : 'courses.chapterItem.playAria')
+                  | translate: { title: video.title }
+              "
+              (click)="onVideoRowClick(video)"
+              (keyup.enter)="onVideoRowClick(video)"
+            >
+              @if (isVideoLocked(video)) {
+                <span class="video-index video-index-locked" [attr.aria-label]="'courses.chapterItem.lockedAria' | translate: { title: video.title }">
+                  <i antIcon type="lock" theme="outline"></i>
+                </span>
+              } @else {
+                @if (isVideoCompleted(video)) {
+                  <span
+                    class="video-index video-index-completed"
+                    [attr.aria-label]="'courses.chapterItem.completedAria' | translate: { title: video.title }"
+                  >
+                    <i antIcon type="check" theme="outline"></i>
+                  </span>
+                } @else {
+                  <span class="video-index">{{ vi + 1 }}</span>
+                }
+                <i antIcon type="play-circle" theme="outline" class="video-play-icon"></i>
+              }
+              <span
+                class="video-title"
+                [class.video-title-completed]="isVideoCompleted(video)"
+                [class.video-title-locked]="isVideoLocked(video)"
+                >{{ video.title }}</span
+              >
+              <span class="video-duration-badge">{{ formatDuration(video.duration) }}</span>
+              @if (canManage) {
+                <div class="video-actions" (click)="$event.stopPropagation()">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    [attr.aria-label]="'courses.chapterItem.editAria' | translate: { title: video.title }"
+                    (click)="openEditVideoModal(video)"
+                  >
+                    <i antIcon type="edit" theme="outline"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon text-danger"
+                    [attr.aria-label]="'courses.chapterItem.deleteAria' | translate: { title: video.title }"
+                    (click)="openDeleteVideoModal(video)"
+                  >
+                    <i antIcon type="delete" theme="outline"></i>
+                  </button>
+                </div>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</li>
+
+<app-video-form-modal
+  [open]="videoFormModalOpen"
+  [mode]="videoFormMode"
+  [video]="selectedVideo"
+  [chapterId]="chapter.id"
+  [nextOrder]="nextVideoOrder"
+  (closed)="onVideoFormModalClosed()"
+  (saved)="onVideoSaved($event)"
+  (conflict)="onVideoFormConflict()"
+/>
+
+<app-delete-confirmation-modal
+  [open]="videoDeleteModalOpen"
+  [title]="videoDeleteModalTitle"
+  [description]="'common.actionCannotBeUndone' | translate"
+  [loading]="videoDeleteLoading"
+  (closed)="onVideoDeleteModalClosed()"
+  (confirmed)="confirmDeleteVideo()"
+/>
+
+<app-video-player-modal
+  [open]="playerModalOpen"
+  [video]="playingVideo"
+  [courseId]="courseId"
+  [isStudent]="isStudent"
+  [alreadyCompleted]="playingVideo ? isVideoCompleted(playingVideo) : false"
+  (closed)="onPlayerClosed()"
+  (videoCompleted)="onVideoCompletedInPlayer($event)"
+/>

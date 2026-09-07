@@ -1,0 +1,16 @@
+<div class="guest-language-switcher" ngbDropdown>
+  <button type="button" class="btn btn-light btn-sm" ngbDropdownToggle>
+    {{ languageService.currentLang().toUpperCase() }}
+  </button>
+  <div ngbDropdownMenu>
+    @for (lang of languageOptions; track lang.code) {
+      <button type="button" class="dropdown-item d-flex align-items-center justify-content-between gap-3" (click)="selectLanguage(lang.code)">
+        <span>{{ lang.label }}</span>
+        @if (languageService.currentLang() === lang.code) {
+          <span aria-hidden="true">&check;</span>
+        }
+      </button>
+    }
+  </div>
+</div>
+<router-outlet />

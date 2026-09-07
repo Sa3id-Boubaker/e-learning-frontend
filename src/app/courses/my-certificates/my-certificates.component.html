@@ -1,0 +1,57 @@
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <h3 class="mb-0">{{ 'courses.myCertificates.pageTitle' | translate }}</h3>
+  </div>
+</div>
+
+<div #gridContainer>
+  @if (loading) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+    </div>
+  } @else if (loadError) {
+    <div class="text-center py-5">
+      <p class="text-danger mb-3">{{ loadError }}</p>
+      <button type="button" class="btn btn-primary" (click)="loadCertificates()">{{ 'common.retry' | translate }}</button>
+    </div>
+  } @else if (certificates.length === 0) {
+    <div class="certificate-empty-state">
+      <i antIcon type="safety-certificate" theme="outline" class="certificate-empty-icon"></i>
+      <p class="mb-3">{{ 'courses.myCertificates.emptyBody' | translate }}</p>
+      <a [routerLink]="['/courses']" class="btn btn-primary">{{ 'courses.studentLibrary.browseCourses' | translate }}</a>
+    </div>
+  } @else {
+    <div class="row">
+      @for (certificate of certificates; track certificate.id) {
+        <div class="col-md-6 col-xl-4 mb-4">
+          <a [routerLink]="['/courses', certificate.courseId, 'certificate']" class="card certificate-tile h-100 text-decoration-none">
+            <div class="card-body">
+              <div class="certificate-tile-icon">
+                <i antIcon type="safety-certificate" theme="outline"></i>
+              </div>
+              <h5 class="mt-2 mb-1">{{ certificate.courseTitle }}</h5>
+              <p class="text-muted small mb-0">
+                {{ 'courses.myCertificates.issuedOn' | translate: { date: (certificate.issuedAt | date: 'mediumDate') } }}
+              </p>
+              <p class="certificate-tile-number small mb-0 mt-2">{{ certificate.certificateNumber }}</p>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+      <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+          {{ 'common.previous' | translate }}
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+          {{ 'common.next' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

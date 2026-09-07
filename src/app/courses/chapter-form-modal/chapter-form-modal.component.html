@@ -1,0 +1,73 @@
+@if (open) {
+  <div class="chapter-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="chapter-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chapterFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="chapter-form-modal-header">
+        <h5 id="chapterFormModalTitle" class="mb-0">
+          {{ (mode === 'create' ? 'courses.chapterFormModal.addTitle' : 'courses.chapterFormModal.editTitle') | translate }}
+        </h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="chapter-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-group mb-3">
+            <label class="form-label" for="chapterTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="chapterTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('title')">{{ messageFor('title') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="chapterDescription">{{ 'courses.chapterFormModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="chapterDescription"
+              rows="3"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('description')">{{ messageFor('description') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="chapterOrder">{{ 'courses.chapterFormModal.orderLabel' | translate }}</label>
+            <input
+              type="number"
+              min="1"
+              step="1"
+              class="form-control"
+              id="chapterOrder"
+              formControlName="order"
+              [class.is-invalid]="controlInvalid('order')"
+            />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('order')">{{ messageFor('order') }}</div>
+          </div>
+        </form>
+      </div>
+
+      <div class="chapter-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="saving || form.invalid || !hasChanges" (click)="submit()">
+          {{
+            (saving ? 'common.saving' : mode === 'create' ? 'courses.chapterFormModal.addTitle' : 'common.saveChanges') | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

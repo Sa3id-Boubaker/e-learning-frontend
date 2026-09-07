@@ -1,0 +1,164 @@
+<div class="row mb-2">
+  <div class="col-sm-12">
+    <h3 class="fw-bold mb-2">{{ 'forum.list.pageTitle' | translate }}</h3>
+    <p class="text-muted mb-0">
+      {{ 'forum.list.pageSubtitle' | translate }}
+    </p>
+  </div>
+</div>
+
+<hr class="mb-4" />
+
+<div class="card forum-ask-card mb-3">
+  <div class="card-body">
+    <div class="d-flex align-items-center gap-3">
+      @if (currentUser?.profileImage) {
+        <img [src]="currentUser?.profileImage" [alt]="currentUser?.firstName" class="forum-ask-avatar-img" />
+      } @else if (currentUser) {
+        <span class="forum-ask-avatar-initials">{{ initialsFor(currentUser) }}</span>
+      } @else {
+        <span class="forum-ask-avatar-placeholder"><i antIcon type="user" theme="outline"></i></span>
+      }
+      <input
+        type="text"
+        class="form-control rounded-pill forum-ask-input"
+        [placeholder]="'forum.list.askYourQuestion' | translate"
+        readonly
+        (click)="openCreateModal()"
+        (focus)="openCreateModal()"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="card forum-list-card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+      <div class="d-flex gap-2">
+        <button
+          type="button"
+          class="btn btn-sm rounded-pill"
+          [class.btn-primary]="activeTab === 'recent'"
+          [class.btn-outline-secondary]="activeTab !== 'recent'"
+          (click)="switchTab('recent')"
+        >
+          {{ 'forum.list.tabAll' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm rounded-pill"
+          [class.btn-primary]="activeTab === 'popular'"
+          [class.btn-outline-secondary]="activeTab !== 'popular'"
+          (click)="switchTab('popular')"
+        >
+          {{ 'forum.list.tabTop' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm rounded-pill"
+          [class.btn-primary]="activeTab === 'bookmarked'"
+          [class.btn-outline-secondary]="activeTab !== 'bookmarked'"
+          (click)="switchTab('bookmarked')"
+        >
+          {{ 'forum.list.tabBookmarked' | translate }}
+        </button>
+      </div>
+
+      @if (activeTab !== 'bookmarked') {
+        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggleFilters()">
+          <i antIcon type="filter" theme="outline" class="me-1"></i>
+          {{ 'forum.list.filters' | translate }}
+        </button>
+      }
+    </div>
+
+    @if (filtersOpen && activeTab !== 'bookmarked') {
+      <div class="row g-2 mb-3">
+        <div class="col-sm-4">
+          <label class="form-label small text-muted mb-1" for="forumTypeFilter">{{ 'forum.list.typeLabel' | translate }}</label>
+          <select id="forumTypeFilter" class="form-select form-select-sm" [formControl]="typeFilterControl">
+            <option value="">{{ 'forum.list.allTypes' | translate }}</option>
+            @for (option of typeOptions; track option) {
+              <option [value]="option">{{ getForumPostTypeLabel(option) | translate }}</option>
+            }
+          </select>
+        </div>
+        @if (typeFilterControl.value === 'COURSE') {
+          <div class="col-sm-4">
+            <label class="form-label small text-muted mb-1" for="forumCourseFilter">{{ 'courses.enrollmentModal.courseLabel' | translate }}</label>
+            <select id="forumCourseFilter" class="form-select form-select-sm" [formControl]="courseFilterControl">
+              <option value="">{{ 'forum.list.allCourses' | translate }}</option>
+              @for (course of filterCourses; track course.id) {
+                <option [value]="course.id">{{ course.title }}</option>
+              }
+            </select>
+          </div>
+        }
+        @if (typeFilterControl.value === 'TRAINING') {
+          <div class="col-sm-4">
+            <label class="form-label small text-muted mb-1" for="forumTrainingFilter">{{ 'trainings.list.pageTitle' | translate }}</label>
+            <select id="forumTrainingFilter" class="form-select form-select-sm" [formControl]="trainingFilterControl">
+              <option value="">{{ 'trainings.enrollmentManagement.allTrainings' | translate }}</option>
+              @for (training of filterTrainings; track training.id) {
+                <option [value]="training.id">{{ training.title }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+    }
+
+    <hr class="mb-3" />
+
+    <div #listContainer>
+      @if (loading) {
+        <div class="d-flex flex-column align-items-center justify-content-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+          </div>
+        </div>
+      } @else if (loadError) {
+        <div class="text-center py-5">
+          <p class="text-danger mb-3">{{ loadError }}</p>
+          <button type="button" class="btn btn-primary" (click)="loadPosts()">{{ 'common.retry' | translate }}</button>
+        </div>
+      } @else if (posts.length === 0) {
+        <div class="empty-state py-5">
+          <i antIcon type="inbox" theme="outline"></i>
+          <p class="mb-0">{{ 'forum.list.noResults' | translate }}</p>
+        </div>
+      } @else {
+        <div class="d-flex flex-column gap-3">
+          @for (post of posts; track post.id) {
+            <app-forum-post-card
+              [post]="post"
+              [currentUser]="currentUser"
+              (changed)="onPostChanged($event)"
+              (editRequested)="openEditModal($event)"
+              (deleted)="onPostDeleted($event)"
+            />
+          }
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+              {{ 'common.previous' | translate }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+              {{ 'common.next' | translate }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-forum-post-form-modal
+  [open]="postModalOpen"
+  [editingPost]="editingPost"
+  (closed)="onPostModalClosed()"
+  (saved)="onPostSaved($event)"
+/>

@@ -1,0 +1,46 @@
+.notification-row {
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+}
+
+.notification-item-unread {
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.notification-page-chevron {
+  color: var(--bs-secondary-color);
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.notification-item-navigable:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.notification-item-navigable:hover .notification-page-chevron {
+  color: var(--bs-primary);
+  opacity: 1;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  background: transparent;
+  color: var(--bs-secondary-color);
+}
+
+.btn-icon:hover {
+  color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.btn-icon.text-danger:hover {
+  color: var(--bs-danger) !important;
+  background: rgba(var(--bs-danger-rgb), 0.08);
+}

@@ -1,0 +1,31 @@
+@if (open) {
+  <div class="training-purchase-modal-backdrop" (click)="onClose()">
+    <div
+      #panel
+      class="training-purchase-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="trainingPurchaseModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onClose()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="training-purchase-modal-header">
+        <h5 id="trainingPurchaseModalTitle" class="mb-0">{{ 'trainings.purchaseModal.title' | translate }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onClose()"></button>
+      </div>
+
+      <div class="training-purchase-modal-body">
+        @if (training) {
+          <p class="fw-semibold mb-1">{{ training.title }}</p>
+          <app-training-price-display [training]="training" size="large" />
+          <p class="text-muted small mt-3 mb-3">
+            {{ 'trainings.purchaseModal.body' | translate }}
+          </p>
+          <app-admin-contact [courseTitle]="training.title" />
+        }
+      </div>
+    </div>
+  </div>
+}

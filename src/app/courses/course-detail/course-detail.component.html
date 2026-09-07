@@ -1,0 +1,301 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'courses.detail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'courses.detail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/courses']" class="btn btn-primary">{{ 'courses.detail.backToCourses' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadCourse()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (course) {
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center gy-4">
+            <div class="col-12 col-lg-8">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                  <h3 class="fw-bold mb-0">{{ course.title }}</h3>
+                  @if (!course.published) {
+                    <span class="badge bg-warning text-dark">{{ 'courses.list.draftBadge' | translate }}</span>
+                  }
+                </div>
+                @if (currentUser$ | async; as currentUser) {
+                  @if (canManage(currentUser)) {
+                    <div class="d-flex gap-2 flex-shrink-0">
+                      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="openEditModal()">
+                        <i antIcon type="edit" theme="outline" class="me-1"></i>
+                        {{ 'common.edit' | translate }}
+                      </button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="openDeleteModal()">
+                        <i antIcon type="delete" theme="outline" class="me-1"></i>
+                        {{ 'common.delete' | translate }}
+                      </button>
+                    </div>
+                  }
+                }
+              </div>
+
+              @if (course.instructorFirstName) {
+                <p class="text-muted small mb-0 mt-1">
+                  {{ 'courses.detail.createdBy' | translate }}
+                  {{ course.instructorFirstName }}{{ course.instructorLastName ? ' ' + course.instructorLastName : '' }}
+                </p>
+              }
+
+              <p class="text-muted mt-3 mb-0">{{ course.description }}</p>
+
+              <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <span class="course-meta-badge">
+                  <i antIcon [type]="categoryIconType" theme="outline"></i>
+                  {{ course.category }}
+                </span>
+                <span class="course-meta-item">
+                  <i antIcon type="clock-circle" theme="outline"></i>
+                  {{ formattedTotalDuration }}
+                </span>
+                <span class="course-meta-item">
+                  <i antIcon type="play-circle" theme="outline"></i>
+                  {{ 'courses.detail.lessonsCount' | translate: { count: totalLessonCount } }}
+                </span>
+              </div>
+
+              <div class="mt-3">
+                <app-price-display [course]="course" size="large" />
+              </div>
+            </div>
+
+            <div class="col-lg-4 d-none d-lg-flex justify-content-center align-items-center">
+              @if (course.image) {
+                <img [src]="course.image" [alt]="course.title" class="course-hero-image" />
+              } @else {
+                <i antIcon [type]="categoryIconType" theme="outline" class="course-hero-icon"></i>
+              }
+            </div>
+          </div>
+
+          @if (isStudent && progressLoaded) {
+            <div class="course-progress">
+              @if (courseCompleted) {
+                <div class="course-progress-complete">
+                  <i antIcon type="trophy" theme="outline"></i>
+                  <span>{{ 'courses.detail.courseCompletedBadge' | translate }}</span>
+                </div>
+              } @else {
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="course-progress-label">{{ 'courses.detail.yourProgress' | translate }}</span>
+                  <span class="course-progress-percentage">
+                    {{ 'courses.detail.percentComplete' | translate: { percent: progressPercentage } }}
+                  </span>
+                </div>
+              }
+              <div
+                class="course-progress-track"
+                role="progressbar"
+                [attr.aria-valuenow]="progressPercentage"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div
+                  class="course-progress-fill"
+                  [class.course-progress-fill-complete]="courseCompleted"
+                  [style.width.%]="progressPercentage"
+                ></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4 g-4">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">{{ 'courses.detail.chaptersCount' | translate: { count: chapters.length } }}</h5>
+            @if (currentUser$ | async; as currentUser) {
+              @if (canManage(currentUser)) {
+                <button type="button" class="btn btn-primary btn-sm" (click)="openCreateChapterModal()">
+                  <i antIcon type="plus" theme="outline" class="me-1"></i>
+                  {{ 'courses.detail.addChapter' | translate }}
+                </button>
+              }
+            }
+          </div>
+
+          @if (chaptersLoading) {
+            <div class="d-flex justify-content-center py-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+              </div>
+            </div>
+          } @else if (chaptersError) {
+            <div class="text-center py-4">
+              <p class="text-danger mb-3">{{ chaptersError }}</p>
+              <button type="button" class="btn btn-primary" (click)="loadChapters()">{{ 'common.retry' | translate }}</button>
+            </div>
+          } @else if (chapters.length === 0) {
+            <div class="empty-state">
+              <i antIcon type="folder-open" theme="outline"></i>
+              <p class="mb-0">{{ 'courses.detail.noChaptersYet' | translate }}</p>
+            </div>
+          } @else {
+            <ol class="list-group">
+              @for (chapter of chapters; track chapter.id; let i = $index) {
+                <app-chapter-list-item
+                  [chapter]="chapter"
+                  [chapterIndex]="i"
+                  [course]="course"
+                  [currentUser]="currentUser$ | async"
+                  [videos]="videosByChapterId[chapter.id] ?? []"
+                  [courseId]="course.id"
+                  [isStudent]="isStudent"
+                  [completedVideoIds]="completedVideoIds"
+                  (editChapter)="openEditChapterModal($event)"
+                  (deleteChapter)="openDeleteChapterModal($event)"
+                  (videoCompleted)="onVideoCompleted($event)"
+                />
+              }
+            </ol>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (currentUser$ | async; as currentUser) {
+      @if (canManage(currentUser)) {
+        <div class="col-lg-4">
+          <div class="course-sidebar-sticky">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="mb-1">{{ 'courses.detail.quizHeading' | translate }}</h5>
+                <p class="text-muted small mb-3">{{ 'courses.detail.quizSubtitle' | translate }}</p>
+                <a [routerLink]="['/courses', course.id, 'quiz']" class="btn btn-outline-primary btn-sm w-100">
+                  <i antIcon type="form" theme="outline" class="me-1"></i>
+                  {{ 'courses.detail.manageQuiz' | translate }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (isStudent) {
+        <div class="col-lg-4">
+          <div class="course-sidebar-sticky">
+            @if (!progressLoaded) {
+              <div class="card">
+                <div class="card-body text-center placeholder-glow">
+                  <span class="placeholder rounded-circle course-cert-seal-skeleton d-inline-block mb-3"></span>
+                  <span class="placeholder col-8 d-block mx-auto mb-2"></span>
+                  <span class="placeholder col-10 d-block mx-auto"></span>
+                </div>
+              </div>
+            } @else if (courseAccess && !courseAccess.enrolled) {
+              <div class="card course-cert-card course-cert-card-locked" aria-disabled="true">
+                <div class="card-body text-center">
+                  <div class="course-cert-seal">
+                    <span class="course-cert-seal-badge"></span>
+                    <span class="course-cert-seal-icon course-cert-seal-icon-locked">
+                      <i antIcon type="lock" theme="outline"></i>
+                    </span>
+                  </div>
+                  <h6 class="mb-1">{{ 'courses.detail.enrollToUnlock' | translate }}</h6>
+                  <p class="text-muted small mb-3">{{ 'courses.detail.contactAdminBody' | translate }}</p>
+                  <app-admin-contact [courseTitle]="course.title" />
+                </div>
+              </div>
+            } @else if (hasCertificate) {
+              <a
+                [routerLink]="['/courses', course.id, 'certificate']"
+                class="card course-cert-card text-decoration-none"
+                [attr.aria-label]="'courses.detail.viewYourCertificate' | translate"
+              >
+                <div class="card-body text-center">
+                  <div class="course-cert-seal">
+                    <span class="course-cert-seal-badge"></span>
+                    <span class="course-cert-seal-icon course-cert-seal-icon-earned">
+                      <i antIcon type="check-circle" theme="outline"></i>
+                    </span>
+                  </div>
+                  <p class="course-cert-card-eyebrow mb-1">{{ 'courses.detail.certificateEarned' | translate }}</p>
+                  <h6 class="mb-0">{{ 'courses.detail.viewYourCertificate' | translate }}</h6>
+                </div>
+              </a>
+            } @else if (courseCompleted) {
+              <a
+                [routerLink]="['/courses', course.id, 'quiz']"
+                class="card course-cert-card text-decoration-none"
+                [attr.aria-label]="'courses.detail.takeQuizAria' | translate"
+              >
+                <div class="card-body text-center">
+                  <div class="course-cert-seal">
+                    <span class="course-cert-seal-badge"></span>
+                    <span class="course-cert-seal-icon course-cert-seal-icon-unlocked">
+                      <i antIcon type="unlock" theme="outline"></i>
+                    </span>
+                  </div>
+                  <h6 class="mb-1">{{ 'courses.detail.takeQuizToEarn' | translate }}</h6>
+                  <p class="text-muted small mb-0">{{ 'courses.detail.allVideosCompleted' | translate }}</p>
+                </div>
+              </a>
+            } @else {
+              <div class="card course-cert-card course-cert-card-locked" aria-disabled="true">
+                <div class="card-body text-center">
+                  <div class="course-cert-seal">
+                    <span class="course-cert-seal-badge"></span>
+                    <span class="course-cert-seal-icon course-cert-seal-icon-locked">
+                      <i antIcon type="lock" theme="outline"></i>
+                    </span>
+                  </div>
+                  <h6 class="mb-1">{{ 'courses.detail.getYourCertificate' | translate }}</h6>
+                  <p class="text-muted small mb-0">{{ 'courses.detail.completeAllVideosBody' | translate }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <app-course-form-modal [open]="formModalOpen" mode="edit" [course]="course" (closed)="onFormModalClosed()" (saved)="onCourseSaved($event)" />
+
+  <app-delete-confirmation-modal
+    [open]="deleteModalOpen"
+    [title]="'courses.detail.deleteCourseTitle' | translate: { title: course.title }"
+    [description]="'common.actionCannotBeUndone' | translate"
+    [loading]="deleteLoading"
+    (closed)="onDeleteModalClosed()"
+    (confirmed)="confirmDelete()"
+  />
+
+  <app-chapter-form-modal
+    [open]="chapterFormModalOpen"
+    [mode]="chapterFormMode"
+    [chapter]="selectedChapter"
+    [courseId]="course.id"
+    [nextOrder]="nextChapterOrder"
+    (closed)="onChapterFormModalClosed()"
+    (saved)="onChapterSaved($event)"
+    (conflict)="onChapterFormConflict()"
+  />
+
+  <app-delete-confirmation-modal
+    [open]="chapterDeleteModalOpen"
+    [title]="chapterDeleteModalTitle"
+    [description]="'common.actionCannotBeUndone' | translate"
+    [loading]="chapterDeleteLoading"
+    (closed)="onChapterDeleteModalClosed()"
+    (confirmed)="confirmDeleteChapter()"
+  />
+}

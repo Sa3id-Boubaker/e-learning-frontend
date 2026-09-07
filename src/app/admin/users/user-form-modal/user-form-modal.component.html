@@ -1,0 +1,178 @@
+@if (open) {
+  <div class="user-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="user-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="userFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="user-form-modal-header">
+        <h5 id="userFormModalTitle" class="mb-0">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="user-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        @if (mode === 'create') {
+          <form [formGroup]="createForm" (ngSubmit)="submit()" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="cuFirstName">{{ 'auth.signup.firstNameLabel' | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cuFirstName"
+                    formControlName="firstName"
+                    [class.is-invalid]="createControlInvalid('firstName')"
+                  />
+                  <div class="invalid-feedback d-block" *ngIf="createControlInvalid('firstName')">{{ createMessageFor('firstName') }}</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="cuLastName">{{ 'auth.signup.lastNameLabel' | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cuLastName"
+                    formControlName="lastName"
+                    [class.is-invalid]="createControlInvalid('lastName')"
+                  />
+                  <div class="invalid-feedback d-block" *ngIf="createControlInvalid('lastName')">{{ createMessageFor('lastName') }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="cuEmail">{{ 'auth.signup.emailLabel' | translate }}</label>
+              <input type="email" class="form-control" id="cuEmail" formControlName="email" [class.is-invalid]="createControlInvalid('email')" />
+              <div class="invalid-feedback d-block" *ngIf="createControlInvalid('email')">{{ createMessageFor('email') }}</div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="cuPhone">{{ 'auth.signup.phoneLabel' | translate }}</label>
+              <input type="tel" class="form-control" id="cuPhone" formControlName="phone" [class.is-invalid]="createControlInvalid('phone')" />
+              <div class="invalid-feedback d-block" *ngIf="createControlInvalid('phone')">{{ createMessageFor('phone') }}</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label d-block">{{ 'admin.userFormModal.roleLabel' | translate }}</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="cuRoleStudent" value="ETUDIANT" formControlName="role" />
+                <label class="form-check-label" for="cuRoleStudent">{{ 'admin.userFormModal.student' | translate }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="cuRoleTrainer" value="FORMATEUR" formControlName="role" />
+                <label class="form-check-label" for="cuRoleTrainer">{{ 'admin.userFormModal.trainer' | translate }}</label>
+              </div>
+            </div>
+
+            <p class="text-muted small mb-0">{{ 'admin.userFormModal.tempPasswordHint' | translate }}</p>
+          </form>
+        } @else if (mode === 'edit' && user) {
+          <form [formGroup]="editForm" (ngSubmit)="submit()" novalidate>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label text-muted">{{ 'profile.emailLabel' | translate }}</label>
+                <p class="form-control-plaintext mb-0">{{ user.email }}</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted">{{ 'profile.roleLabel' | translate }}</label>
+                <p class="form-control-plaintext mb-0">
+                  {{ (user.role === 'FORMATEUR' ? 'admin.userFormModal.trainer' : 'admin.userFormModal.student') | translate }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="euFirstName">{{ 'auth.signup.firstNameLabel' | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="euFirstName"
+                    formControlName="firstName"
+                    [class.is-invalid]="editControlInvalid('firstName')"
+                  />
+                  <div class="invalid-feedback d-block" *ngIf="editControlInvalid('firstName')">{{ editMessageFor('firstName') }}</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="euLastName">{{ 'auth.signup.lastNameLabel' | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="euLastName"
+                    formControlName="lastName"
+                    [class.is-invalid]="editControlInvalid('lastName')"
+                  />
+                  <div class="invalid-feedback d-block" *ngIf="editControlInvalid('lastName')">{{ editMessageFor('lastName') }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="euPhone">{{ 'profile.phoneLabel' | translate }}</label>
+              <input type="tel" class="form-control" id="euPhone" formControlName="phone" [class.is-invalid]="editControlInvalid('phone')" />
+              <div class="invalid-feedback d-block" *ngIf="editControlInvalid('phone')">{{ editMessageFor('phone') }}</div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" for="euProfileImage">{{ 'admin.userFormModal.profileImageUrlLabel' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="euProfileImage"
+                placeholder="https://..."
+                formControlName="profileImage"
+                [class.is-invalid]="editControlInvalid('profileImage')"
+              />
+              <div class="invalid-feedback d-block" *ngIf="editControlInvalid('profileImage')">{{ editMessageFor('profileImage') }}</div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label d-flex justify-content-between" for="euBio">
+                <span>{{ 'profile.bioLabel' | translate }}</span>
+                <span class="text-muted">{{ editForm.controls.bio.value.length }}/500</span>
+              </label>
+              <textarea
+                class="form-control"
+                id="euBio"
+                rows="3"
+                maxlength="500"
+                formControlName="bio"
+                [class.is-invalid]="editControlInvalid('bio')"
+              ></textarea>
+              <div class="invalid-feedback d-block" *ngIf="editControlInvalid('bio')">{{ editMessageFor('bio') }}</div>
+            </div>
+          </form>
+        }
+      </div>
+
+      <div class="user-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="saving || (mode === 'create' ? createForm.invalid : editForm.invalid)"
+          (click)="submit()"
+        >
+          {{ (saving ? 'common.saving' : mode === 'create' ? 'admin.userFormModal.create' : 'common.saveChanges') | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

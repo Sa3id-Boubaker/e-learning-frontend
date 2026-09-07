@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="('notifications.page.cardTitle' | translate: { count: totalElements })">
+      <ng-template #headerOptionsTemplate>
+        <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="markingAllAsRead" (click)="onMarkAllAsRead()">
+          @if (markingAllAsRead) {
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          } @else {
+            <i antIcon type="check-circle" theme="outline" class="me-1"></i>
+          }
+          {{ 'notifications.dropdown.markAllAsRead' | translate }}
+        </button>
+      </ng-template>
+
+      <div #listContainer>
+        @if (loading) {
+          <div class="d-flex flex-column align-items-center justify-content-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+            </div>
+          </div>
+        } @else if (loadError) {
+          <div class="text-center py-4">
+            <p class="text-danger mb-3">{{ loadError }}</p>
+            <button type="button" class="btn btn-primary" (click)="loadNotifications()">{{ 'common.retry' | translate }}</button>
+          </div>
+        } @else if (notifications.length === 0) {
+          <div class="text-center text-muted py-4">{{ 'notifications.dropdown.noneYet' | translate }}</div>
+        } @else {
+          <div class="list-group list-group-flush">
+            @for (notification of notifications; track notification.id) {
+              <div
+                class="list-group-item notification-row"
+                [class.notification-item-unread]="!notification.read"
+                [class.notification-item-navigable]="!!getNotificationRoute(notification)"
+                role="button"
+                tabindex="0"
+                [attr.aria-label]="notification.title"
+                (click)="onNotificationClick(notification)"
+                (keyup.enter)="onNotificationClick(notification)"
+              >
+                <div class="d-flex align-items-start">
+                  <div class="flex-shrink-0">
+                    <div class="user-avatar" [class.bg-light-primary]="notification.read" [class.bg-light-success]="!notification.read">
+                      <i class="d-flex" antIcon theme="outline" [type]="getNotificationIcon(notification.type)"></i>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <div class="d-flex justify-content-between align-items-start gap-2">
+                      <p class="mb-1" [class.fw-semibold]="!notification.read">{{ notification.title }}</p>
+                      <span class="text-muted small flex-shrink-0">{{ formatRelativeTime(notification.createdAt) }}</span>
+                    </div>
+                    <p class="text-muted small mb-0">{{ notification.message }}</p>
+                  </div>
+                  @if (getNotificationRoute(notification)) {
+                    <i antIcon type="right" theme="outline" class="notification-page-chevron align-self-center flex-shrink-0 ms-2"></i>
+                  }
+                  <div class="flex-shrink-0 ms-3 d-flex gap-1" (click)="$event.stopPropagation()">
+                    @if (!notification.read) {
+                      <button
+                        type="button"
+                        class="btn-icon"
+                        [attr.aria-label]="'notifications.page.markAsReadAria' | translate: { title: notification.title }"
+                        [disabled]="isMarkingRead(notification)"
+                        (click)="onMarkAsRead(notification)"
+                      >
+                        <i antIcon type="check" theme="outline"></i>
+                      </button>
+                    }
+                    <button
+                      type="button"
+                      class="btn-icon text-danger"
+                      [attr.aria-label]="'notifications.page.deleteAria' | translate: { title: notification.title }"
+                      (click)="openDeleteModal(notification)"
+                    >
+                      <i antIcon type="delete" theme="outline"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mt-3">
+            <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                {{ 'common.previous' | translate }}
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                {{ 'common.next' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<app-delete-confirmation-modal
+  [open]="deleteModalOpen"
+  title="notifications.page.deleteTitle"
+  description="common.actionCannotBeUndone"
+  [loading]="deleteLoading"
+  (closed)="onDeleteModalClosed()"
+  (confirmed)="confirmDelete()"
+/>

@@ -1,0 +1,23 @@
+.icon-xs {
+  width: $icon-size-xs;
+  height: $icon-size-xs;
+  line-height: $icon-size-xs;
+}
+.icon-md {
+  width: $icon-size-md;
+  height: $icon-size-md;
+  line-height: $icon-size-md;
+}
+.icon-xl {
+  width: $icon-size-xl;
+  height: $icon-size-xl;
+  line-height: $icon-size-xl;
+}
+
+.icon-shape {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}

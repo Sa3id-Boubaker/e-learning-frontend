@@ -1,0 +1,86 @@
+@if (!accessChecked) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (!isStudent) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-0">{{ 'common.noAccessToPage' | translate }}</p>
+  </div>
+} @else {
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <h3 class="mb-0">{{ 'trainings.myTrainings.pageTitle' | translate }}</h3>
+    </div>
+  </div>
+
+  <div #gridContainer>
+    @if (loading) {
+      <div class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+        </div>
+      </div>
+    } @else if (loadError) {
+      <div class="text-center py-5">
+        <p class="text-danger mb-3">{{ loadError }}</p>
+        <button type="button" class="btn btn-primary" (click)="loadTrainings()">{{ 'common.retry' | translate }}</button>
+      </div>
+    } @else if (trainings.length === 0) {
+      <div class="text-center py-5">
+        <p class="text-muted mb-3">{{ 'trainings.myTrainings.noneEnrolledYet' | translate }}</p>
+        <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.myTrainings.browseTrainings' | translate }}</a>
+      </div>
+    } @else {
+      <div class="row">
+        @for (training of trainings; track training.enrollmentId) {
+          <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card training-card h-100">
+              @if (training.status === 'REVOKED') {
+                <span class="badge bg-light-danger text-danger training-card-status-badge">{{
+                  getTrainingEnrollmentStatusLabel(training.status) | translate
+                }}</span>
+              }
+              <div class="card-body d-flex flex-column">
+                <div class="training-card-icon">
+                  @if (training.trainingImage) {
+                    <img [src]="training.trainingImage" [alt]="training.trainingTitle" />
+                  } @else {
+                    <i antIcon type="picture" theme="outline"></i>
+                  }
+                </div>
+
+                <h5 class="mt-3 mb-2">{{ training.trainingTitle }}</h5>
+
+                <span class="text-muted small d-block mb-3">
+                  {{ formatSessionDate(training.startDate) }} – {{ formatSessionDate(training.endDate) }}
+                </span>
+
+                <div class="d-flex align-items-center justify-content-between mt-auto">
+                  <span class="fw-semibold">{{ training.amountAtEnrollment | currencyDt }}</span>
+                  <button type="button" class="btn btn-primary btn-sm" (click)="openTraining(training)">
+                    {{ 'trainings.myTrainings.viewTraining' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+        <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+            {{ 'common.previous' | translate }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+            {{ 'common.next' | translate }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,59 @@
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <h3 class="mb-1">{{ 'calendar.view.pageTitle' | translate }}</h3>
+    <p class="text-muted mb-0">{{ 'calendar.view.pageSubtitle' | translate }}</p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <app-card [cardTitle]="'calendar.view.cardTitle' | translate">
+      <div class="row g-2 mb-3">
+        @if (showTrainingFilter) {
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label small text-muted mb-1" for="calendarTrainingFilter">{{ 'trainings.list.pageTitle' | translate }}</label>
+            <select id="calendarTrainingFilter" class="form-select form-select-sm" [formControl]="trainingFilterControl">
+              <option value="">{{ 'trainings.enrollmentManagement.allTrainings' | translate }}</option>
+              @for (training of trainings; track training.id) {
+                <option [value]="training.id">{{ training.title }}</option>
+              }
+            </select>
+          </div>
+        }
+        @if (showStatusFilter) {
+          <div class="col-sm-6 col-md-4">
+            <label class="form-label small text-muted mb-1" for="calendarStatusFilter">{{ 'courses.enrollmentManagement.statusLabel' | translate }}</label>
+            <select id="calendarStatusFilter" class="form-select form-select-sm" [formControl]="statusFilterControl">
+              <option value="">{{ 'courses.enrollmentManagement.allStatuses' | translate }}</option>
+              @for (option of statusOptions; track option) {
+                <option [value]="option">{{ getLiveSessionStatusLabel(option) | translate }}</option>
+              }
+            </select>
+          </div>
+        }
+        @if (loadingEvents) {
+          <div class="col-auto d-flex align-items-end pb-1">
+            <span class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+            </span>
+          </div>
+        }
+      </div>
+
+      @if (loadError) {
+        <div class="alert alert-danger py-2 small" role="alert">{{ loadError }}</div>
+      }
+
+      <full-calendar [options]="calendarOptions" />
+    </app-card>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="d-flex flex-column gap-4">
+      <app-today-sessions-widget />
+      <app-upcoming-sessions-widget />
+    </div>
+  </div>
+</div>
+
+<app-calendar-event-modal [open]="eventModalOpen" [event]="selectedEvent" (closed)="onModalClosed()" />

@@ -1,0 +1,41 @@
+<app-card
+  [cardTitle]="
+    (events.length > 0 ? 'calendar.upcomingWidget.titleWithCount' : 'calendar.upcomingWidget.title')
+      | translate: { count: events.length }
+  "
+>
+  @if (loading) {
+    <div class="d-flex justify-content-center py-3">
+      <div class="spinner-border spinner-border-sm text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+    </div>
+  } @else if (loadError) {
+    <div class="text-center py-3">
+      <p class="text-danger small mb-2">{{ loadError }}</p>
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="loadEvents()">{{ 'common.retry' | translate }}</button>
+    </div>
+  } @else if (events.length === 0) {
+    <div class="text-center text-muted small py-3">{{ 'calendar.upcomingWidget.none' | translate }}</div>
+  } @else {
+    <div class="list-group list-group-flush">
+      @for (event of events; track event.id) {
+        <button type="button" class="list-group-item list-group-item-action calendar-widget-row d-flex align-items-start gap-3" (click)="openEvent(event)">
+          <span class="calendar-widget-icon" [ngClass]="getLiveSessionStatusBadgeClass(event.status)">
+            <i antIcon type="video-camera" theme="outline"></i>
+          </span>
+          <span class="flex-grow-1 min-w-0">
+            <span class="fw-semibold d-block text-truncate">{{ event.sessionTitle }}</span>
+            <span class="text-muted small d-block text-truncate">{{ event.trainingTitle }}</span>
+            <span class="calendar-widget-time text-muted small d-flex align-items-center gap-1 mt-1">
+              <i antIcon type="clock-circle" theme="outline"></i>
+              {{ formatSessionDateTime(event.startAt) }}
+            </span>
+          </span>
+        </button>
+      }
+    </div>
+  }
+</app-card>
+
+<app-calendar-event-modal [open]="modalOpen" [event]="selectedEvent" (closed)="onModalClosed()" />

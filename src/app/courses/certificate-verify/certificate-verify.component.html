@@ -1,0 +1,46 @@
+<div class="certificate-verify-page">
+  <div class="certificate-verify-container">
+    @if (loading) {
+      <div class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+        </div>
+      </div>
+    } @else if (loadError) {
+      <div class="card">
+        <div class="card-body text-center py-5">
+          <p class="text-danger mb-3">{{ loadError }}</p>
+          <button type="button" class="btn btn-primary" (click)="loadCertificate()">{{ 'common.retry' | translate }}</button>
+        </div>
+      </div>
+    } @else if (notFound) {
+      <div class="card">
+        <div class="card-body text-center py-5">
+          <i antIcon type="close-circle" theme="outline" class="certificate-verify-not-found-icon"></i>
+          <h5 class="mt-3 mb-2">{{ 'courses.certificateVerify.notFoundTitle' | translate }}</h5>
+          <p class="text-muted mb-0">{{ 'courses.certificateVerify.notFoundBody' | translate }}</p>
+        </div>
+      </div>
+    } @else if (certificate) {
+      <div class="d-flex justify-content-end mb-3 d-print-none">
+        <button type="button" class="btn btn-primary" [disabled]="generatingPdf" (click)="downloadPdf()">
+          @if (generatingPdf) {
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            {{ 'courses.quizTaking.generating' | translate }}
+          } @else {
+            <i antIcon type="file-pdf" theme="outline" class="me-1"></i>
+            {{ 'courses.certificateView.downloadPdf' | translate }}
+          }
+        </button>
+      </div>
+
+      <div class="certificate-verify-banner">
+        <i antIcon type="check-circle" theme="outline"></i>
+        {{ 'courses.certificateVerify.verified' | translate }}
+      </div>
+      <div #certificateCapture>
+        <app-certificate-card [certificate]="certificate" />
+      </div>
+    }
+  </div>
+</div>

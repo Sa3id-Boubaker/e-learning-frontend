@@ -1,0 +1,9 @@
+<h5 class="mb-3 mt-2">{{ 'dashboard.admin.incomeOverview' | translate }}</h5>
+<app-card [showHeader]="false">
+  <h6 class="mb-2 f-w-400 text-muted">{{ 'dashboard.admin.totalRevenueLast7Days' | translate }}</h6>
+  <h3 class="mb-3">{{ totalLabel }}</h3>
+  <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [plotOptions]="chartOptions.plotOptions!"
+    [dataLabels]="chartOptions.dataLabels!" [xaxis]="chartOptions.xaxis!" [colors]="chartOptions.colors!"
+    [stroke]="chartOptions.stroke!" [yaxis]="chartOptions.yaxis!" [grid]="chartOptions.grid!"
+    [tooltip]="chartOptions.tooltip!" />
+</app-card>

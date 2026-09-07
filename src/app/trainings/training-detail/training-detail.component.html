@@ -1,0 +1,266 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'trainings.detail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (accessDenied) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.accessDeniedBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadTraining()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (training) {
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center gy-4">
+            <div class="col-12 col-lg-8">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                  <h3 class="fw-bold mb-0">{{ training.title }}</h3>
+                  @if (currentUser$ | async; as currentUser) {
+                    @if (currentUser.role !== 'ETUDIANT') {
+                      <span class="badge" [ngClass]="getTrainingStatusBadgeClass(training.status)">{{
+                        getTrainingStatusLabel(training.status) | translate
+                      }}</span>
+                    }
+                  }
+                </div>
+                @if (currentUser$ | async; as currentUser) {
+                  @if (canManage(currentUser)) {
+                    <div class="d-flex gap-2 flex-shrink-0">
+                      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="openImagePicker()" [disabled]="replacingImage">
+                        @if (replacingImage) {
+                          <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                        } @else {
+                          <i antIcon type="camera" theme="outline" class="me-1"></i>
+                        }
+                        {{ 'trainings.detail.replaceImage' | translate }}
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="openEditPage()">
+                        <i antIcon type="edit" theme="outline" class="me-1"></i>
+                        {{ 'common.edit' | translate }}
+                      </button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="openDeleteModal()">
+                        <i antIcon type="delete" theme="outline" class="me-1"></i>
+                        {{ 'common.delete' | translate }}
+                      </button>
+                      <input
+                        #imageInput
+                        type="file"
+                        accept="image/jpeg,image/png,image/gif,image/webp"
+                        hidden
+                        (change)="onImageFileInputChange($event)"
+                      />
+                    </div>
+                  }
+                }
+              </div>
+
+              @if (imageError) {
+                <div class="text-danger small mt-2">{{ imageError }}</div>
+              }
+
+              <p class="text-muted mt-3 mb-0">{{ training.description }}</p>
+
+              <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <span class="training-meta-item">
+                  <i antIcon type="calendar" theme="outline"></i>
+                  {{ training.startDate | date: 'mediumDate' }} – {{ training.endDate | date: 'mediumDate' }}
+                </span>
+              </div>
+
+              <div class="mt-3">
+                <app-training-price-display [training]="training" size="large" />
+              </div>
+            </div>
+
+            <div class="col-lg-4 d-none d-lg-flex justify-content-center align-items-center">
+              @if (training.image) {
+                <img [src]="training.image" [alt]="training.title" class="training-hero-image" />
+              } @else {
+                <i antIcon type="picture" theme="outline" class="training-hero-icon"></i>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (sessionsVisible) {
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <app-card
+          [cardTitle]="
+            (enrollmentGateActive
+              ? 'trainings.detail.sessionsAndRecordings'
+              : activeTab === 'sessions'
+                ? 'trainings.detail.liveSessions'
+                : 'trainings.detail.recordings'
+            ) | translate
+          "
+        >
+          <ng-template #headerOptionsTemplate>
+            @if (!enrollmentGateActive && activeTab === 'sessions') {
+              @if (currentUser$ | async; as currentUser) {
+                @if (canManage(currentUser)) {
+                  <button type="button" class="btn btn-primary btn-sm" (click)="openAddSessionPage()">
+                    <i antIcon type="plus" theme="outline" class="me-1"></i>
+                    {{ 'trainings.detail.addSession' | translate }}
+                  </button>
+                }
+              }
+            }
+          </ng-template>
+
+          @if (enrollmentGateActive) {
+            <div class="empty-state">
+              <i antIcon type="lock" theme="outline"></i>
+              <p class="mb-0">{{ 'trainings.detail.enrollmentGateBody' | translate }}</p>
+            </div>
+          } @else {
+            <ul class="nav nav-tabs mb-3">
+              <li class="nav-item">
+                <button type="button" class="nav-link" [class.active]="activeTab === 'sessions'" (click)="switchTab('sessions')">
+                  {{
+                    (sessions.length > 0 ? 'trainings.detail.sessionsTabWithCount' : 'trainings.detail.sessionsTab')
+                      | translate: { count: sessions.length }
+                  }}
+                </button>
+              </li>
+              <li class="nav-item">
+                <button type="button" class="nav-link" [class.active]="activeTab === 'recordings'" (click)="switchTab('recordings')">
+                  {{ 'trainings.detail.recordings' | translate }}
+                </button>
+              </li>
+            </ul>
+
+            @if (sessionsLoading) {
+            <div class="d-flex justify-content-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+              </div>
+            </div>
+          } @else if (activeTab === 'sessions') {
+            @if (sessions.length === 0) {
+              <div class="text-center text-muted py-4">{{ 'trainings.detail.noSessionsYet' | translate }}</div>
+            } @else {
+              <div class="list-group list-group-flush">
+                @for (session of sessions; track session.id) {
+                  <div class="list-group-item training-session-row">
+                    @if (currentUser$ | async; as currentUser) {
+                      <div class="d-flex justify-content-between align-items-start gap-2">
+                        <div>
+                          <div class="d-flex align-items-center gap-2">
+                            <span class="fw-semibold">{{ session.title }}</span>
+                            <span class="badge" [ngClass]="getLiveSessionStatusBadgeClass(session.status)">{{
+                              getLiveSessionStatusLabel(session.status) | translate
+                            }}</span>
+                          </div>
+                          <p class="text-muted small mb-1 mt-1">{{ session.description }}</p>
+                          <span class="training-meta-item">
+                            <i antIcon type="calendar" theme="outline"></i>
+                            {{ formatSessionDateTime(session.startAt) }} – {{ formatSessionDateTime(session.endAt) }}
+                          </span>
+                          @if (isJoinableLiveSessionStatus(session.status)) {
+                            @if (session.meetingUrl) {
+                              <a [href]="session.meetingUrl" target="_blank" rel="noopener" class="training-session-link ms-3">
+                                <i antIcon type="video-camera" theme="outline" class="me-1"></i>
+                                {{ 'trainings.detail.joinMeeting' | translate }}
+                              </a>
+                            } @else {
+                              <span class="training-session-link-placeholder text-muted ms-3">
+                                <i antIcon type="video-camera" theme="outline" class="me-1"></i>
+                                {{ 'trainings.detail.meetingLinkUnavailable' | translate }}
+                              </span>
+                            }
+                          }
+                        </div>
+                        @if (canManage(currentUser)) {
+                          <div class="d-flex gap-1 flex-shrink-0">
+                            <button
+                              type="button"
+                              class="btn-icon"
+                              [attr.aria-label]="'courses.chapterItem.editAria' | translate: { title: session.title }"
+                              (click)="openEditSessionPage(session)"
+                            >
+                              <i antIcon type="edit" theme="outline"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-icon text-danger"
+                              [attr.aria-label]="'courses.chapterItem.deleteAria' | translate: { title: session.title }"
+                              (click)="openSessionDeleteModal(session)"
+                            >
+                              <i antIcon type="delete" theme="outline"></i>
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          } @else {
+            @if (recordingsTabEmpty) {
+              <div class="empty-state">
+                <i antIcon type="folder-open" theme="outline"></i>
+                <p class="mb-0">{{ 'trainings.detail.noRecordingsYet' | translate }}</p>
+              </div>
+            }
+
+            @if (currentUser$ | async; as currentUser) {
+              <div class="list-group list-group-flush" [class.d-none]="recordingsTabEmpty">
+                @for (session of sessions; track session.id) {
+                  <app-recording-section
+                    [session]="session"
+                    [canManage]="canManage(currentUser)"
+                    (resolved)="onRecordingSectionResolved(session.id, $event)"
+                  />
+                }
+              </div>
+            }
+          }
+          }
+        </app-card>
+      </div>
+    </div>
+  }
+
+  <app-delete-confirmation-modal
+    [open]="deleteModalOpen"
+    [title]="'trainings.list.deleteTitleNamed' | translate: { title: training.title }"
+    description="common.actionCannotBeUndone"
+    [loading]="deleteLoading"
+    (closed)="onDeleteModalClosed()"
+    (confirmed)="confirmDelete()"
+  />
+
+  <app-delete-confirmation-modal
+    [open]="sessionDeleteModalOpen"
+    [title]="
+      sessionPendingDelete
+        ? ('trainings.detail.deleteSessionTitleNamed' | translate: { title: sessionPendingDelete.title })
+        : ('trainings.detail.deleteSessionTitleGeneric' | translate)
+    "
+    description="common.actionCannotBeUndone"
+    [loading]="sessionDeleteLoading"
+    (closed)="onSessionDeleteModalClosed()"
+    (confirmed)="confirmDeleteSession()"
+  />
+}

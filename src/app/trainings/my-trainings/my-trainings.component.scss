@@ -1,0 +1,29 @@
+.training-card {
+  position: relative;
+}
+
+.training-card-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bs-border-radius);
+  background: var(--bs-light);
+  color: var(--bs-secondary-color);
+  font-size: 28px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.training-card-status-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+}

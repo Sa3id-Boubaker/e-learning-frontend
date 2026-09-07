@@ -1,0 +1,24 @@
+<div class="d-flex flex-column gap-2">
+  <a [href]="mailtoLink" class="btn btn-outline-secondary btn-sm w-100 d-flex align-items-center justify-content-center gap-2">
+    <i antIcon type="mail" theme="outline"></i>
+    {{ 'courses.adminContact.emailUs' | translate }}
+  </a>
+  <a
+    [href]="whatsappLink"
+    target="_blank"
+    rel="noopener"
+    class="btn btn-outline-secondary btn-sm w-100 d-flex align-items-center justify-content-center gap-2"
+  >
+    <i antIcon type="whats-app" theme="outline"></i>
+    {{ 'courses.adminContact.whatsapp' | translate }}
+  </a>
+  <a
+    [href]="facebookLink"
+    target="_blank"
+    rel="noopener"
+    class="btn btn-outline-secondary btn-sm w-100 d-flex align-items-center justify-content-center gap-2"
+  >
+    <i antIcon type="facebook" theme="outline"></i>
+    {{ 'courses.adminContact.facebookPage' | translate }}
+  </a>
+</div>

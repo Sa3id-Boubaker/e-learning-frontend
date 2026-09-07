@@ -1,0 +1,246 @@
+@if (!accessChecked || (mode === 'edit' && loading)) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (mode === 'edit' && notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'trainings.detail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (mode === 'edit' && accessDenied) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.accessDeniedBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (mode === 'edit' && loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadTraining()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (!canAccessForm) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'common.noAccessToPage' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else {
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="pageTitle">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          @if (mode === 'create') {
+            <div class="mb-3">
+              <label class="form-label">{{ 'trainings.form.imageLabel' | translate }}</label>
+              <div
+                class="training-form-image-zone"
+                role="button"
+                tabindex="0"
+                [class.drag-over]="dragOver"
+                (click)="fileInput.click()"
+                (keyup.enter)="fileInput.click()"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)"
+              >
+                @if (imagePreviewUrl) {
+                  <img [src]="imagePreviewUrl" [alt]="'trainings.form.imagePreviewAlt' | translate" class="training-form-image-preview" />
+                } @else {
+                  <div class="training-form-image-placeholder">
+                    <i antIcon type="inbox" theme="outline"></i>
+                    <span>{{ 'courses.formModal.dragDropPrompt' | translate }}</span>
+                    <span class="text-muted small">{{ 'courses.formModal.imageFormatsHint' | translate }}</span>
+                  </div>
+                }
+              </div>
+              <input #fileInput type="file" accept="image/jpeg,image/png,image/gif,image/webp" hidden (change)="onFileInputChange($event)" />
+              @if (imageError) {
+                <div class="text-danger small mt-2">{{ imageError }}</div>
+              }
+            </div>
+          }
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="trainingTitle">{{ 'courses.formModal.titleLabel' | translate }}</label>
+            <input type="text" class="form-control" id="trainingTitle" formControlName="title" [class.is-invalid]="controlInvalid('title')" />
+            @if (controlInvalid('title')) {
+              <div class="invalid-feedback d-block">{{ messageFor('title') }}</div>
+            }
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="trainingDescription">{{ 'courses.formModal.descriptionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="trainingDescription"
+              rows="4"
+              formControlName="description"
+              [class.is-invalid]="controlInvalid('description')"
+            ></textarea>
+            @if (controlInvalid('description')) {
+              <div class="invalid-feedback d-block">{{ messageFor('description') }}</div>
+            }
+          </div>
+
+          @if (isAdmin) {
+            <div class="form-group mb-3">
+              <label class="form-label" for="trainingInstructorSelect">
+                {{ (instructorRequired ? 'trainings.form.instructorRequiredLabel' : 'trainings.form.instructorOptionalLabel') | translate }}
+              </label>
+              <select
+                id="trainingInstructorSelect"
+                class="form-select"
+                [formControl]="instructorControl"
+                [class.is-invalid]="!!instructorError"
+              >
+                <option value="">{{
+                  (trainersLoading
+                    ? 'common.loading'
+                    : mode === 'create'
+                      ? 'trainings.form.selectFormateur'
+                      : 'trainings.form.keepCurrentInstructor'
+                  ) | translate
+                }}</option>
+                @for (trainer of trainers; track trainer.id) {
+                  <option [value]="trainer.id">{{ trainer.firstName }} {{ trainer.lastName }} ({{ trainer.email }})</option>
+                }
+              </select>
+              @if (instructorError) {
+                <div class="text-danger small mt-1">{{ instructorError }}</div>
+              }
+            </div>
+          }
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="trainingPrice">{{ 'courses.formModal.priceLabel' | translate }}</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control"
+                    id="trainingPrice"
+                    formControlName="price"
+                    [class.is-invalid]="controlInvalid('price')"
+                  />
+                  <span class="input-group-text">{{ 'common.currency' | translate }}</span>
+                </div>
+                @if (controlInvalid('price')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('price') }}</div>
+                }
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="trainingDiscount">{{ 'trainings.form.discountLabel' | translate }}</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    class="form-control"
+                    id="trainingDiscount"
+                    formControlName="discountPercentage"
+                    [class.is-invalid]="controlInvalid('discountPercentage')"
+                  />
+                  <span class="input-group-text">%</span>
+                </div>
+                @if (controlInvalid('discountPercentage')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('discountPercentage') }}</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="trainingStartDate">{{ 'trainings.form.startDateLabel' | translate }}</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="trainingStartDate"
+                  formControlName="startDate"
+                  [class.is-invalid]="controlInvalid('startDate')"
+                />
+                @if (controlInvalid('startDate')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('startDate') }}</div>
+                }
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="trainingEndDate">{{ 'trainings.form.endDateLabel' | translate }}</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="trainingEndDate"
+                  formControlName="endDate"
+                  [class.is-invalid]="controlInvalid('endDate') || dateRangeInvalid"
+                />
+                @if (controlInvalid('endDate')) {
+                  <div class="invalid-feedback d-block">{{ messageFor('endDate') }}</div>
+                } @else if (dateRangeInvalid) {
+                  <div class="invalid-feedback d-block">{{ 'trainings.form.endDateAfterStart' | translate }}</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          @if (mode === 'create') {
+            <div class="form-group mb-3">
+              <label class="form-label" for="trainingStatus">{{ 'courses.enrollmentManagement.statusLabel' | translate }}</label>
+              <select class="form-select" id="trainingStatus" formControlName="status">
+                @for (option of createStatusOptions; track option) {
+                  <option [value]="option">{{ getTrainingStatusLabel(option) | translate }}</option>
+                }
+              </select>
+            </div>
+          } @else {
+            <div class="form-group mb-3">
+              <label class="form-label d-block">{{ 'courses.enrollmentManagement.statusLabel' | translate }}</label>
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span class="badge" [ngClass]="getTrainingStatusBadgeClass(form.controls.status.value)">{{
+                  getTrainingStatusLabel(form.controls.status.value) | translate
+                }}</span>
+                @if (form.controls.status.value === 'DRAFT') {
+                  <button type="button" class="btn btn-outline-success btn-sm" (click)="publishTraining()">
+                    {{ 'trainings.form.publish' | translate }}
+                  </button>
+                } @else if (form.controls.status.value !== 'CANCELLED') {
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelTraining()">
+                    {{ 'trainings.form.cancelTraining' | translate }}
+                  </button>
+                }
+              </div>
+              <div class="form-text mb-0">{{ 'trainings.form.statusHint' | translate }}</div>
+            </div>
+          }
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <a [routerLink]="[backUrl]" class="btn btn-outline-secondary" [class.disabled]="saving">{{ 'common.cancel' | translate }}</a>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="saving || form.invalid || form.hasError('dateRange') || (mode === 'edit' && !hasChanges)"
+            >
+              {{
+                (saving ? 'common.saving' : mode === 'create' ? 'trainings.form.createTraining' : 'common.saveChanges') | translate
+              }}
+            </button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+}

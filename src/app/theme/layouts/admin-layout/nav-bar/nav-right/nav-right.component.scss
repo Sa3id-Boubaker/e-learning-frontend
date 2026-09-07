@@ -1,0 +1,11 @@
+.user-avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background: rgba(var(--bs-primary-rgb), 0.12);
+  color: var(--bs-primary);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}

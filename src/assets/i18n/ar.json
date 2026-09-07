@@ -1,0 +1,1173 @@
+{
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "retry": "إعادة المحاولة",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال",
+    "search": "بحث",
+    "yes": "نعم",
+    "no": "لا",
+    "previous": "السابق",
+    "searching": "جارٍ البحث...",
+    "deleting": "جارٍ الحذف...",
+    "deleteThisItem": "حذف هذا العنصر؟",
+    "actionCannotBeUndone": "لا يمكن التراجع عن هذا الإجراء.",
+    "saving": "جارٍ الحفظ...",
+    "saveChanges": "حفظ التغييرات",
+    "accessDenied": "الوصول مرفوض",
+    "noAccessToPage": "ليس لديك صلاحية الوصول إلى هذه الصفحة.",
+    "currency": "دينار"
+  },
+  "nav": {
+    "toggleMenu": "طي/توسيع القائمة",
+    "groups": {
+      "navigation": "التنقل",
+      "courses": "الدورات",
+      "trainings": "التدريبات",
+      "forum": "المنتدى",
+      "administration": "الإدارة"
+    },
+    "items": {
+      "home": "الرئيسية",
+      "dashboard": "لوحة التحكم",
+      "myPerformance": "أدائي",
+      "browseCourses": "تصفح الدورات",
+      "myCourses": "دوراتي",
+      "myCertificates": "شهاداتي",
+      "manageCourses": "إدارة الدورات",
+      "trainings": "التدريبات",
+      "myTrainings": "تدريباتي",
+      "calendar": "التقويم",
+      "discussionForums": "منتديات النقاش",
+      "users": "المستخدمون",
+      "courseEnrollments": "تسجيلات الدورات",
+      "trainingEnrollments": "تسجيلات التدريبات",
+      "certificates": "الشهادات"
+    },
+    "header": {
+      "myCourses": "دوراتي",
+      "manageCourses": "إدارة الدورات",
+      "manageUsers": "إدارة المستخدمين",
+      "myAccount": "حسابي",
+      "profileTab": "الملف الشخصي",
+      "settingTab": "الإعدادات",
+      "loggedOutMessage": "لقد تم تسجيل خروجك.",
+      "roles": {
+        "admin": "مسؤول"
+      },
+      "viewProfile": "عرض الملف الشخصي",
+      "userAvatarAlt": "صورة المستخدم الرمزية",
+      "profile": {
+        "myProfile": "ملفي الشخصي",
+        "logout": "تسجيل الخروج"
+      },
+      "settings": {
+        "support": "الدعم",
+        "accountSettings": "إعدادات الحساب",
+        "privacyCenter": "مركز الخصوصية",
+        "feedback": "الملاحظات",
+        "history": "السجل",
+        "language": "اللغة"
+      }
+    },
+    "supportModal": {
+      "title": "بحاجة إلى مساعدة؟",
+      "body": "تواصل معنا عبر إحدى القنوات أدناه وسنرد عليك في أقرب وقت ممكن."
+    }
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة © Omarise",
+    "home": "الرئيسية",
+    "contactUs": "اتصل بنا"
+  },
+  "auth": {
+    "validation": {
+      "required": "هذا الحقل مطلوب.",
+      "email": "يرجى إدخال بريد إلكتروني صالح.",
+      "minLength8": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل."
+    },
+    "common": {
+      "correctFields": "يرجى تصحيح الحقول المحددة.",
+      "correctField": "يرجى تصحيح الحقل المحدد.",
+      "genericError": "حدث خطأ ما، يرجى المحاولة مرة أخرى.",
+      "footerHome": "الرئيسية",
+      "footerPrivacyPolicy": "سياسة الخصوصية",
+      "footerContactUs": "اتصل بنا"
+    },
+    "signin": {
+      "title": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "emailLabel": "البريد الإلكتروني",
+      "passwordLabel": "كلمة المرور",
+      "keepSignedIn": "إبقني مسجلاً الدخول",
+      "forgotPassword": "هل نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "loading": "جارٍ التحميل...",
+      "orContinueWith": "أو تابع باستخدام",
+      "serverTimeout": "يستغرق الخادم وقتاً طويلاً للاستجابة. يرجى المحاولة مرة أخرى أو التحقق من الخادم.",
+      "incorrectCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+      "notVerified": "لم يتم التحقق من حسابك بعد. جارٍ إعادة التوجيه إلى صفحة التحقق...",
+      "unableToSignIn": "تعذّر تسجيل الدخول في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "signup": {
+      "title": "إنشاء حساب",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "firstNameLabel": "الاسم الأول*",
+      "firstNamePlaceholder": "الاسم الأول",
+      "lastNameLabel": "اسم العائلة*",
+      "lastNamePlaceholder": "اسم العائلة",
+      "phoneLabel": "الهاتف*",
+      "phonePlaceholder": "الهاتف",
+      "emailLabel": "البريد الإلكتروني*",
+      "passwordLabel": "كلمة المرور*",
+      "agreementPrefix": "بإنشائك حساباً، فإنك توافق على",
+      "termsOfService": "شروط الخدمة",
+      "and": "و",
+      "privacyPolicy": "سياسة الخصوصية",
+      "submit": "إنشاء الحساب",
+      "submitting": "جارٍ إنشاء الحساب...",
+      "orContinueWith": "أو تابع باستخدام",
+      "accountCreated": "تم إنشاء الحساب! تحقق من بريدك الإلكتروني للحصول على رمز التحقق.",
+      "serverTimeout": "يستغرق الخادم وقتاً طويلاً للاستجابة. يرجى المحاولة مرة أخرى أو التحقق من الخادم.",
+      "emailTaken": "هذا البريد الإلكتروني مسجل بالفعل.",
+      "unableToCreate": "تعذّر إنشاء الحساب في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "forgotPassword": {
+      "title": "هل نسيت كلمة المرور؟",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل لك رمز تحقق.",
+      "emailLabel": "البريد الإلكتروني",
+      "submit": "إرسال رمز التحقق",
+      "sending": "جارٍ الإرسال...",
+      "backToSignIn": "العودة إلى تسجيل الدخول",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "codeSent": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني، فقد تم إرسال رمز التحقق.",
+      "unableToProcess": "تعذّر معالجة طلبك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "verifyResetCode": {
+      "sessionExpiredTitle": "انتهت صلاحية جلسة إعادة تعيين كلمة المرور",
+      "requestNewCode": "طلب رمز جديد",
+      "title": "تحقق من الرمز",
+      "subtitle": "أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
+      "codeLabel": "رمز مكوّن من 6 أرقام",
+      "submit": "تحقق من الرمز",
+      "verifying": "جارٍ التحقق...",
+      "enterCode": "أدخل الرمز المكوّن من 6 أرقام.",
+      "invalidPattern": "يجب أن يتكون الرمز من 6 أرقام بالضبط.",
+      "codeVerified": "تم التحقق من الرمز. يمكنك الآن إعادة تعيين كلمة المرور.",
+      "sessionExpiredMessage": "انتهت صلاحية جلسة إعادة التعيين أو أنها غير صالحة. يرجى طلب رمز جديد.",
+      "invalidOrExpired": "رمز التحقق غير صالح أو منتهي الصلاحية.",
+      "unableToVerify": "تعذّر التحقق من الرمز في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "resetPassword": {
+      "sessionExpiredTitle": "انتهت صلاحية جلسة إعادة تعيين كلمة المرور",
+      "restart": "إعادة بدء عملية إعادة التعيين",
+      "title": "تعيين كلمة مرور جديدة",
+      "subtitle": "اختر كلمة مرور جديدة لحسابك.",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "show": "إظهار",
+      "hide": "إخفاء",
+      "submit": "إعادة تعيين كلمة المرور",
+      "resetting": "جارٍ إعادة التعيين...",
+      "enterNewPassword": "أدخل كلمة مرور جديدة.",
+      "confirmYourPassword": "يرجى تأكيد كلمة المرور الجديدة.",
+      "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين.",
+      "passwordResetSuccess": "تمت إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+      "sessionExpiredMessage": "انتهت صلاحية جلسة إعادة التعيين أو أنها غير صالحة. يرجى إعادة بدء العملية.",
+      "unableToReset": "تعذّرت إعادة تعيين كلمة المرور في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "verifyEmail": {
+      "sessionExpiredTitle": "انتهت صلاحية جلسة التحقق",
+      "sessionExpiredMessage": "انتهت صلاحية جلسة التحقق.",
+      "sessionExpiredBody": "يرجى العودة إلى صفحة إنشاء الحساب لبدء جلسة تحقق جديدة.",
+      "backToSignUp": "العودة إلى إنشاء الحساب",
+      "title": "تحقق من بريدك الإلكتروني",
+      "subtitle": "أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
+      "codeLabel": "رمز مكوّن من 6 أرقام",
+      "submit": "تحقق من البريد الإلكتروني",
+      "verifying": "جارٍ التحقق...",
+      "enterCode": "أدخل الرمز المكوّن من 6 أرقام.",
+      "invalidPattern": "يجب أن يتكون الرمز من 6 أرقام بالضبط.",
+      "resendPrompt": "لم تستلم الرمز؟ إعادة الإرسال",
+      "resendAvailableIn": "إعادة الإرسال متاحة خلال {{seconds}} ثانية",
+      "resending": "جارٍ الإرسال...",
+      "newCodeSent": "تم إرسال رمز جديد.",
+      "accountVerified": "تم التحقق من الحساب بنجاح. يمكنك الآن تسجيل الدخول.",
+      "alreadyVerified": "تم التحقق من هذا الحساب بالفعل. جارٍ إعادة التوجيه إلى تسجيل الدخول...",
+      "codeExpiredResend": "انتهت صلاحية رمز التحقق هذا. يرجى طلب رمز جديد.",
+      "codeExpiredInline": "انتهت صلاحية رمز التحقق هذا. يرجى إعادة إرسال رمز جديد.",
+      "invalidCode": "الرمز غير صالح. تحقق من الأرقام الستة وحاول مرة أخرى.",
+      "resendTimeout": "انتهت مهلة طلب إعادة الإرسال. تحقق من سجلات الخادم وحاول مرة أخرى.",
+      "unableToVerify": "تعذّر التحقق من الرمز في الوقت الحالي."
+    },
+    "forceChangePassword": {
+      "title": "تعيين كلمة مرور جديدة",
+      "subtitle": "تم إنشاء حسابك من قبل مسؤول. يرجى تعيين كلمة مرور جديدة للمتابعة.",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+      "submit": "تعيين كلمة المرور الجديدة",
+      "saving": "جارٍ الحفظ...",
+      "enterNewPassword": "أدخل كلمة مرور جديدة.",
+      "confirmYourPassword": "يرجى تأكيد كلمة المرور الجديدة.",
+      "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين.",
+      "passwordChanged": "تم تغيير كلمة المرور بنجاح. يمكنك الآن استخدام حسابك.",
+      "unableToChange": "تعذّر تغيير كلمة المرور في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "courses": {
+    "list": {
+      "title": "الدورات",
+      "searchPlaceholder": "البحث عن الدورات حسب العنوان",
+      "loadingCourses": "جارٍ تحميل الدورات...",
+      "noResultsFor": "لا توجد نتائج لـ \"{{term}}\"",
+      "empty": "لا توجد دورات بعد",
+      "draftBadge": "مسودة",
+      "showingRange": "عرض {{start}}–{{end}} من {{total}}",
+      "loadError": "تعذّر تحميل الدورات في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "adminContact": {
+      "emailUs": "راسلنا عبر البريد",
+      "whatsapp": "واتساب",
+      "facebookPage": "صفحة فيسبوك",
+      "whatsappMessageForCourse": "مرحباً، أرغب في التسجيل في دورة '{{title}}'.",
+      "whatsappMessageGeneric": "مرحباً، أرغب في الحصول على معلومات حول دوراتكم."
+    },
+    "chapterItem": {
+      "collapseChapter": "طي الفصل {{title}}",
+      "expandChapter": "توسيع الفصل {{title}}",
+      "editAria": "تعديل {{title}}",
+      "deleteAria": "حذف {{title}}",
+      "addVideo": "إضافة فيديو",
+      "noVideosYet": "لا توجد فيديوهات بعد",
+      "playAria": "تشغيل {{title}}",
+      "videoLockedAria": "{{title}} — مقفل، سجّل للمشاهدة",
+      "lockedAria": "{{title}} مقفل",
+      "completedAria": "{{title}} مكتمل",
+      "deleteVideoTitleNamed": "حذف الفيديو \"{{title}}\"؟",
+      "deleteVideoTitleGeneric": "حذف هذا الفيديو؟",
+      "completedCountOfTotal": "{{completed}}/{{total}} مكتملة • {{duration}}",
+      "videoCountSingular": "{{count}} فيديو • {{duration}}",
+      "videoCountPlural": "{{count}} فيديوهات • {{duration}}",
+      "enrollToWatch": "سجّل في هذه الدورة لمشاهدة هذا الفيديو",
+      "videoDeleted": "تم حذف الفيديو.",
+      "deleteVideoError": "تعذّر حذف هذا الفيديو في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "detail": {
+      "notFoundTitle": "الدورة غير موجودة",
+      "notFoundBody": "ربما تمت إزالة هذه الدورة.",
+      "backToCourses": "العودة إلى الدورات",
+      "createdBy": "أنشأها",
+      "lessonsCount": "{{count}} درساً",
+      "courseCompletedBadge": "تم إكمال الدورة!",
+      "yourProgress": "تقدّمك",
+      "percentComplete": "اكتمل بنسبة {{percent}}%",
+      "chaptersCount": "الفصول ({{count}})",
+      "addChapter": "إضافة فصل",
+      "noChaptersYet": "لا توجد فصول بعد",
+      "quizHeading": "الاختبار",
+      "quizSubtitle": "أنشئ اختبار هذه الدورة وأدره.",
+      "manageQuiz": "إدارة الاختبار",
+      "enrollToUnlock": "سجّل لإلغاء قفل الاختبار والشهادة",
+      "contactAdminBody": "تواصل مع إدارة المنصة لترتيب الدفع والحصول على وصول إلى هذه الدورة.",
+      "viewYourCertificate": "عرض شهادتك",
+      "certificateEarned": "تم الحصول على الشهادة!",
+      "takeQuizAria": "إجراء اختبار الدورة",
+      "takeQuizToEarn": "أجرِ الاختبار للحصول على شهادتك",
+      "allVideosCompleted": "لقد أكملت جميع الفيديوهات — أنت جاهز.",
+      "getYourCertificate": "احصل على شهادة دورتك",
+      "completeAllVideosBody": "أكمل جميع الفيديوهات واجتز الاختبار للحصول على شهادتك.",
+      "deleteCourseTitle": "حذف {{title}}؟",
+      "deleteChapterTitleNamed": "حذف الفصل \"{{title}}\"؟",
+      "deleteChapterTitleGeneric": "حذف هذا الفصل؟",
+      "loadError": "تعذّر تحميل هذه الدورة في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "noLongerHaveAccess": "لم يعد لديك وصول إلى هذه الدورة",
+      "loadChaptersError": "تعذّر تحميل الفصول في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "courseDeleted": "تم حذف الدورة.",
+      "deleteCourseError": "تعذّر حذف هذه الدورة في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "chapterDeleted": "تم حذف الفصل.",
+      "deleteChapterError": "تعذّر حذف هذا الفصل في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "courseCompletedToast": "🎉 تم إكمال الدورة!"
+    },
+    "formModal": {
+      "addCourseTitle": "إضافة دورة",
+      "editCourseTitle": "تعديل الدورة",
+      "imageLabel": "صورة الدورة (اختياري)",
+      "dragDropPrompt": "اسحب وأفلت صورة، أو انقر للتصفح",
+      "imageFormatsHint": "JPG أو PNG أو GIF أو WEBP، حتى 10 ميغابايت",
+      "imagePreviewAlt": "معاينة صورة الدورة",
+      "titleLabel": "العنوان*",
+      "descriptionLabel": "الوصف*",
+      "categoryLabel": "الفئة*",
+      "priceLabel": "السعر*",
+      "publishedLabel": "منشور",
+      "createCourse": "إنشاء الدورة",
+      "fieldRequired": "هذا الحقل مطلوب.",
+      "priceNegative": "لا يمكن أن يكون السعر سالباً.",
+      "courseCreated": "تم إنشاء الدورة.",
+      "courseUpdated": "تم تحديث الدورة.",
+      "imageUploadFailedButSaved": "تم تحديث بيانات الدورة، لكن تعذّر رفع الصورة — حاول تغيير الصورة مرة أخرى.",
+      "correctFields": "يرجى تصحيح الحقول المحددة.",
+      "saveError": "تعذّر حفظ هذه الدورة في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "discountModal": {
+      "title": "إدارة الخصم",
+      "basePriceLine": "{{title}} — السعر الأساسي {{price}} د.ت",
+      "activeDiscount": "يوجد حالياً خصم بنسبة {{percent}}% (السعر النهائي {{finalPrice}} د.ت).",
+      "newPercentageLabel": "نسبة الخصم الجديدة*",
+      "newPrice": "السعر الجديد:",
+      "removeDiscount": "إزالة الخصم",
+      "removing": "جارٍ الإزالة...",
+      "applyDiscount": "تطبيق الخصم",
+      "applying": "جارٍ التطبيق...",
+      "enterPercentage": "أدخل نسبة الخصم.",
+      "percentageRange": "يجب أن يكون الخصم بين 0 و100.",
+      "discountApplied": "تم تطبيق الخصم.",
+      "discountRemoved": "تمت إزالة الخصم.",
+      "invalidPercentage": "يرجى إدخال نسبة خصم صالحة.",
+      "adminOnly": "يمكن فقط للمسؤول إدارة خصومات الدورات.",
+      "updateError": "تعذّر تحديث الخصم في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "chapterFormModal": {
+      "addTitle": "إضافة فصل",
+      "editTitle": "تعديل الفصل",
+      "descriptionLabel": "الوصف",
+      "orderLabel": "الترتيب*",
+      "orderMin": "يجب أن يكون الترتيب 1 على الأقل.",
+      "chapterAdded": "تمت إضافة الفصل.",
+      "chapterUpdated": "تم تحديث الفصل.",
+      "conflictError": "هذا الفصل أو هذه الدورة لم يعد متاحاً. تم تحديث القائمة.",
+      "saveError": "تعذّر حفظ هذا الفصل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "videoFormModal": {
+      "addTitle": "إضافة فيديو",
+      "editTitle": "تعديل الفيديو",
+      "fileLabel": "ملف الفيديو*",
+      "dragDropPrompt": "اسحب وأفلت فيديو، أو انقر للتصفح",
+      "fileFormatsHint": "MP4 أو WEBM أو MOV، حتى 500 ميغابايت",
+      "uploading": "جارٍ الرفع...",
+      "durationLabel": "المدة",
+      "selectFile": "يرجى اختيار ملف فيديو.",
+      "videoAdded": "تمت إضافة الفيديو.",
+      "videoUpdated": "تم تحديث الفيديو.",
+      "conflictError": "هذا الفيديو أو هذا الفصل لم يعد متاحاً. تم تحديث القائمة.",
+      "saveError": "تعذّر حفظ هذا الفيديو في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "videoPlayerModal": {
+      "videoCompletedToast": "🎉 تم إكمال الفيديو!",
+      "saveProgressError": "تعذّر حفظ تقدّمك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "enrollmentModal": {
+      "newEnrollmentTitle": "تسجيل جديد",
+      "courseLabel": "الدورة",
+      "selectCourse": "اختر دورة",
+      "noCoursesAvailable": "لا توجد دورات متاحة.",
+      "studentLabel": "الطالب",
+      "searchByNameOrEmail": "البحث بالاسم أو البريد الإلكتروني",
+      "noStudentsFound": "لم يتم العثور على طلاب",
+      "studentSelected": "تم اختيار {{name}}",
+      "createEnrollment": "إنشاء التسجيل",
+      "checkStudentAndCourse": "يرجى التحقق من الطالب والدورة المحددين.",
+      "studentOrCourseNotFound": "الطالب أو الدورة غير موجودة.",
+      "createConflict": "تعذّر إنشاء هذا التسجيل في الوقت الحالي.",
+      "serviceUnavailable": "توجد خدمة مطلوبة غير متاحة مؤقتاً. يرجى المحاولة مرة أخرى قريباً.",
+      "activateError": "تعذّر تفعيل الوصول في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "enrollmentStatus": {
+      "active": "نشط",
+      "revoked": "ملغى"
+    },
+    "enrollmentManagement": {
+      "enrollmentsCount": "التسجيلات ({{count}})",
+      "allCourses": "جميع الدورات",
+      "allStatuses": "جميع الحالات",
+      "statusLabel": "الحالة",
+      "amountColumn": "المبلغ",
+      "enrolledColumn": "تاريخ التسجيل",
+      "actionsColumn": "الإجراءات",
+      "noneFound": "لم يتم العثور على تسجيلات",
+      "clearStudentFilter": "مسح فلتر الطالب",
+      "revokeAccessAria": "إلغاء الوصول إلى {{course}}",
+      "revokeTitleNamed": "إلغاء وصول هذا الطالب إلى {{course}}؟",
+      "revokeTitleGeneric": "إلغاء هذا التسجيل؟",
+      "revokeDescription": "سيفقد الوصول إلى محتوى الدورة فوراً.",
+      "revokeConfirmLabel": "إلغاء",
+      "loadError": "تعذّر تحميل التسجيلات في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "accessActivated": "تم تفعيل الوصول لـ {{course}}.",
+      "accessReactivated": "تمت إعادة تفعيل الوصول لـ {{course}}.",
+      "alreadyHasAccess": "لدى هذا الطالب بالفعل وصول نشط إلى هذه الدورة.",
+      "accessRevoked": "تم إلغاء الوصول لـ {{course}}.",
+      "revokeError": "تعذّر إلغاء هذا التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "enrolledStudents": {
+      "backToMyCourses": "العودة إلى دوراتي",
+      "accessDeniedBody": "ليس لديك صلاحية الوصول إلى الطلاب المسجلين في هذه الدورة.",
+      "pageTitle": "{{title}} — الطلاب المسجلون",
+      "cardTitle": "الطلاب المسجلون ({{count}})",
+      "noneEnrolledYet": "لا يوجد طلاب مسجلون بعد",
+      "emailColumn": "البريد الإلكتروني",
+      "activatedColumn": "تاريخ التفعيل",
+      "loadError": "تعذّر تحميل الطلاب المسجلين في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "myCourses": {
+      "pageTitle": "إدارة الدورات",
+      "addCourse": "إضافة دورة",
+      "imageColumn": "الصورة",
+      "titleColumn": "العنوان",
+      "categoryColumn": "الفئة",
+      "priceColumn": "السعر",
+      "published": "منشور",
+      "openAria": "فتح {{title}}",
+      "unpublishAria": "إلغاء نشر {{title}}",
+      "publishAria": "نشر {{title}}",
+      "viewCertificatesAria": "عرض شهادات {{title}}",
+      "manageDiscountAria": "إدارة خصم {{title}}",
+      "viewEnrolledStudentsAria": "عرض الطلاب المسجلين في {{title}}",
+      "deleteTitleNamed": "حذف {{title}}؟",
+      "deleteTitleGeneric": "حذف هذه الدورة؟",
+      "courseDeleted": "تم حذف {{title}}.",
+      "updateStatusError": "تعذّر تحديث الحالة في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "studentLibrary": {
+      "pageTitle": "دوراتي",
+      "noneEnrolledYet": "لم تسجّل بعد في أي دورة",
+      "browseCourses": "تصفح الدورات",
+      "completedBadge": "مكتملة",
+      "reviewCourse": "مراجعة الدورة",
+      "continueCourse": "متابعة الدورة",
+      "loadError": "تعذّر تحميل دوراتك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "quizManagement": {
+      "noQuizYet": "لا يوجد اختبار لهذه الدورة بعد",
+      "createQuiz": "إنشاء اختبار",
+      "passingScore": "درجة النجاح: {{score}}%",
+      "editQuizAria": "تعديل الاختبار",
+      "deleteQuizAria": "حذف الاختبار",
+      "questionsCount": "الأسئلة ({{count}})",
+      "addQuestion": "إضافة سؤال",
+      "noQuestionsYet": "لا توجد أسئلة بعد",
+      "editQuestionAria": "تعديل السؤال {{index}}",
+      "deleteQuestionAria": "حذف السؤال {{index}}",
+      "deleteQuizTitle": "حذف هذا الاختبار؟",
+      "deleteQuizDescription": "سيؤدي هذا إلى حذف الاختبار وجميع أسئلته. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteQuestionTitleNamed": "حذف \"{{text}}\"؟",
+      "deleteQuestionTitleGeneric": "حذف هذا السؤال؟",
+      "quizDeleted": "تم حذف الاختبار.",
+      "deleteQuizError": "تعذّر حذف هذا الاختبار في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "questionDeleted": "تم حذف السؤال.",
+      "deleteQuestionError": "تعذّر حذف هذا السؤال في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "quizFormModal": {
+      "createTitle": "إنشاء اختبار",
+      "editTitle": "تعديل الاختبار",
+      "passingScoreLabel": "درجة النجاح (%)*",
+      "passingScoreRange": "يجب أن تكون درجة النجاح بين 0 و100.",
+      "quizCreated": "تم إنشاء الاختبار.",
+      "quizUpdated": "تم تحديث الاختبار.",
+      "alreadyExists": "يوجد اختبار بالفعل لهذه الدورة.",
+      "saveError": "تعذّر حفظ هذا الاختبار في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "questionFormModal": {
+      "addTitle": "إضافة سؤال",
+      "editTitle": "تعديل السؤال",
+      "questionLabel": "السؤال*",
+      "optionsLabel": "الخيارات*",
+      "optionPlaceholder": "الخيار {{index}}",
+      "optionTextAria": "نص الخيار {{index}}",
+      "removeOptionAria": "إزالة الخيار {{index}}",
+      "addOption": "إضافة خيار",
+      "checkCorrectHint": "ضع علامة في المربع بجانب كل خيار صحيح.",
+      "needAtLeastTwoOptions": "يجب أن يحتوي كل سؤال على خيارين على الأقل.",
+      "needOneCorrectOption": "يجب تحديد خيار واحد على الأقل كخيار صحيح.",
+      "questionAdded": "تمت إضافة السؤال.",
+      "questionUpdated": "تم تحديث السؤال.",
+      "saveError": "تعذّر حفظ هذا السؤال في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "quizPage": {
+      "backToCourse": "العودة إلى {{title}}",
+      "pageTitle": "{{title}} — الاختبار",
+      "quizLocked": "الاختبار مقفل",
+      "quizLockedBody": "أكمل جميع فيديوهات هذه الدورة قبل إجراء الاختبار.",
+      "backToCourseLink": "العودة إلى الدورة",
+      "noQuizAvailable": "لا يوجد اختبار متاح لهذه الدورة بعد.",
+      "loadError": "تعذّر تحميل الاختبار في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "quizTaking": {
+      "loadStatusError": "تعذّر تحميل حالة اختبارك في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "passed": "ناجح!",
+      "passedBadge": "ناجح",
+      "notPassed": "غير ناجح",
+      "notPassedYet": "لم تنجح بعد",
+      "scoreLine": "النتيجة: {{score}}% — درجة النجاح: {{passingScore}}%",
+      "generating": "جارٍ الإنشاء...",
+      "getCertificate": "احصل على شهادتك",
+      "retakeQuiz": "إعادة الاختبار",
+      "questionsLeftSingular": "سؤال واحد متبقٍ للإجابة",
+      "questionsLeftPlural": "{{count}} أسئلة متبقية للإجابة",
+      "submitting": "جارٍ الإرسال...",
+      "submitQuiz": "إرسال الاختبار",
+      "attemptHistory": "سجل المحاولات",
+      "noAttemptsYet": "لا توجد محاولات بعد.",
+      "alreadyPassed": "لقد نجحت بالفعل في هذا الاختبار. إعادة المحاولة غير مسموحة.",
+      "submitError": "تعذّر إرسال إجاباتك في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "certificateError": "تعذّر إنشاء شهادتك في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "historyError": "تعذّر تحميل سجل محاولاتك في الوقت الحالي."
+    },
+    "myCertificates": {
+      "pageTitle": "شهاداتي",
+      "emptyBody": "لم تحصل بعد على أي شهادة — أكمل دورة واجتز اختبارها للبدء",
+      "issuedOn": "أُصدرت في {{date}}",
+      "loadError": "تعذّر تحميل شهاداتك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "certificateView": {
+      "notEarnedTitle": "لم تحصل بعد على هذه الشهادة",
+      "notEarnedBody": "أكمل الدورة واجتز اختبارها لإلغاء قفل شهادتك.",
+      "goToQuiz": "الذهاب إلى الاختبار",
+      "downloadPdf": "تنزيل PDF",
+      "copyVerificationLink": "نسخ رابط التحقق",
+      "linkCopied": "تم نسخ الرابط.",
+      "copyError": "تعذّر نسخ الرابط. يرجى نسخه يدوياً.",
+      "pdfError": "فشل إنشاء ملف PDF، يرجى المحاولة مرة أخرى.",
+      "loadError": "تعذّر تحميل شهادتك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "certificateVerify": {
+      "notFoundTitle": "الشهادة غير موجودة",
+      "notFoundBody": "هذا الرقم لا يطابق أي شهادة صادرة.",
+      "verified": "موثّقة",
+      "loadError": "تعذّر التحقق من هذه الشهادة في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "allCertificates": {
+      "cardTitle": "الشهادات ({{count}})",
+      "noneIssuedYet": "لا توجد شهادات صادرة بعد",
+      "instructorColumn": "المدرّب",
+      "scoreColumn": "الدرجة",
+      "issuedColumn": "تاريخ الإصدار",
+      "certificateNumberColumn": "رقم الشهادة",
+      "loadError": "تعذّر تحميل الشهادات في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "courseCertificates": {
+      "backToCourse": "العودة إلى الدورة",
+      "pageTitle": "{{title}} — الشهادات",
+      "accessDeniedBody": "ليس لديك صلاحية الوصول إلى شهادات هذه الدورة.",
+      "noneIssuedYet": "لا توجد شهادات صادرة بعد لهذه الدورة"
+    }
+  },
+  "trainings": {
+    "list": {
+      "pageTitle": "التدريبات",
+      "createTraining": "إنشاء تدريب",
+      "loadingTrainings": "جارٍ تحميل التدريبات...",
+      "empty": "لا توجد تدريبات بعد",
+      "instructorColumn": "المدرّب",
+      "durationColumn": "المدة",
+      "startDateColumn": "تاريخ البدء",
+      "durationDays": "{{count}} أيام",
+      "buy": "شراء",
+      "deleteTitleNamed": "حذف {{title}}؟",
+      "deleteTitleGeneric": "حذف هذا التدريب؟",
+      "checkingImpact": "جارٍ التحقق من التأثير...",
+      "liveSessionSingular": "{{count}} جلسة مباشرة",
+      "liveSessionPlural": "{{count}} جلسات مباشرة",
+      "recordingSingular": "{{count}} تسجيل",
+      "recordingPlural": "{{count}} تسجيلات",
+      "activeSuffix": " ({{count}} نشطة)",
+      "enrollmentSingular": "{{count}} تسجيل التحاق{{activeSuffix}}",
+      "enrollmentPlural": "{{count}} تسجيلات التحاق{{activeSuffix}}",
+      "andJoiner": "و",
+      "deletionImpactBody": "يحتوي هذا التدريب على {{parts}}. سيؤدي حذفه إلى إزالة كل ذلك نهائياً — لا يمكن التراجع عن هذا الإجراء.",
+      "loadError": "تعذّر تحميل التدريبات في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "trainingDeleted": "تم حذف {{title}}.",
+      "deleteError": "تعذّر حذف هذا التدريب في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "purchaseModal": {
+      "title": "شراء هذا التدريب",
+      "body": "تتم إدارة الدفع يدوياً من قبل الإدارة. تواصل معنا عبر إحدى القنوات أدناه لإتمام تسجيلك في هذا التدريب."
+    },
+    "myTrainings": {
+      "pageTitle": "تدريباتي",
+      "noneEnrolledYet": "لست مسجلاً في أي تدريب بعد",
+      "browseTrainings": "تصفح التدريبات",
+      "viewTraining": "عرض التدريب",
+      "loadError": "تعذّر تحميل تدريباتك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "status": {
+      "draft": "مسودة",
+      "published": "منشور",
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "cancelled": "ملغى"
+    },
+    "liveSessionStatus": {
+      "scheduled": "مجدولة",
+      "live": "مباشرة"
+    },
+    "detail": {
+      "notFoundTitle": "التدريب غير موجود",
+      "notFoundBody": "ربما تمت إزالة هذا التدريب.",
+      "backToTrainings": "العودة إلى التدريبات",
+      "accessDeniedBody": "ليس لديك صلاحية الوصول إلى هذا التدريب.",
+      "replaceImage": "استبدال الصورة",
+      "sessionsAndRecordings": "الجلسات والتسجيلات",
+      "liveSessions": "الجلسات المباشرة",
+      "recordings": "التسجيلات",
+      "addSession": "إضافة جلسة",
+      "enrollmentGateBody": "يجب أن تكون مسجلاً في هذا التدريب للوصول إلى جلساته وتسجيلاته.",
+      "sessionsTab": "الجلسات",
+      "sessionsTabWithCount": "الجلسات ({{count}})",
+      "noSessionsYet": "لا توجد جلسات مباشرة بعد",
+      "joinMeeting": "الانضمام إلى الاجتماع",
+      "meetingLinkUnavailable": "رابط الاجتماع غير متاح بعد",
+      "noRecordingsYet": "لا توجد تسجيلات بعد",
+      "deleteSessionTitleNamed": "حذف {{title}}؟",
+      "deleteSessionTitleGeneric": "حذف هذه الجلسة؟",
+      "loadError": "تعذّر تحميل هذا التدريب في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "imageUpdated": "تم تحديث صورة التدريب.",
+      "imageUpdateError": "تعذّر تحديث الصورة في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "sessionDeleted": "تم حذف {{title}}.",
+      "deleteSessionError": "تعذّر حذف هذه الجلسة في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "recordingSection": {
+      "loadingRecording": "جارٍ تحميل التسجيل...",
+      "durationLabel": "المدة: {{duration}}",
+      "editAria": "تعديل التسجيل",
+      "replaceAria": "استبدال الفيديو",
+      "deleteAria": "حذف التسجيل",
+      "uploadRecording": "رفع تسجيل",
+      "deleteTitle": "حذف هذا التسجيل؟",
+      "enrollToWatch": "يجب أن تكون مسجلاً في هذا التدريب لمشاهدة هذا التسجيل.",
+      "loadError": "تعذّر تحميل التسجيل في الوقت الحالي.",
+      "recordingDeleted": "تم حذف التسجيل.",
+      "deleteError": "تعذّر حذف هذا التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "videoReplaced": "تم استبدال الفيديو.",
+      "recordingUploaded": "تم رفع التسجيل.",
+      "uploadError": "تعذّر رفع هذا التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "recordingMetadataForm": {
+      "editTitle": "تعديل التسجيل",
+      "recordingUpdated": "تم تحديث التسجيل.",
+      "saveError": "تعذّر حفظ هذا التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "liveSessionForm": {
+      "addTitle": "إضافة جلسة مباشرة",
+      "editTitle": "تعديل الجلسة المباشرة",
+      "sessionNotFound": "الجلسة غير موجودة",
+      "mayHaveBeenRemoved": "ربما تمت إزالة هذا العنصر.",
+      "backToTraining": "العودة إلى التدريب",
+      "trainingLabel": "التدريب:",
+      "startLabel": "البداية*",
+      "endLabel": "النهاية*",
+      "endAfterStart": "يجب أن تكون النهاية بعد وقت البداية.",
+      "meetingUrlLabel": "رابط الاجتماع",
+      "meetingUrlHint": "اختياري — أضفه الآن أو لاحقاً، قبل بدء الجلسة.",
+      "cancelSession": "إلغاء الجلسة",
+      "reactivateSession": "إعادة تفعيل الجلسة",
+      "statusHint": "يتم تحديد الحالات مجدولة ومباشرة ومكتملة تلقائياً من وقت البداية/النهاية. الإلغاء هو الإجراء اليدوي الوحيد.",
+      "createSession": "إنشاء الجلسة",
+      "invalidUrl": "أدخل رابطاً صالحاً (مثال: https://meet.google.com/...).",
+      "loadSessionError": "تعذّر تحميل هذه الجلسة في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "sessionCreated": "تم إنشاء الجلسة.",
+      "sessionUpdated": "تم تحديث الجلسة.",
+      "saveError": "تعذّر حفظ هذه الجلسة في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "form": {
+      "createTitle": "إنشاء تدريب",
+      "editTitle": "تعديل التدريب",
+      "imageLabel": "صورة التدريب (اختياري)",
+      "imagePreviewAlt": "معاينة صورة التدريب",
+      "instructorRequiredLabel": "المدرّب*",
+      "instructorOptionalLabel": "المدرّب (اتركه فارغاً للاحتفاظ بالمدرّب الحالي)",
+      "selectFormateur": "اختر مدرّباً",
+      "keepCurrentInstructor": "الاحتفاظ بالمدرّب الحالي",
+      "discountLabel": "الخصم",
+      "startDateLabel": "تاريخ البدء*",
+      "endDateLabel": "تاريخ الانتهاء*",
+      "endDateAfterStart": "يجب أن يكون تاريخ الانتهاء في نفس تاريخ البدء أو بعده.",
+      "publish": "نشر",
+      "cancelTraining": "إلغاء التدريب",
+      "statusHint": "يتم تحديد قيد التنفيذ ومكتمل تلقائياً من تاريخ البدء/الانتهاء.",
+      "createTraining": "إنشاء التدريب",
+      "selectInstructor": "اختر المدرّب الذي سيُسند إليه هذا التدريب.",
+      "trainingCreated": "تم إنشاء التدريب.",
+      "trainingUpdated": "تم تحديث التدريب.",
+      "saveError": "تعذّر حفظ هذا التدريب في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "enrollmentModal": {
+      "selectTraining": "اختر تدريباً",
+      "noneOpenForEnrollment": "لا توجد تدريبات مفتوحة للتسجيل حالياً.",
+      "notAStudent": "هذا المستخدم ليس طالباً.",
+      "studentOrTrainingNotFound": "الطالب أو التدريب غير موجود.",
+      "notOpenForEnrollment": "هذا التدريب غير مفتوح للتسجيل في الوقت الحالي.",
+      "serviceUnavailable": "خدمة المستخدمين غير متاحة مؤقتاً. يرجى المحاولة مرة أخرى قريباً.",
+      "createError": "تعذّر إنشاء هذا التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "enrollmentManagement": {
+      "cardTitle": "تسجيلات التدريبات ({{count}})",
+      "allTrainings": "جميع التدريبات",
+      "revokeTitleNamed": "إلغاء وصول هذا الطالب إلى {{training}}؟",
+      "revokeDescription": "سيفقد الوصول إلى جلسات وتسجيلات هذا التدريب فوراً.",
+      "enrollmentCreated": "تم إنشاء التسجيل لـ {{training}}.",
+      "enrollmentReactivated": "تمت إعادة تفعيل التسجيل لـ {{training}}.",
+      "alreadyHasAccess": "لدى هذا الطالب بالفعل وصول نشط إلى هذا التدريب."
+    },
+    "enrolledStudents": {
+      "pageTitle": "{{title}} — الطلاب المسجلون",
+      "accessDeniedBody": "ليس لديك صلاحية الوصول إلى الطلاب المسجلين في هذا التدريب."
+    }
+  },
+  "forum": {
+    "postType": {
+      "course": "دورة",
+      "training": "تدريب"
+    },
+    "list": {
+      "pageTitle": "منتديات النقاش",
+      "pageSubtitle": "انضم إلى مجتمع نشط حيث يتواصل المتعلمون والمدربون لتبادل المعرفة وطرح الأسئلة وتبادل الأفكار.",
+      "askYourQuestion": "اطرح سؤالك",
+      "tabAll": "الكل",
+      "tabTop": "الأكثر تفاعلاً",
+      "tabBookmarked": "المحفوظة",
+      "filters": "الفلاتر",
+      "typeLabel": "النوع",
+      "allTypes": "جميع الأنواع",
+      "allCourses": "جميع الدورات",
+      "noResults": "لا توجد نتائج",
+      "loadError": "تعذّر تحميل المنشورات في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "postCard": {
+      "removeBookmark": "إزالة من المحفوظات",
+      "bookmarkThisPost": "حفظ هذا المنشور",
+      "removeUpvote": "إزالة الإعجاب",
+      "upvoteThisPost": "الإعجاب بهذا المنشور",
+      "bookmarkError": "تعذّر تحديث هذا الحفظ في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "upvoteError": "تعذّر تحديث هذا الإعجاب في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "postDeleted": "تم حذف المنشور.",
+      "deleteError": "تعذّر حذف هذا المنشور في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "commentItem": {
+      "editComment": "تعديل التعليق",
+      "deleteComment": "حذف التعليق",
+      "deleteTitle": "حذف هذا التعليق؟",
+      "updateError": "تعذّر تحديث هذا التعليق في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "deleteError": "تعذّر حذف هذا التعليق في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "postDetail": {
+      "notFoundTitle": "المنشور غير موجود",
+      "notFoundBody": "ربما تمت إزالة هذا المنشور.",
+      "backToForum": "العودة إلى المنتدى",
+      "commentsCount": "التعليقات ({{count}})",
+      "noCommentsYet": "لا توجد تعليقات بعد",
+      "commentCountSingular": "تعليق واحد",
+      "commentCountPlural": "{{count}} تعليقات",
+      "addComment": "إضافة تعليق",
+      "postComment": "نشر التعليق",
+      "loadError": "تعذّر تحميل هذا المنشور في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "loadCommentsError": "تعذّر تحميل التعليقات في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "submitCommentError": "تعذّر نشر هذا التعليق في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "postFormModal": {
+      "editTitle": "تعديل المنشور",
+      "createTitle": "إنشاء منشور جديد",
+      "publishing": "جارٍ النشر...",
+      "publish": "نشر",
+      "requiredFieldsHint": "الحقول المعلّمة بعلامة نجمية (*) مطلوبة.",
+      "titleLabel": "العنوان *",
+      "titlePlaceholder": "أدخل عنواناً",
+      "typeLabel": "النوع *",
+      "courseLabel": "الدورة *",
+      "chaptersLabel": "الفصول",
+      "selectChapter": "اختر فصلاً",
+      "lessonsLabel": "الدروس",
+      "selectLesson": "اختر درساً",
+      "trainingLabel": "التدريب *",
+      "liveSessionsLabel": "الجلسات المباشرة",
+      "selectLiveSession": "اختر جلسة مباشرة",
+      "recordingsLabel": "التسجيلات",
+      "selectRecording": "اختر تسجيلاً",
+      "noRecordingAvailable": "لا يوجد تسجيل متاح",
+      "bodyLabel": "المحتوى *",
+      "checkReferences": "يرجى التحقق من مراجع الدورة/التدريب المحددة.",
+      "publishError": "تعذّر نشر هذا المنشور في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "notifications": {
+    "dropdown": {
+      "title": "الإشعارات",
+      "markAllAsRead": "تعليم الكل كمقروء",
+      "noneYet": "لا توجد إشعارات بعد",
+      "viewAll": "عرض الكل",
+      "updateError": "تعذّر تحديث هذا الإشعار في الوقت الحالي.",
+      "markAllError": "تعذّر تعليم جميع الإشعارات كمقروءة في الوقت الحالي."
+    },
+    "page": {
+      "cardTitle": "الإشعارات ({{count}})",
+      "markAsReadAria": "تعليم '{{title}}' كمقروء",
+      "deleteAria": "حذف الإشعار {{title}}",
+      "deleteTitle": "حذف هذا الإشعار؟",
+      "loadError": "تعذّر تحميل الإشعارات في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "notificationDeleted": "تم حذف الإشعار.",
+      "deleteError": "تعذّر حذف هذا الإشعار في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "profile": {
+    "pageTitle": "ملفي الشخصي",
+    "changePasswordLink": "تغيير كلمة المرور",
+    "changePicture": "تغيير صورة الملف الشخصي",
+    "pictureAlt": "صورة الملف الشخصي",
+    "changePhoto": "تغيير الصورة",
+    "emailLabel": "البريد الإلكتروني",
+    "roleLabel": "الدور",
+    "phoneLabel": "الهاتف",
+    "bioLabel": "نبذة",
+    "bioPlaceholder": "أخبرنا قليلاً عن نفسك",
+    "updateSuccess": "تم تحديث الملف الشخصي بنجاح.",
+    "maxLength": "يجب ألا يتجاوز {{length}} حرفاً.",
+    "loadError": "تعذّر تحميل ملفك الشخصي في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+    "updateError": "تعذّر تحديث ملفك الشخصي في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+    "sessionExpired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "changePassword": {
+      "pageTitle": "تغيير كلمة المرور",
+      "backToProfile": "العودة إلى الملف الشخصي",
+      "currentPasswordLabel": "كلمة المرور الحالية",
+      "changing": "جارٍ التغيير...",
+      "submit": "تغيير كلمة المرور",
+      "success": "تم تغيير كلمة المرور بنجاح.",
+      "error": "تعذّر تغيير كلمة المرور في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "avatarPicker": {
+      "title": "اختر صورتك الرمزية",
+      "previewAlt": "معاينة الصورة الرمزية",
+      "presetAvatars": "صور رمزية جاهزة",
+      "selectAvatarAria": "اختيار الصورة الرمزية {{id}}",
+      "avatarOptionAlt": "خيار الصورة الرمزية {{id}}",
+      "or": "أو",
+      "dragDropPrompt": "اسحب وأفلت صورة هنا، أو انقر للتصفح",
+      "done": "تم",
+      "loadPresetsError": "تعذّر تحميل الصور الرمزية الجاهزة في الوقت الحالي.",
+      "avatarUpdated": "تم تحديث الصورة الرمزية.",
+      "updateAvatarError": "تعذّر تحديث صورتك الرمزية في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "pictureUpdated": "تم تحديث صورة الملف الشخصي.",
+      "uploadError": "تعذّر رفع صورة ملفك الشخصي في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "admin": {
+    "users": {
+      "students": "الطلاب",
+      "trainers": "المدرّبون",
+      "studentsTabWithCount": "الطلاب ({{count}})",
+      "trainersTabWithCount": "المدرّبون ({{count}})",
+      "addStudent": "إضافة طالب",
+      "addTrainer": "إضافة مدرّب",
+      "searchStudents": "البحث عن الطلاب بالاسم أو البريد الإلكتروني",
+      "searchTrainers": "البحث عن المدرّبين بالاسم أو البريد الإلكتروني",
+      "loadingStudents": "جارٍ تحميل الطلاب...",
+      "loadingTrainers": "جارٍ تحميل المدرّبين...",
+      "noStudentsYet": "لا يوجد طلاب بعد",
+      "noTrainersYet": "لا يوجد مدرّبون بعد",
+      "photoColumn": "الصورة",
+      "firstNameColumn": "الاسم الأول",
+      "lastNameColumn": "اسم العائلة",
+      "enabled": "مفعّل",
+      "disabled": "معطّل",
+      "deleteTitleGeneric": "حذف هذا المستخدم؟",
+      "deleteTitleNamed": "حذف {{name}}؟",
+      "loadError": "تعذّر تحميل المستخدمين في الوقت الحالي. يرجى المحاولة مرة أخرى.",
+      "userDeleted": "تم حذف {{name}}.",
+      "deleteError": "تعذّر حذف هذا المستخدم في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "userFormModal": {
+      "editStudent": "تعديل الطالب",
+      "editTrainer": "تعديل المدرّب",
+      "roleLabel": "الدور*",
+      "student": "طالب",
+      "trainer": "مدرّب",
+      "tempPasswordHint": "سيتم إنشاء كلمة مرور مؤقتة وإرسالها عبر البريد الإلكتروني إلى المستخدم الجديد.",
+      "profileImageUrlLabel": "رابط صورة الملف الشخصي",
+      "create": "إنشاء",
+      "userCreated": "تم إنشاء {{role}}.",
+      "userUpdated": "تم تحديث {{role}}.",
+      "emailTaken": "هذا البريد الإلكتروني مسجل بالفعل.",
+      "userNoLongerExists": "هذا المستخدم لم يعد موجوداً.",
+      "saveError": "تعذّر حفظ هذا المستخدم في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "calendar": {
+    "todayWidget": {
+      "title": "اليوم",
+      "titleWithCount": "اليوم ({{count}})",
+      "noneToday": "لا توجد جلسات اليوم",
+      "loadError": "تعذّر تحميل جلسات اليوم في الوقت الحالي."
+    },
+    "upcomingWidget": {
+      "title": "الجلسات القادمة",
+      "titleWithCount": "الجلسات القادمة ({{count}})",
+      "none": "لا توجد جلسات قادمة",
+      "loadError": "تعذّر تحميل الجلسات القادمة في الوقت الحالي."
+    },
+    "eventModal": {
+      "checkingAccess": "جارٍ التحقق من صلاحية وصولك...",
+      "needEnrollmentToJoin": "يجب أن يكون لديك تسجيل نشط للانضمام إلى الجلسات المباشرة لهذا التدريب.",
+      "joinMeeting": "الانضمام إلى الاجتماع",
+      "watchRecording": "مشاهدة التسجيل",
+      "recordingUnavailable": "هذا التسجيل لم يعد متاحاً.",
+      "needEnrollmentToWatch": "يجب أن يكون لديك تسجيل نشط لمشاهدة هذا التسجيل.",
+      "openRecordingError": "تعذّر فتح التسجيل في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "view": {
+      "pageTitle": "التقويم",
+      "pageSubtitle": "جميع جلساتك المباشرة في مكان واحد — قم بالتصفية والتصفح والانتقال مباشرة إلى الجلسة.",
+      "cardTitle": "تقويم الجلسات المباشرة",
+      "recordingAvailable": "التسجيل متاح",
+      "loadError": "تعذّر تحميل أحداث التقويم في الوقت الحالي."
+    }
+  },
+  "dashboard": {
+    "student": {
+      "welcome": "مرحباً!",
+      "welcomeWithName": "مرحباً، {{name}}!",
+      "subtitle": "إليك من حيث توقفت.",
+      "continueLearning": "متابعة التعلّم",
+      "noCoursesInProgress": "لا توجد دورات قيد التقدم — تصفح الكتالوج للبدء",
+      "upcomingLiveSessions": "الجلسات المباشرة القادمة",
+      "noUpcomingSessions": "لا توجد جلسات قادمة مجدولة",
+      "recentCertificates": "الشهادات الأخيرة",
+      "issuedOn": "أُصدرت في {{date}}",
+      "noCertificatesYet": "لم تحصل على أي شهادة بعد",
+      "recommendedTrainings": "التدريبات الموصى بها",
+      "viewAll": "عرض الكل",
+      "loadError": "تعذّر تحميل لوحة التحكم الخاصة بك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "formateur": {
+      "title": "أدائي",
+      "subtitle": "ملخص لدوراتك وتدريباتك الخاصة.",
+      "noContentYet": "ليس لديك أي دورات أو تدريبات بعد — أنشئ واحدة لترى أداءك هنا.",
+      "myCourses": "دوراتي",
+      "coursesYouOwn": "الدورات التي تملكها",
+      "myTrainings": "تدريباتي",
+      "trainingsYouOwn": "التدريبات التي تملكها",
+      "totalStudents": "إجمالي الطلاب",
+      "courseTrainingBreakdown": "{{courseCount}} دورة، {{trainingCount}} تدريب",
+      "contentPerformance": "أداء محتواي",
+      "loadError": "تعذّر تحميل بيانات أدائك في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    },
+    "other": {
+      "useSidebar": "استخدم الشريط الجانبي للبدء."
+    },
+    "admin": {
+      "loadingDashboard": "جارٍ تحميل لوحة التحكم...",
+      "titleColumn": "العنوان",
+      "typeColumn": "النوع",
+      "enrollmentsColumn": "التسجيلات",
+      "noEnrollmentActivity": "لا يوجد نشاط تسجيل بعد",
+      "users": "المستخدمون",
+      "usersBreakdown": "{{students}} طلاب، {{trainers}} مدرّبين، {{admins}} مسؤولين",
+      "enrollments": "التسجيلات",
+      "revenue": "الإيرادات",
+      "revenueBreakdown": "{{courseRevenue}} دورات، {{trainingRevenue}} تدريبات",
+      "certificates": "الشهادات",
+      "issuedToDate": "صادرة حتى الآن",
+      "recentEnrollments": "التسجيلات الأخيرة",
+      "studentColumn": "الطالب",
+      "itemColumn": "العنصر",
+      "statusColumn": "الحالة",
+      "amountColumn": "المبلغ",
+      "dateColumn": "التاريخ",
+      "noEnrollmentsYet": "لا توجد تسجيلات بعد",
+      "recentForumActivity": "نشاط المنتدى الأخير",
+      "commentsTotal": "{{count}} تعليق إجمالاً",
+      "noForumActivity": "لا يوجد نشاط في المنتدى بعد",
+      "top5Title": "أفضل 5 دورات وأفضل 5 تدريبات (حسب الإيرادات)",
+      "coursesVsTrainings": "الدورات مقابل التدريبات",
+      "incomeOverview": "نظرة عامة على الإيرادات",
+      "totalRevenueLast7Days": "إجمالي الإيرادات، آخر 7 أيام",
+      "revenueAndEnrollmentsLast7Days": "الإيرادات والتسجيلات (آخر 7 أيام)",
+      "unknown": "غير معروف",
+      "loadError": "تعذّر تحميل بيانات لوحة التحكم في الوقت الحالي. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "body": "الصفحة التي تبحث عنها غير موجودة أو ربما تم نقلها.",
+    "goBack": "رجوع",
+    "backToHome": "العودة إلى الرئيسية"
+  },
+  "toast": {
+    "dismiss": "إغلاق الإشعار"
+  },
+  "landing": {
+    "nav": {
+      "toggleNavigation": "تبديل التنقل",
+      "home": "الرئيسية",
+      "trainings": "التدريبات",
+      "mentor": "المدربون",
+      "group": "المجتمع",
+      "testimonials": "آراء المتدربين",
+      "pricing": "الأسعار",
+      "login": "تسجيل الدخول",
+      "getStarted": "ابدأ الآن"
+    },
+    "hero": {
+      "badge": "تدريبات جديدة متاحة",
+      "titlePart1": "طوّر مهاراتك،",
+      "titlePart2": "طوّر مسيرتك المهنية،",
+      "titlePart3": "مع Omarise",
+      "subtitle": "أتقن مهارات مطلوبة من خلال دورات عملية وتدريبات مباشرة، بإشراف مدربين حقيقيين — واحصل على شهادة تثبت ذلك.",
+      "startLearning": "ابدأ التعلم",
+      "youtubeChannel": "قناة يوتيوب",
+      "studentsLabel": "طلاب",
+      "imageAlt": "طلاب يتعلمون عبر الإنترنت",
+      "join50kLabel": "انضم إلى أكثر من 50 ألف",
+      "availableNow": "متاح الآن"
+    },
+    "trainingsSection": {
+      "eyebrow": "التدريب",
+      "titlePart1": "استكشف أشهر",
+      "subtitle": "تدريبات مباشرة بإشراف مدربين، تغطي المجالات التي تقدمها منصتنا.",
+      "viewAll": "عرض جميع التدريبات",
+      "categories": {
+        "webMobile": {
+          "title": "تطوير الويب والجوال",
+          "description": "أنشئ مواقع ويب وتطبيقات جوال حديثة من خلال تدريبات عملية بإشراف مدربين.",
+          "badgeLabel": "تطوير"
+        },
+        "uiUx": {
+          "title": "تصميم UI/UX",
+          "description": "صمّم واجهات بديهية وجذابة مبنية على بحوث واختبارات مستخدمين حقيقية.",
+          "badgeLabel": "تصميم"
+        },
+        "dataScience": {
+          "title": "علوم البيانات والتحليلات",
+          "description": "حوّل البيانات الخام إلى رؤى من خلال تدريبات عملية قائمة على المشاريع في علوم البيانات.",
+          "badgeLabel": "علوم البيانات"
+        },
+        "digitalMarketing": {
+          "title": "التسويق الرقمي الاحترافي",
+          "description": "نمِّ العلامات التجارية وحقق نتائج من خلال تدريبات تسويق رقمي عملية قائمة على الحملات.",
+          "badgeLabel": "تسويق"
+        }
+      }
+    },
+    "mentorsSection": {
+      "eyebrow": "المدربون",
+      "titlePart1": "تعلّم من",
+      "titlePart2": "خبراء الصناعة",
+      "subtitle": "مدربونا هم قادة في مجالاتهم ولديهم سنوات من الخبرة.",
+      "coursesLabel": "دورات",
+      "mentors": {
+        "johnSmith": {
+          "title": "خبير تطوير الويب",
+          "bio": "أكثر من 8 سنوات خبرة في تحليل البيانات وتعلّم الآلة. عمل سابقاً كعالم بيانات في فيسبوك."
+        },
+        "sarahJohnson": {
+          "title": "خبيرة التسويق الرقمي",
+          "bio": "أكثر من 10 سنوات خبرة في التسويق الرقمي واستراتيجيات تحسين محركات البحث. عملت سابقاً كمديرة تسويق في جوجل."
+        },
+        "mikeChen": {
+          "title": "أخصائي علوم البيانات",
+          "bio": "أكثر من 7 سنوات خبرة في تحليل البيانات وتعلّم الآلة. عمل سابقاً كعالم بيانات في فيسبوك."
+        },
+        "emmaDavis": {
+          "title": "فنانة تصميم جرافيك",
+          "bio": "أكثر من 9 سنوات خبرة في التصميم الجرافيكي والفنون البصرية. عملت سابقاً كمديرة إبداعية في أدوبي."
+        }
+      }
+    },
+    "social": {
+      "xProfile": "الملف الشخصي على X",
+      "linkedinProfile": "الملف الشخصي على لينكدإن",
+      "githubProfile": "الملف الشخصي على جيتهاب"
+    },
+    "community": {
+      "eyebrow": "المجتمع",
+      "titlePart1": "انضم إلى",
+      "titlePart2": "مجتمعنا التعليمي المزدهر",
+      "subtitle": "التعلّم أفضل حين يكون جماعياً. انضم إلى مجتمعنا الذي يضم أكثر من 50,000 طالب واستفد من ميزات تعاونية تسرّع تقدمك.",
+      "imageAlt": "مجتمع تعليمي",
+      "studyGroupsTitle": "مجموعات الدراسة",
+      "studyGroupsBody": "تواصل مع متعلمين لديهم نفس الاهتمامات وشكّل مجموعات دراسية للتعلّم التعاوني.",
+      "forumsTitle": "منتديات النقاش",
+      "forumsBody": "شارك في نقاشات مفيدة واحصل على إجابات من زملائك والمدربين.",
+      "liveSessionsTitle": "جلسات مباشرة",
+      "liveSessionsBody": "شارك في جلسات أسئلة وأجوبة وورشات عمل مباشرة مع خبراء الصناعة.",
+      "peerSupportTitle": "دعم الأقران",
+      "peerSupportBody": "احصل على المساعدة والدعم من زملائك المتعلمين في أي وقت تحتاجه.",
+      "globalCommunityTitle": "مجتمع عالمي",
+      "globalCommunityBody": "تواصل مع طلاب من أكثر من 150 دولة حول العالم."
+    },
+    "testimonialsSection": {
+      "titlePart1": "ماذا يقول",
+      "titlePart3": "",
+      "subtitle": "انضم إلى آلاف الطلاب الذين غيّروا مسار حياتهم المهنية مع Omarise.",
+      "list": {
+        "alexThompson": {
+          "quote": "غيّرت Omarise مسار حياتي المهنية بالكامل. منحني معسكر تطوير الويب المهارات التي احتجتها للحصول على وظيفة أحلامي في Meta. المدربون رائعون!",
+          "role": "مطور برمجيات في Meta"
+        },
+        "jessicaLee": {
+          "quote": "كانت دورة تصميم UI/UX بالضبط ما احتجته. ساعدتني المشاريع العملية وملاحظات المدربين على بناء ملف أعمال أوصلني للتوظيف في Spotify.",
+          "role": "مصممة UX في Spotify"
+        },
+        "davidPark": {
+          "quote": "غيّرت مساري المهني من التسويق إلى علوم البيانات بفضل Omarise. جعل المنهج المنظم والمجتمع الداعم الانتقال سلساً.",
+          "role": "محلل بيانات في Amazon"
+        },
+        "mariaGarcia": {
+          "quote": "بصفتي عاملة مستقلة، احتجت إلى تعلّم مرن. تتناسب دورات Omarise ذاتية الوتيرة تماماً مع جدولي. أنصح بها بشدة!",
+          "role": "مصممة مستقلة"
+        },
+        "jamesWilson": {
+          "quote": "ساعدتني دورة التسويق على فهم كيفية تنمية شركتي الناشئة. كان العائد على الاستثمار مذهلاً - أفضل استثمار في تعليمي.",
+          "role": "مؤسس شركة ناشئة"
+        },
+        "emilyChen": {
+          "quote": "منحني الجمع بين الدورات التقنية والتجارية ميزة فريدة. لقد أوصيت بـ Omarise لجميع زملائي.",
+          "role": "مديرة منتج في Google"
+        }
+      }
+    },
+    "pricing": {
+      "titlePart1": "بسيط، ادفع",
+      "titlePart2": " حسب الاستخدام",
+      "subtitle": "بلا اشتراكات، بلا رسوم خفية — ادفع فقط مقابل الدورات والتدريبات التي تختارها.",
+      "stepLabel": "الخطوة {{step}}",
+      "steps": {
+        "createAccount": {
+          "title": "أنشئ حسابك",
+          "description": "سجّل مجاناً في ثوانٍ — تصفّح الدورات والتدريبات لا يكلّف شيئاً."
+        },
+        "chooseWhatToLearn": {
+          "title": "اختر ما تريد تعلّمه",
+          "description": "يتم تسعير كل دورة وتدريب بشكل منفصل. ادفع مرة واحدة — بدون اشتراك متكرر."
+        },
+        "contactUsToEnroll": {
+          "title": "تواصل معنا للتسجيل",
+          "description": "تواصل معنا عبر البريد الإلكتروني أو واتساب أو فيسبوك وسيتولى فريقنا تسجيلك."
+        }
+      },
+      "ctaText": "هل أنت مستعد للبدء؟ تواصل معنا وسيتولى فريقنا إعداد تسجيلك.",
+      "emailUs": "راسلنا عبر البريد",
+      "whatsapp": "واتساب",
+      "facebook": "فيسبوك",
+      "createFreeAccount": "إنشاء حساب مجاني"
+    },
+    "footer": {
+      "tagline": "نمكّن المتعلمين من خلال دورات رائدة وتدريبات مباشرة ومدربين خبراء.",
+      "address": "تونس، تونس",
+      "productHeading": "المنتج",
+      "companyHeading": "الشركة",
+      "supportHeading": "الدعم",
+      "accountHeading": "الحساب",
+      "helpCenter": "مركز المساعدة",
+      "contactUs": "تواصل معنا",
+      "privacyPolicy": "سياسة الخصوصية",
+      "termsOfService": "شروط الخدمة",
+      "createAccount": "إنشاء حساب",
+      "copyright": "© {{year}} Omarise. جميع الحقوق محفوظة."
+    }
+  }
+}

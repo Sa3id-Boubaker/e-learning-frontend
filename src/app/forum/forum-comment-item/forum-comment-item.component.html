@@ -1,0 +1,63 @@
+<div class="d-flex align-items-start gap-3">
+  @if (comment.author.profileImage) {
+    <img
+      [src]="comment.author.profileImage"
+      [alt]="comment.author.firstName + ' ' + comment.author.lastName"
+      class="forum-comment-avatar-img"
+    />
+  } @else {
+    <span class="forum-comment-avatar-initials">{{ initialsFor(comment.author) }}</span>
+  }
+
+  <div class="flex-grow-1 min-w-0">
+    <div class="d-flex justify-content-between align-items-start gap-2">
+      <div class="min-w-0">
+        <span class="fw-semibold d-block">{{ comment.author.firstName }} {{ comment.author.lastName }}</span>
+        <span class="text-muted small">{{ formatSessionDateTime(comment.createdAt) }}</span>
+      </div>
+      @if (canManage && !editing) {
+        <div class="d-flex align-items-center gap-1 flex-shrink-0">
+          <button type="button" class="btn-icon" [attr.aria-label]="'forum.commentItem.editComment' | translate" (click)="startEdit()">
+            <i antIcon type="edit" theme="outline"></i>
+          </button>
+          <button
+            type="button"
+            class="btn-icon text-danger"
+            [attr.aria-label]="'forum.commentItem.deleteComment' | translate"
+            (click)="openDeleteModal()"
+          >
+            <i antIcon type="delete" theme="outline"></i>
+          </button>
+        </div>
+      }
+    </div>
+
+    @if (editing) {
+      <div class="mt-2">
+        <textarea class="form-control" rows="3" [formControl]="bodyControl"></textarea>
+        <div class="d-flex justify-content-end gap-2 mt-2">
+          <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="saving" (click)="cancelEdit()">
+            {{ 'common.cancel' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" [disabled]="saving || bodyControl.invalid" (click)="saveEdit()">
+            @if (saving) {
+              <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            }
+            {{ 'common.save' | translate }}
+          </button>
+        </div>
+      </div>
+    } @else {
+      <p class="mb-0 mt-1">{{ comment.body }}</p>
+    }
+  </div>
+</div>
+
+<app-delete-confirmation-modal
+  [open]="deleteModalOpen"
+  title="forum.commentItem.deleteTitle"
+  description="common.actionCannotBeUndone"
+  [loading]="deleteLoading"
+  (closed)="onDeleteModalClosed()"
+  (confirmed)="confirmDelete()"
+/>

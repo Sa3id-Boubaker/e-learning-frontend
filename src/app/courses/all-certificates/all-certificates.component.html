@@ -1,0 +1,96 @@
+@if (!accessChecked) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (!isAdmin) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-0">{{ 'common.noAccessToPage' | translate }}</p>
+  </div>
+} @else {
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="('courses.allCertificates.cardTitle' | translate: { count: totalElements })">
+        <div #tableContainer>
+          @if (loading) {
+            <div class="d-flex flex-column align-items-center justify-content-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+              </div>
+            </div>
+          } @else if (loadError) {
+            <div class="text-center py-4">
+              <p class="text-danger mb-3">{{ loadError }}</p>
+              <button type="button" class="btn btn-primary" (click)="loadCertificates()">{{ 'common.retry' | translate }}</button>
+            </div>
+          } @else if (certificates.length === 0) {
+            <div class="text-center text-muted py-4">{{ 'courses.allCertificates.noneIssuedYet' | translate }}</div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>{{ 'courses.enrollmentModal.studentLabel' | translate }}</th>
+                    <th>{{ 'courses.enrollmentModal.courseLabel' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.instructorColumn' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.scoreColumn' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.issuedColumn' | translate }}</th>
+                    <th>{{ 'courses.allCertificates.certificateNumberColumn' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (certificate of certificates; track certificate.id) {
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center gap-2">
+                          @if (certificate.studentProfileImage) {
+                            <img [src]="certificate.studentProfileImage" [alt]="certificate.studentName" class="certificates-avatar-img" />
+                          } @else {
+                            <span class="certificates-avatar-initials">{{ initialsFor(certificate.studentName) }}</span>
+                          }
+                          {{ certificate.studentName }}
+                        </div>
+                      </td>
+                      <td>{{ certificate.courseTitle }}</td>
+                      <td class="text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                          @if (certificate.instructorProfileImage) {
+                            <img
+                              [src]="certificate.instructorProfileImage"
+                              [alt]="certificate.instructorName"
+                              class="certificates-avatar-img certificates-avatar-sm"
+                            />
+                          } @else {
+                            <span class="certificates-avatar-initials certificates-avatar-sm">{{ initialsFor(certificate.instructorName) }}</span>
+                          }
+                          {{ certificate.instructorName }}
+                        </div>
+                      </td>
+                      <td><span class="badge bg-light-success text-success">{{ certificate.quizScore }}%</span></td>
+                      <td class="text-muted">{{ certificate.issuedAt | date: 'mediumDate' }}</td>
+                      <td class="certificate-number">{{ certificate.certificateNumber }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                  {{ 'common.previous' | translate }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                  {{ 'common.next' | translate }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </app-card>
+    </div>
+  </div>
+}

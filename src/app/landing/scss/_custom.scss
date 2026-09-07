@@ -1,0 +1,25 @@
+.text-xs {
+  font-size: $font-xs !important;
+}
+
+.nav-link.active {
+  color: $primary !important;
+}
+
+.circle-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background-color: rgba($primary, 0.05);
+  border-radius: 9999px;
+  filter: blur(48px);
+}
+
+@import './avatar';
+@import './button';
+@import './icon-shape';
+@import './utilities';
+@import './card';

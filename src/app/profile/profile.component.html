@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="'profile.pageTitle' | translate">
+      <ng-template #headerOptionsTemplate>
+        <a [routerLink]="['/profile/change-password']" class="btn btn-outline-secondary btn-sm">
+          {{ 'profile.changePasswordLink' | translate }}
+        </a>
+      </ng-template>
+
+      @if (loading) {
+        <div class="placeholder-glow">
+          <div class="d-flex align-items-center mb-4">
+            <span class="placeholder rounded-circle profile-avatar-skeleton"></span>
+            <div class="ms-4 flex-grow-1">
+              <span class="placeholder col-3 d-block mb-2"></span>
+              <span class="placeholder col-5 d-block"></span>
+            </div>
+          </div>
+          <span class="placeholder col-6 d-block mb-2"></span>
+          <span class="placeholder col-4 d-block mb-2"></span>
+          <span class="placeholder col-8 d-block mb-2"></span>
+          <span class="placeholder col-12 profile-textarea-skeleton d-block"></span>
+        </div>
+      } @else if (loadError) {
+        <div class="text-center py-4">
+          <p class="text-danger mb-3">{{ loadError }}</p>
+          <button type="button" class="btn btn-primary" (click)="loadProfile()">{{ 'common.retry' | translate }}</button>
+        </div>
+      } @else if (profile) {
+        <div class="d-flex align-items-center mb-4">
+          <div
+            class="profile-avatar"
+            role="button"
+            tabindex="0"
+            [title]="'profile.changePicture' | translate"
+            (click)="openAvatarModal()"
+            (keyup.enter)="openAvatarModal()"
+          >
+            @if (profile.profileImage) {
+              <img [src]="profile.profileImage" [alt]="'profile.pictureAlt' | translate" class="profile-avatar-img" />
+            } @else {
+              <span class="profile-avatar-initials">{{ initials() }}</span>
+            }
+            <div class="profile-avatar-overlay">
+              <span class="profile-avatar-hint">{{ 'profile.changePhoto' | translate }}</span>
+            </div>
+          </div>
+
+          <div class="ms-4">
+            <h5 class="mb-1">{{ profile.firstName }} {{ profile.lastName }}</h5>
+            <p class="text-muted mb-0">{{ profile.email }}</p>
+          </div>
+        </div>
+
+        <app-avatar-picker-modal
+          [open]="avatarModalOpen"
+          [currentProfileImage]="profile.profileImage"
+          (closed)="onAvatarModalClosed()"
+          (profileUpdated)="onAvatarProfileUpdated($event)"
+        />
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label text-muted">{{ 'profile.emailLabel' | translate }}</label>
+            <p class="form-control-plaintext mb-0">{{ profile.email }}</p>
+          </div>
+          @if (profile.role) {
+            <div class="col-md-6">
+              <label class="form-label text-muted">{{ 'profile.roleLabel' | translate }}</label>
+              <p class="form-control-plaintext mb-0">{{ profile.role }}</p>
+            </div>
+          }
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="firstName">{{ 'auth.signup.firstNameLabel' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  [placeholder]="'auth.signup.firstNamePlaceholder' | translate"
+                  formControlName="firstName"
+                  [class.is-invalid]="controlInvalid('firstName')"
+                />
+                <div class="invalid-feedback d-block" *ngIf="controlInvalid('firstName')">{{ messageFor('firstName') }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="lastName">{{ 'auth.signup.lastNameLabel' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  [placeholder]="'auth.signup.lastNamePlaceholder' | translate"
+                  formControlName="lastName"
+                  [class.is-invalid]="controlInvalid('lastName')"
+                />
+                <div class="invalid-feedback d-block" *ngIf="controlInvalid('lastName')">{{ messageFor('lastName') }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="phone">{{ 'profile.phoneLabel' | translate }}</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              [placeholder]="'profile.phoneLabel' | translate"
+              formControlName="phone"
+              [class.is-invalid]="controlInvalid('phone')"
+            />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('phone')">{{ messageFor('phone') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label d-flex justify-content-between" for="bio">
+              <span>{{ 'profile.bioLabel' | translate }}</span>
+              <span class="text-muted">{{ form.controls.bio.value.length }}/500</span>
+            </label>
+            <textarea
+              class="form-control"
+              id="bio"
+              rows="4"
+              [placeholder]="'profile.bioPlaceholder' | translate"
+              formControlName="bio"
+              maxlength="500"
+              [class.is-invalid]="controlInvalid('bio')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('bio')">{{ messageFor('bio') }}</div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary" [disabled]="saving || form.invalid || form.pristine">
+              {{ (saving ? 'common.saving' : 'common.saveChanges') | translate }}
+            </button>
+          </div>
+        </form>
+      }
+    </app-card>
+  </div>
+</div>

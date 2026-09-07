@@ -1,0 +1,13 @@
+<h5 class="mb-3">{{ 'dashboard.admin.revenueAndEnrollmentsLast7Days' | translate }}</h5>
+<div class="card">
+  <div class="card-body">
+    <h6 class="mb-2 f-w-400 text-muted">{{ 'dashboard.admin.totalRevenueLast7Days' | translate }}</h6>
+    <h3 class="mb-0">{{ totalLabel }}</h3>
+    <div id="chart">
+      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [dataLabels]="chartOptions.dataLabels!"
+        [legend]="chartOptions.legend!" [xaxis]="chartOptions.xaxis!" [colors]="chartOptions.colors!"
+        [stroke]="chartOptions.stroke!" [grid]="chartOptions.grid!" [plotOptions]="chartOptions.plotOptions!"
+        [tooltip]="chartOptions.tooltip!" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <h3 class="mb-0">{{ 'courses.list.title' | translate }}</h3>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="input-group">
+      <span class="input-group-text"><i antIcon type="search" theme="outline"></i></span>
+      <input type="search" class="form-control" [formControl]="searchControl" [placeholder]="'courses.list.searchPlaceholder' | translate" />
+      @if (searching) {
+        <span class="input-group-text">
+          <span class="spinner-border spinner-border-sm text-primary" role="status">
+            <span class="visually-hidden">{{ 'common.searching' | translate }}</span>
+          </span>
+        </span>
+      }
+    </div>
+  </div>
+</div>
+
+<div #gridContainer>
+  @if (loading) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+      <p class="text-muted mt-3 mb-0">{{ 'courses.list.loadingCourses' | translate }}</p>
+    </div>
+  } @else if (loadError) {
+    <div class="text-center py-5">
+      <p class="text-danger mb-3">{{ loadError }}</p>
+      <button type="button" class="btn btn-primary" (click)="loadCourses()">{{ 'common.retry' | translate }}</button>
+    </div>
+  } @else if (courses.length === 0) {
+    <div class="text-center text-muted py-5">
+      @if (searchTerm) {
+        {{ 'courses.list.noResultsFor' | translate: { term: searchTerm } }}
+      } @else {
+        {{ 'courses.list.empty' | translate }}
+      }
+    </div>
+  } @else {
+    <div class="row">
+      @for (course of courses; track course.id) {
+        <div class="col-md-6 col-xl-4 mb-4">
+          <div class="card course-card h-100" role="button" tabindex="0" (click)="openCourse(course)" (keyup.enter)="openCourse(course)">
+            @if (!course.published) {
+              <span class="badge bg-warning text-dark course-card-draft-badge">{{ 'courses.list.draftBadge' | translate }}</span>
+            }
+            <div class="card-body">
+              <div class="course-card-icon">
+                @if (course.image) {
+                  <img [src]="course.image" [alt]="course.title" />
+                } @else {
+                  <i antIcon type="picture" theme="outline"></i>
+                }
+              </div>
+              <span class="text-muted small text-uppercase d-block mt-3">{{ course.category }}</span>
+              <h5 class="mt-1 mb-2">{{ course.title }}</h5>
+              <p class="course-card-description text-muted small mb-3">{{ course.description }}</p>
+              <app-price-display [course]="course" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+      <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+          {{ 'common.previous' | translate }}
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+          {{ 'common.next' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

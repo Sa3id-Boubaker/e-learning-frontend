@@ -1,0 +1,88 @@
+@if (loading) {
+  <div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (notFound) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'trainings.detail.notFoundTitle' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.detail.notFoundBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (accessDenied) {
+  <div class="text-center py-5">
+    <h4 class="mb-2">{{ 'common.accessDenied' | translate }}</h4>
+    <p class="text-muted mb-3">{{ 'trainings.enrolledStudents.accessDeniedBody' | translate }}</p>
+    <a [routerLink]="['/trainings']" class="btn btn-primary">{{ 'trainings.detail.backToTrainings' | translate }}</a>
+  </div>
+} @else if (loadError) {
+  <div class="text-center py-5">
+    <p class="text-danger mb-3">{{ loadError }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadTraining()">{{ 'common.retry' | translate }}</button>
+  </div>
+} @else if (training) {
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <a [routerLink]="['/trainings']" class="text-muted small text-decoration-none">
+        &larr; {{ 'trainings.detail.backToTrainings' | translate }}
+      </a>
+      <h3 class="mb-0 mt-1">{{ 'trainings.enrolledStudents.pageTitle' | translate: { title: training.title } }}</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [cardTitle]="('courses.enrolledStudents.cardTitle' | translate: { count: totalElements })">
+        <div #tableContainer>
+          @if (enrollments.length === 0) {
+            <div class="text-center text-muted py-4">{{ 'courses.enrolledStudents.noneEnrolledYet' | translate }}</div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>{{ 'courses.enrollmentModal.studentLabel' | translate }}</th>
+                    <th>{{ 'courses.enrolledStudents.emailColumn' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.amountColumn' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.statusLabel' | translate }}</th>
+                    <th>{{ 'courses.enrollmentManagement.enrolledColumn' | translate }}</th>
+                    <th>{{ 'courses.enrolledStudents.activatedColumn' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (enrollment of enrollments; track enrollment.id) {
+                    <tr>
+                      <td>{{ enrollment.studentName ?? enrollment.studentId }}</td>
+                      <td class="text-muted">{{ enrollment.studentEmail ?? '—' }}</td>
+                      <td>{{ enrollment.amountAtEnrollment | currencyDt }}</td>
+                      <td>
+                        <span class="badge" [ngClass]="getTrainingEnrollmentStatusBadgeClass(enrollment.status)">{{
+                          getTrainingEnrollmentStatusLabel(enrollment.status) | translate
+                        }}</span>
+                      </td>
+                      <td class="text-muted">{{ formatSessionDate(enrollment.enrolledAt) }}</td>
+                      <td class="text-muted">{{ formatSessionDate(enrollment.activatedAt) }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                  {{ 'common.previous' | translate }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                  {{ 'common.next' | translate }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </app-card>
+    </div>
+  </div>
+}

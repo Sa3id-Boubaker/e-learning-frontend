@@ -1,0 +1,128 @@
+.card {
+  .card-body.dashboard-card {
+    padding: 18px;
+    padding-bottom: 20px;
+  }
+}
+
+// Same convention as StudentCourseLibraryComponent's progress bar — duplicated rather than
+// shared, per this app's per-component styling convention.
+.course-progress-track {
+  height: 0.5rem;
+  border-radius: 50rem;
+  background: var(--bs-tertiary-bg, var(--bs-light));
+  overflow: hidden;
+}
+
+.course-progress-fill {
+  height: 100%;
+  border-radius: 50rem;
+  background: #1565c0;
+  transition: width 0.4s ease;
+}
+
+// Student welcome page — visual anchors for otherwise plain text rows (thumbnail, calendar-style
+// date badge, certificate icon), each sized/rounded consistently so the three lists read as one
+// family instead of three unrelated layouts.
+.min-w-0 {
+  min-width: 0;
+}
+
+.welcome-course-thumb,
+.welcome-course-thumb-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.welcome-course-thumb {
+  object-fit: cover;
+}
+
+.welcome-course-thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bs-tertiary-bg, var(--bs-light));
+  color: var(--bs-secondary-color);
+  font-size: 20px;
+}
+
+.welcome-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: rgba(var(--bs-primary-rgb), 0.1);
+  color: var(--bs-primary);
+  flex-shrink: 0;
+}
+
+.welcome-date-badge-month {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.welcome-date-badge-day {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.welcome-certificate-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.welcome-recommended-card {
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+  }
+}
+
+.welcome-recommended-thumb,
+.welcome-recommended-thumb-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.welcome-recommended-thumb {
+  object-fit: cover;
+}
+
+.welcome-recommended-thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bs-tertiary-bg, var(--bs-light));
+  color: var(--bs-secondary-color);
+  font-size: 20px;
+}
+
+.welcome-recommended-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

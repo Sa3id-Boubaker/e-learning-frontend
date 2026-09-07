@@ -1,0 +1,166 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="(activeTab === 'ETUDIANT' ? 'admin.users.students' : 'admin.users.trainers') | translate">
+      <ng-template #headerOptionsTemplate>
+        <button type="button" class="btn btn-primary btn-sm" (click)="openCreateModal()">
+          <i antIcon type="plus" theme="outline" class="me-1"></i>
+          {{ (activeTab === 'ETUDIANT' ? 'admin.users.addStudent' : 'admin.users.addTrainer') | translate }}
+        </button>
+      </ng-template>
+
+      <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+          <button type="button" class="nav-link" [class.active]="activeTab === 'ETUDIANT'" (click)="switchTab('ETUDIANT')">
+            {{
+              (studentsCount !== null ? 'admin.users.studentsTabWithCount' : 'admin.users.students')
+                | translate: { count: studentsCount }
+            }}
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" [class.active]="activeTab === 'FORMATEUR'" (click)="switchTab('FORMATEUR')">
+            {{
+              (trainersCount !== null ? 'admin.users.trainersTabWithCount' : 'admin.users.trainers')
+                | translate: { count: trainersCount }
+            }}
+          </button>
+        </li>
+      </ul>
+
+      <div class="admin-users-search mb-3">
+        <div class="input-group">
+          <span class="input-group-text"><i antIcon type="search" theme="outline"></i></span>
+          <input
+            type="search"
+            class="form-control"
+            [formControl]="searchControl"
+            [placeholder]="
+              (activeTab === 'ETUDIANT' ? 'admin.users.searchStudents' : 'admin.users.searchTrainers') | translate
+            "
+          />
+          @if (searching) {
+            <span class="input-group-text">
+              <span class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">{{ 'common.searching' | translate }}</span>
+              </span>
+            </span>
+          }
+        </div>
+      </div>
+
+      <div #tableContainer>
+        @if (loading) {
+          <div class="d-flex flex-column align-items-center justify-content-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              {{ (activeTab === 'ETUDIANT' ? 'admin.users.loadingStudents' : 'admin.users.loadingTrainers') | translate }}
+            </p>
+          </div>
+        } @else if (loadError) {
+          <div class="text-center py-4">
+            <p class="text-danger mb-3">{{ loadError }}</p>
+            <button type="button" class="btn btn-primary" (click)="loadUsers()">{{ 'common.retry' | translate }}</button>
+          </div>
+        } @else if (users.length === 0) {
+          <div class="text-center text-muted py-4">
+            @if (searchTerm) {
+              {{ 'courses.list.noResultsFor' | translate: { term: searchTerm } }}
+            } @else {
+              {{ (activeTab === 'ETUDIANT' ? 'admin.users.noStudentsYet' : 'admin.users.noTrainersYet') | translate }}
+            }
+          </div>
+        } @else {
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th><span class="visually-hidden">{{ 'admin.users.photoColumn' | translate }}</span></th>
+                  <th>{{ 'admin.users.firstNameColumn' | translate }}</th>
+                  <th>{{ 'admin.users.lastNameColumn' | translate }}</th>
+                  <th>{{ 'courses.enrolledStudents.emailColumn' | translate }}</th>
+                  <th>{{ 'profile.phoneLabel' | translate }}</th>
+                  <th>{{ 'courses.enrollmentManagement.statusLabel' | translate }}</th>
+                  <th class="text-end">{{ 'courses.enrollmentManagement.actionsColumn' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (user of users; track user.id) {
+                  <tr>
+                    <td>
+                      @if (user.profileImage) {
+                        <img [src]="user.profileImage" [alt]="user.firstName + ' ' + user.lastName" class="admin-users-avatar-img" />
+                      } @else {
+                        <span class="admin-users-avatar-initials">{{ initialsFor(user) }}</span>
+                      }
+                    </td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>
+                      @if (user.enabled) {
+                        <span class="badge bg-light-success text-success">{{ 'admin.users.enabled' | translate }}</span>
+                      } @else {
+                        <span class="badge bg-light-danger text-danger">{{ 'admin.users.disabled' | translate }}</span>
+                      }
+                    </td>
+                    <td class="text-end">
+                      <button
+                        type="button"
+                        class="btn btn-icon btn-sm"
+                        [attr.aria-label]="'courses.chapterItem.editAria' | translate: { title: user.firstName + ' ' + user.lastName }"
+                        (click)="openEditModal(user)"
+                      >
+                        <i antIcon type="edit" theme="outline"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-icon btn-sm text-danger"
+                        [attr.aria-label]="'courses.chapterItem.deleteAria' | translate: { title: user.firstName + ' ' + user.lastName }"
+                        (click)="openDeleteModal(user)"
+                      >
+                        <i antIcon type="delete" theme="outline"></i>
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mt-3">
+            <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+                {{ 'common.previous' | translate }}
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" [disabled]="!hasNextPage" (click)="goToNextPage()">
+                {{ 'common.next' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<app-user-form-modal
+  [open]="formModalOpen"
+  [mode]="formModalMode"
+  [user]="selectedUser"
+  [defaultRole]="activeTab"
+  (closed)="onFormModalClosed()"
+  (saved)="onUserSaved()"
+/>
+
+<app-delete-confirmation-modal
+  [open]="deleteModalOpen"
+  [title]="deleteModalTitle"
+  description="common.actionCannotBeUndone"
+  [loading]="deleteLoading"
+  (closed)="onDeleteModalClosed()"
+  (confirmed)="confirmDelete()"
+/>

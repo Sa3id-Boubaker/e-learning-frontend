@@ -1,0 +1,511 @@
+.pc-sidebar {
+  background: var(--pc-sidebar-background);
+  width: $sidebar-width;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1026;
+  box-shadow: var(--pc-sidebar-shadow);
+  display: block;
+  height: 100vh;
+  color: var(--pc-sidebar-color);
+  border-right: 1px solid rgb(240, 240, 240);
+
+  a {
+    color: #262626;
+    cursor: pointer;
+  }
+
+  .navbar-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .m-header {
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    position: relative;
+
+    .logo-sm {
+      display: none;
+    }
+  }
+
+  .user-profile-section {
+    padding: 10px 24px;
+    border-top: 2px solid rgb(240, 240, 240);
+    .dropdown-toggle::after {
+      display: none;
+    }
+
+    .user-images {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      width: 46px;
+      height: 46px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        object-fit: cover;
+        color: transparent;
+        text-indent: 10000px;
+      }
+    }
+  }
+
+  // Icon-only rail — nav items stay visible (icon centered, no label), rather than the
+  // sidebar vanishing to width:0. $sidebar-collapsed-width is kept in sync with the
+  // ~ app-nav-bar/.pc-footer/.pc-container offsets below since those elements sit outside
+  // .pc-sidebar and can't just inherit its width via CSS.
+  $sidebar-collapsed-width: 80px;
+
+  &.navbar-collapsed {
+    width: $sidebar-collapsed-width;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+
+    ~ app-nav-bar .pc-header {
+      left: $sidebar-collapsed-width;
+    }
+
+    ~ .pc-footer {
+      margin-left: $sidebar-collapsed-width;
+    }
+
+    ~ .pc-container {
+      margin-left: $sidebar-collapsed-width;
+    }
+
+    .navbar-wrapper {
+      .m-header {
+        justify-content: center;
+        padding: 16px 0;
+
+        .logo-lg {
+          display: none;
+        }
+
+        .logo-sm {
+          display: inline-block;
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+      }
+    }
+
+    // Not scoped under .navbar-content — this also needs to reach the pinned Logout list,
+    // which sits outside .navbar-content (so it never scrolls away with the nav items) but
+    // shares the same .coded-inner-navbar class and must collapse to an icon-only row too.
+    .coded-inner-navbar {
+      app-nav-group:not(:first-child) {
+        display: block;
+        border-top: 1px solid rgb(240, 240, 240);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      li {
+        &.coded-menu-caption {
+          display: none;
+        }
+
+        > a {
+          justify-content: center;
+          padding: 12px 0;
+
+          .coded-mtext {
+            display: none;
+          }
+
+          > .coded-micon {
+            margin-inline-end: 0;
+            font-size: 20px;
+
+            i {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .navbar-content {
+    overflow-x: hidden;
+
+    // position: relative;
+    // height: calc(100vh - 60px);
+    padding: 16px 0;
+
+    .coded-inner-navbar {
+      flex-direction: column;
+
+      app-nav-item > li.active:after {
+        top: 0 !important;
+        height: 100% !important;
+      }
+
+      li {
+        &.coded-hasmenu {
+          position: relative;
+          padding-bottom: 2px;
+
+          > a {
+            &:after {
+              content: '\e844';
+              font-family: 'feather';
+              font-size: 15px;
+              border: none;
+              position: absolute;
+              top: 11px;
+              right: 20px;
+              transition: 0.3s ease-in-out;
+            }
+          }
+
+          .coded-submenu {
+            opacity: 0;
+            visibility: hidden;
+            transform-origin: 50% 50%;
+            transition:
+              transform 0.3s,
+              opacity 0.3s;
+            transform-style: preserve-3d;
+            transform: rotateX(-90deg);
+            position: absolute;
+            display: block;
+
+            > app-nav-item li {
+              > a {
+                text-align: left;
+                padding: 12px 30px 12px 55px;
+                margin: 0;
+                display: block;
+
+                &:before {
+                  content: '';
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 2px;
+                  height: 100%;
+                }
+              }
+            }
+
+            > app-nav-collapse li {
+              > a {
+                text-align: left;
+                padding: 12px 30px 12px 55px;
+                margin: 0;
+                display: block;
+              }
+              .coded-submenu > {
+                app-nav-item li {
+                  > a {
+                    padding: 12px 30px 12px 75px;
+                  }
+                }
+              }
+            }
+          }
+
+          &.coded-trigger {
+            > a {
+              &:after {
+                transform: rotate(90deg);
+              }
+            }
+
+            > .coded-submenu {
+              position: relative;
+              opacity: 1;
+              visibility: visible;
+              transform: rotateX(0deg);
+            }
+          }
+        }
+
+        &.coded-menu-caption {
+          font-size: 0.75rem;
+          font-weight: 500;
+          padding: 12px 24px 12px;
+          direction: ltr;
+          text-align: left;
+          text-transform: capitalize;
+          position: relative;
+          color: $gray-600;
+
+          &.first-group {
+            padding: 0px 24px 12px;
+          }
+        }
+
+        > a {
+          padding: 12px 16px 12px 28px;
+          display: flex;
+          direction: ltr;
+          flex-wrap: nowrap;
+          align-items: center;
+          border-radius: 5px;
+          position: relative;
+
+          .coded-mtext {
+            position: relative;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          > .coded-micon {
+            font-size: 16px;
+            flex: 0 0 16px;
+            margin-inline-end: 8px;
+            height: 16px;
+            display: inline-block;
+            text-align: center;
+
+            i {
+              display: flex;
+            }
+
+            + .coded-mtext {
+              position: relative;
+              vertical-align: middle;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      app-nav-item {
+        li {
+          > a {
+            > .coded-micon {
+              flex-basis: 16px;
+              margin-inline-end: 12px;
+            }
+          }
+        }
+      }
+
+      > app-nav-group > app-nav-item {
+        li {
+          position: relative;
+          &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .version {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 16px;
+    cursor: pointer;
+
+    label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 8px;
+      padding-right: 8px;
+      white-space: nowrap;
+      background-color: rgb(250, 250, 250);
+      color: rgb(158, 158, 158);
+      border-radius: 16px;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .pc-sidebar {
+    transition: width 0.15s ease;
+    ~ .pc-header {
+      transition: left 0.15s ease;
+    }
+    ~ .pc-footer,
+    ~ .pc-container {
+      transition: margin-left 0.15s ease;
+    }
+    &.pc-sidebar-hide {
+      width: 0;
+      ~ .pc-header {
+        left: 0;
+      }
+      ~ .pc-footer,
+      ~ .pc-container {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .pc-header .pc-h-item.pc-sidebar-collapse {
+    display: none;
+  }
+  .pc-sidebar {
+    left: -#{$sidebar-width};
+    box-shadow: none;
+    top: 0;
+    transition: all 0.15s ease-in-out;
+
+    &.mob-open {
+      left: 0;
+
+      .navbar-wrapper {
+        position: relative;
+        z-index: 5;
+        background: inherit;
+      }
+
+      ~ .pc-container {
+        .pc-menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 1025;
+        }
+      }
+    }
+  }
+}
+
+// RTL — this whole file otherwise assumes a left-fixed sidebar with physical left/right values
+// throughout (Bootstrap's own logical-property RTL flip doesn't touch this custom theme SCSS).
+// Mirrors every physical value above onto the right edge instead, selector-for-selector.
+[dir='rtl'] {
+  .pc-sidebar {
+    border-right: none;
+    border-left: 1px solid rgb(240, 240, 240);
+    right: 0;
+    left: auto;
+
+    &.navbar-collapsed {
+      ~ app-nav-bar .pc-header {
+        right: $sidebar-collapsed-width;
+        left: 0;
+      }
+
+      ~ .pc-footer,
+      ~ .pc-container {
+        margin-right: $sidebar-collapsed-width;
+        margin-left: 0;
+      }
+    }
+
+    .navbar-content .coded-inner-navbar {
+      li {
+        &.coded-menu-caption {
+          direction: rtl;
+          text-align: right;
+        }
+
+        &.coded-hasmenu > a:after {
+          right: auto;
+          left: 20px;
+        }
+
+        .coded-submenu {
+          > app-nav-item li > a,
+          > app-nav-collapse li > a {
+            text-align: right;
+            padding: 12px 55px 12px 30px;
+
+            &:before {
+              right: auto;
+              left: 0;
+            }
+          }
+
+          > app-nav-collapse li .coded-submenu > app-nav-item li > a {
+            padding: 12px 75px 12px 30px;
+          }
+        }
+
+        > a {
+          padding: 12px 28px 12px 16px;
+          direction: ltr;
+          flex-direction: row-reverse;
+          flex-wrap: nowrap;
+
+          > .coded-micon {
+            margin-inline-end: 0;
+            margin-inline-start: 8px;
+          }
+        }
+      }
+
+      app-nav-item li > a > .coded-micon {
+        margin-inline-end: 0;
+        margin-inline-start: 12px;
+      }
+
+      > app-nav-group > app-nav-item li:before {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .pc-sidebar {
+      transition: width 0.15s ease;
+      ~ .pc-header {
+        transition: right 0.15s ease;
+      }
+
+      &.pc-sidebar-hide {
+        ~ .pc-header {
+          right: 0;
+          left: 0;
+        }
+        ~ .pc-footer,
+        ~ .pc-container {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .pc-sidebar {
+      left: auto;
+      right: -#{$sidebar-width};
+
+      &.mob-open {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}

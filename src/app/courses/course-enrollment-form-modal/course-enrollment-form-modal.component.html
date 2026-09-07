@@ -1,0 +1,108 @@
+@if (open) {
+  <div class="enrollment-form-modal-backdrop" (click)="onClose()">
+    <div
+      #panel
+      class="enrollment-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="courseEnrollmentModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onClose()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="enrollment-form-modal-header">
+        <h5 id="courseEnrollmentModalTitle" class="mb-0">{{ 'courses.enrollmentModal.newEnrollmentTitle' | translate }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          [attr.aria-label]="'common.close' | translate"
+          [disabled]="submitting"
+          (click)="onClose()"
+        ></button>
+      </div>
+
+      <div class="enrollment-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="enrollmentCourseSelect">{{ 'courses.enrollmentModal.courseLabel' | translate }}</label>
+          <select id="enrollmentCourseSelect" class="form-select" [formControl]="courseControl">
+            <option value="" disabled>
+              {{ (coursesLoading ? 'courses.list.loadingCourses' : 'courses.enrollmentModal.selectCourse') | translate }}
+            </option>
+            @for (course of courses; track course.id) {
+              <option [value]="course.id">{{ course.title }}</option>
+            }
+          </select>
+          @if (!coursesLoading && courses.length === 0) {
+            <div class="form-text">{{ 'courses.enrollmentModal.noCoursesAvailable' | translate }}</div>
+          }
+        </div>
+
+        <div class="form-group mb-1">
+          <label class="form-label" for="enrollmentStudentSearch">{{ 'courses.enrollmentModal.studentLabel' | translate }}</label>
+          <div class="enrollment-search">
+            <div class="input-group">
+              <span class="input-group-text"><i antIcon type="search" theme="outline"></i></span>
+              <input
+                id="enrollmentStudentSearch"
+                type="text"
+                class="form-control"
+                autocomplete="off"
+                [placeholder]="'courses.enrollmentModal.searchByNameOrEmail' | translate"
+                [formControl]="studentSearchControl"
+                (focus)="onStudentInputFocus()"
+                (blur)="onStudentInputBlur()"
+              />
+              @if (studentSearching) {
+                <span class="input-group-text">
+                  <span class="spinner-border spinner-border-sm text-primary" role="status">
+                    <span class="visually-hidden">{{ 'common.searching' | translate }}</span>
+                  </span>
+                </span>
+              }
+            </div>
+            @if (studentResultsOpen) {
+              <div class="enrollment-search-results">
+                @if (studentResults.length > 0) {
+                  @for (student of studentResults; track student.id) {
+                    <button type="button" class="enrollment-search-result" (click)="selectStudent(student)">
+                      <span class="fw-semibold d-block">{{ student.firstName }} {{ student.lastName }}</span>
+                      <span class="text-muted small d-block">{{ student.email }}</span>
+                    </button>
+                  }
+                } @else if (!studentSearching) {
+                  <div class="enrollment-search-empty">{{ 'courses.enrollmentModal.noStudentsFound' | translate }}</div>
+                }
+              </div>
+            }
+          </div>
+          @if (selectedStudent) {
+            <p class="text-success small mt-1 mb-0">
+              <i antIcon type="check-circle" theme="outline" class="me-1"></i>
+              {{
+                'courses.enrollmentModal.studentSelected'
+                  | translate: { name: selectedStudent.firstName + ' ' + selectedStudent.lastName }
+              }}
+            </p>
+          }
+        </div>
+      </div>
+
+      <div class="enrollment-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="submitting" (click)="onClose()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!canSubmit" (click)="submit()">
+          @if (submitting) {
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          }
+          {{ 'courses.enrollmentModal.createEnrollment' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

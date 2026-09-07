@@ -1,0 +1,1173 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "retry": "Retry",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "yes": "Yes",
+    "no": "No",
+    "previous": "Previous",
+    "searching": "Searching...",
+    "deleting": "Deleting...",
+    "deleteThisItem": "Delete this item?",
+    "actionCannotBeUndone": "This action cannot be undone.",
+    "saving": "Saving...",
+    "saveChanges": "Save changes",
+    "accessDenied": "Access denied",
+    "noAccessToPage": "You don't have access to this page.",
+    "currency": "DT"
+  },
+  "nav": {
+    "toggleMenu": "click to menu collapse",
+    "groups": {
+      "navigation": "Navigation",
+      "courses": "Courses",
+      "trainings": "Trainings",
+      "forum": "Forum",
+      "administration": "Administration"
+    },
+    "items": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "myPerformance": "My Performance",
+      "browseCourses": "Browse Courses",
+      "myCourses": "My Courses",
+      "myCertificates": "My Certificates",
+      "manageCourses": "Manage Courses",
+      "trainings": "Trainings",
+      "myTrainings": "My Trainings",
+      "calendar": "Calendar",
+      "discussionForums": "Discussion Forums",
+      "users": "Users",
+      "courseEnrollments": "Course Enrollments",
+      "trainingEnrollments": "Training Enrollments",
+      "certificates": "Certificates"
+    },
+    "header": {
+      "myCourses": "My Courses",
+      "manageCourses": "Manage courses",
+      "manageUsers": "Manage users",
+      "myAccount": "My account",
+      "profileTab": "Profile",
+      "settingTab": "Setting",
+      "loggedOutMessage": "You have been logged out.",
+      "roles": {
+        "admin": "Admin"
+      },
+      "viewProfile": "View profile",
+      "userAvatarAlt": "user avatar",
+      "profile": {
+        "myProfile": "My Profile",
+        "logout": "Logout"
+      },
+      "settings": {
+        "support": "Support",
+        "accountSettings": "Account Settings",
+        "privacyCenter": "Privacy Center",
+        "feedback": "Feedback",
+        "history": "History",
+        "language": "Language"
+      }
+    },
+    "supportModal": {
+      "title": "Need help?",
+      "body": "Reach out to us using any of the channels below and we'll get back to you as soon as possible."
+    }
+  },
+  "footer": {
+    "copyright": "Copyright © Omarise",
+    "home": "Home",
+    "contactUs": "Contact us"
+  },
+  "auth": {
+    "validation": {
+      "required": "This field is required.",
+      "email": "Please enter a valid email address.",
+      "minLength8": "Password must be at least 8 characters."
+    },
+    "common": {
+      "correctFields": "Please correct the highlighted fields.",
+      "correctField": "Please correct the highlighted field.",
+      "genericError": "Something went wrong, please try again.",
+      "footerHome": "Home",
+      "footerPrivacyPolicy": "Privacy Policy",
+      "footerContactUs": "Contact us"
+    },
+    "signin": {
+      "title": "Login",
+      "noAccount": "Don't have an account?",
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "keepSignedIn": "Keep me sign in",
+      "forgotPassword": "Forgot Password?",
+      "submit": "Login",
+      "loading": "Loading...",
+      "orContinueWith": "Or continue with",
+      "serverTimeout": "The server is taking too long to respond. Please try again or check the backend.",
+      "incorrectCredentials": "Incorrect email or password.",
+      "notVerified": "Your account is not verified yet. Redirecting to verification page...",
+      "unableToSignIn": "Unable to sign in right now. Please try again."
+    },
+    "signup": {
+      "title": "Sign up",
+      "haveAccount": "Already have an account?",
+      "firstNameLabel": "First Name*",
+      "firstNamePlaceholder": "First Name",
+      "lastNameLabel": "Last Name*",
+      "lastNamePlaceholder": "Last Name",
+      "phoneLabel": "Phone*",
+      "phonePlaceholder": "Phone",
+      "emailLabel": "Email Address*",
+      "passwordLabel": "Password*",
+      "agreementPrefix": "By Signing up, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "submit": "Create Account",
+      "submitting": "Creating Account...",
+      "orContinueWith": "Or continue with",
+      "accountCreated": "Account created! Check your email for your verification code.",
+      "serverTimeout": "The server is taking too long to respond. Please try again or check the backend.",
+      "emailTaken": "This email address is already registered.",
+      "unableToCreate": "Unable to create your account right now. Please try again."
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtitle": "Enter your email address and we'll send you a verification code.",
+      "emailLabel": "Email Address",
+      "submit": "Send verification code",
+      "sending": "Sending...",
+      "backToSignIn": "Back to sign in",
+      "emailRequired": "Email is required.",
+      "codeSent": "If an account exists for this email, a verification code has been sent.",
+      "unableToProcess": "Unable to process your request right now. Please try again."
+    },
+    "verifyResetCode": {
+      "sessionExpiredTitle": "Your password reset session has expired",
+      "requestNewCode": "Request a new code",
+      "title": "Verify your code",
+      "subtitle": "Enter the 6-digit code we sent to your email.",
+      "codeLabel": "6-digit code",
+      "submit": "Verify code",
+      "verifying": "Verifying...",
+      "enterCode": "Enter the 6-digit code.",
+      "invalidPattern": "The code must contain exactly 6 digits.",
+      "codeVerified": "Code verified. You can now reset your password.",
+      "sessionExpiredMessage": "Password reset session expired or invalid. Please request a new code.",
+      "invalidOrExpired": "Invalid or expired verification code.",
+      "unableToVerify": "Unable to verify the code right now. Please try again."
+    },
+    "resetPassword": {
+      "sessionExpiredTitle": "Your password reset session has expired",
+      "restart": "Restart password reset",
+      "title": "Set a new password",
+      "subtitle": "Choose a new password for your account.",
+      "newPasswordLabel": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "show": "Show",
+      "hide": "Hide",
+      "submit": "Reset password",
+      "resetting": "Resetting...",
+      "enterNewPassword": "Enter a new password.",
+      "confirmYourPassword": "Please confirm your new password.",
+      "passwordsDoNotMatch": "Passwords do not match.",
+      "passwordResetSuccess": "Password reset successfully. You can now log in with your new password.",
+      "sessionExpiredMessage": "Password reset session expired or invalid. Please restart the process.",
+      "unableToReset": "Unable to reset your password right now. Please try again."
+    },
+    "verifyEmail": {
+      "sessionExpiredTitle": "Your verification session has expired",
+      "sessionExpiredMessage": "Your verification session has expired.",
+      "sessionExpiredBody": "Please go back to sign up and create a fresh verification session.",
+      "backToSignUp": "Back to sign up",
+      "title": "Verify your email",
+      "subtitle": "Enter the 6-digit code we sent to your email.",
+      "codeLabel": "6-digit code",
+      "submit": "Verify email",
+      "verifying": "Verifying...",
+      "enterCode": "Enter the 6-digit code.",
+      "invalidPattern": "The code must contain exactly 6 digits.",
+      "resendPrompt": "Didn't receive the code? Resend",
+      "resendAvailableIn": "Resend available in {{seconds}}s",
+      "resending": "Sending...",
+      "newCodeSent": "A new code was sent.",
+      "accountVerified": "Account verified successfully. You can now log in.",
+      "alreadyVerified": "This account is already verified. Redirecting to sign in...",
+      "codeExpiredResend": "This verification code has expired. Please request a new one.",
+      "codeExpiredInline": "This verification code has expired. Please resend a new one.",
+      "invalidCode": "The code is invalid. Please check the 6 digits and try again.",
+      "resendTimeout": "Resend request timed out. Check backend logs and try again.",
+      "unableToVerify": "Unable to verify the code right now."
+    },
+    "forceChangePassword": {
+      "title": "Set a new password",
+      "subtitle": "Your account was created by an administrator. Please set a new password to continue.",
+      "newPasswordLabel": "New Password",
+      "confirmPasswordLabel": "Confirm New Password",
+      "submit": "Set new password",
+      "saving": "Saving...",
+      "enterNewPassword": "Enter a new password.",
+      "confirmYourPassword": "Please confirm your new password.",
+      "passwordsDoNotMatch": "Passwords do not match.",
+      "passwordChanged": "Password changed successfully. You can now use your account.",
+      "unableToChange": "Unable to change your password right now. Please try again."
+    }
+  },
+  "courses": {
+    "list": {
+      "title": "Courses",
+      "searchPlaceholder": "Search courses by title",
+      "loadingCourses": "Loading courses...",
+      "noResultsFor": "No results for \"{{term}}\"",
+      "empty": "No courses yet",
+      "draftBadge": "Draft",
+      "showingRange": "Showing {{start}}–{{end}} of {{total}}",
+      "loadError": "Unable to load courses right now. Please try again."
+    },
+    "adminContact": {
+      "emailUs": "Email us",
+      "whatsapp": "WhatsApp",
+      "facebookPage": "Facebook Page",
+      "whatsappMessageForCourse": "Hello, I would like to enroll in the course '{{title}}'.",
+      "whatsappMessageGeneric": "Hello, I would like information about your courses."
+    },
+    "chapterItem": {
+      "collapseChapter": "Collapse chapter {{title}}",
+      "expandChapter": "Expand chapter {{title}}",
+      "editAria": "Edit {{title}}",
+      "deleteAria": "Delete {{title}}",
+      "addVideo": "Add video",
+      "noVideosYet": "No videos yet",
+      "playAria": "Play {{title}}",
+      "videoLockedAria": "{{title}} — locked, enroll to watch",
+      "lockedAria": "{{title}} locked",
+      "completedAria": "{{title}} completed",
+      "deleteVideoTitleNamed": "Delete video \"{{title}}\"?",
+      "deleteVideoTitleGeneric": "Delete this video?",
+      "completedCountOfTotal": "{{completed}}/{{total}} completed • {{duration}}",
+      "videoCountSingular": "{{count}} video • {{duration}}",
+      "videoCountPlural": "{{count}} videos • {{duration}}",
+      "enrollToWatch": "Enroll in this course to watch this video",
+      "videoDeleted": "Video deleted.",
+      "deleteVideoError": "Unable to delete this video right now. Please try again."
+    },
+    "detail": {
+      "notFoundTitle": "Course not found",
+      "notFoundBody": "This course may have been removed.",
+      "backToCourses": "Back to courses",
+      "createdBy": "Created by",
+      "lessonsCount": "{{count}} lessons",
+      "courseCompletedBadge": "Course completed!",
+      "yourProgress": "Your progress",
+      "percentComplete": "{{percent}}% complete",
+      "chaptersCount": "Chapters ({{count}})",
+      "addChapter": "Add chapter",
+      "noChaptersYet": "No chapters yet",
+      "quizHeading": "Quiz",
+      "quizSubtitle": "Create and manage this course's quiz.",
+      "manageQuiz": "Manage Quiz",
+      "enrollToUnlock": "Enroll to unlock the quiz and certificate",
+      "contactAdminBody": "Contact the platform administration to arrange payment and get access to this course.",
+      "viewYourCertificate": "View your certificate",
+      "certificateEarned": "Certificate earned!",
+      "takeQuizAria": "Take the course quiz",
+      "takeQuizToEarn": "Take the quiz to earn your certificate",
+      "allVideosCompleted": "You've completed all the videos — you're ready.",
+      "getYourCertificate": "Get your course certificate",
+      "completeAllVideosBody": "Complete all videos and pass the quiz to earn your certificate.",
+      "deleteCourseTitle": "Delete {{title}}?",
+      "deleteChapterTitleNamed": "Delete chapter \"{{title}}\"?",
+      "deleteChapterTitleGeneric": "Delete this chapter?",
+      "loadError": "Unable to load this course right now. Please try again.",
+      "noLongerHaveAccess": "You no longer have access to this course",
+      "loadChaptersError": "Unable to load chapters right now. Please try again.",
+      "courseDeleted": "Course deleted.",
+      "deleteCourseError": "Unable to delete this course right now. Please try again.",
+      "chapterDeleted": "Chapter deleted.",
+      "deleteChapterError": "Unable to delete this chapter right now. Please try again.",
+      "courseCompletedToast": "🎉 Course completed!"
+    },
+    "formModal": {
+      "addCourseTitle": "Add course",
+      "editCourseTitle": "Edit course",
+      "imageLabel": "Course image (optional)",
+      "dragDropPrompt": "Drag & drop an image, or click to browse",
+      "imageFormatsHint": "JPG, PNG, GIF or WEBP, up to 10MB",
+      "imagePreviewAlt": "Course image preview",
+      "titleLabel": "Title*",
+      "descriptionLabel": "Description*",
+      "categoryLabel": "Category*",
+      "priceLabel": "Price*",
+      "publishedLabel": "Published",
+      "createCourse": "Create course",
+      "fieldRequired": "This field is required.",
+      "priceNegative": "Price cannot be negative.",
+      "courseCreated": "Course created.",
+      "courseUpdated": "Course updated.",
+      "imageUploadFailedButSaved": "Course details updated, but the image failed to upload — try changing the image again.",
+      "correctFields": "Please correct the highlighted fields.",
+      "saveError": "Unable to save this course right now. Please try again."
+    },
+    "discountModal": {
+      "title": "Manage discount",
+      "basePriceLine": "{{title}} — base price {{price}} DT",
+      "activeDiscount": "A {{percent}}% discount is currently active (final price {{finalPrice}} DT).",
+      "newPercentageLabel": "New discount percentage*",
+      "newPrice": "New price:",
+      "removeDiscount": "Remove discount",
+      "removing": "Removing...",
+      "applyDiscount": "Apply discount",
+      "applying": "Applying...",
+      "enterPercentage": "Enter a discount percentage.",
+      "percentageRange": "Discount must be between 0 and 100.",
+      "discountApplied": "Discount applied.",
+      "discountRemoved": "Discount removed.",
+      "invalidPercentage": "Please enter a valid discount percentage.",
+      "adminOnly": "Only an administrator can manage course discounts.",
+      "updateError": "Unable to update the discount right now. Please try again."
+    },
+    "chapterFormModal": {
+      "addTitle": "Add chapter",
+      "editTitle": "Edit chapter",
+      "descriptionLabel": "Description",
+      "orderLabel": "Order*",
+      "orderMin": "Order must be at least 1.",
+      "chapterAdded": "Chapter added.",
+      "chapterUpdated": "Chapter updated.",
+      "conflictError": "This chapter or course is no longer available. The list has been refreshed.",
+      "saveError": "Unable to save this chapter right now. Please try again."
+    },
+    "videoFormModal": {
+      "addTitle": "Add video",
+      "editTitle": "Edit video",
+      "fileLabel": "Video file*",
+      "dragDropPrompt": "Drag & drop a video, or click to browse",
+      "fileFormatsHint": "MP4, WEBM or MOV, up to 500MB",
+      "uploading": "Uploading...",
+      "durationLabel": "Duration",
+      "selectFile": "Please select a video file.",
+      "videoAdded": "Video added.",
+      "videoUpdated": "Video updated.",
+      "conflictError": "This video or chapter is no longer available. The list has been refreshed.",
+      "saveError": "Unable to save this video right now. Please try again."
+    },
+    "videoPlayerModal": {
+      "videoCompletedToast": "🎉 Video completed!",
+      "saveProgressError": "Unable to save your progress right now. Please try again."
+    },
+    "enrollmentModal": {
+      "newEnrollmentTitle": "New enrollment",
+      "courseLabel": "Course",
+      "selectCourse": "Select a course",
+      "noCoursesAvailable": "No courses available.",
+      "studentLabel": "Student",
+      "searchByNameOrEmail": "Search by name or email",
+      "noStudentsFound": "No students found",
+      "studentSelected": "{{name}} selected",
+      "createEnrollment": "Create enrollment",
+      "checkStudentAndCourse": "Please check the selected student and course.",
+      "studentOrCourseNotFound": "Student or course not found.",
+      "createConflict": "This enrollment could not be created right now.",
+      "serviceUnavailable": "A required service is temporarily unavailable. Please try again shortly.",
+      "activateError": "Unable to activate access right now. Please try again."
+    },
+    "enrollmentStatus": {
+      "active": "Active",
+      "revoked": "Revoked"
+    },
+    "enrollmentManagement": {
+      "enrollmentsCount": "Enrollments ({{count}})",
+      "allCourses": "All courses",
+      "allStatuses": "All statuses",
+      "statusLabel": "Status",
+      "amountColumn": "Amount",
+      "enrolledColumn": "Enrolled",
+      "actionsColumn": "Actions",
+      "noneFound": "No enrollments found",
+      "clearStudentFilter": "Clear student filter",
+      "revokeAccessAria": "Revoke access to {{course}}",
+      "revokeTitleNamed": "Revoke this student's access to {{course}}?",
+      "revokeTitleGeneric": "Revoke this enrollment?",
+      "revokeDescription": "They will immediately lose access to the course content.",
+      "revokeConfirmLabel": "Revoke",
+      "loadError": "Unable to load enrollments right now. Please try again.",
+      "accessActivated": "Access activated for {{course}}.",
+      "accessReactivated": "Access re-activated for {{course}}.",
+      "alreadyHasAccess": "This student already has active access to this course.",
+      "accessRevoked": "Access revoked for {{course}}.",
+      "revokeError": "Unable to revoke this enrollment right now. Please try again."
+    },
+    "enrolledStudents": {
+      "backToMyCourses": "Back to my courses",
+      "accessDeniedBody": "You don't have access to this course's enrolled students.",
+      "pageTitle": "{{title}} — Enrolled Students",
+      "cardTitle": "Enrolled Students ({{count}})",
+      "noneEnrolledYet": "No students enrolled yet",
+      "emailColumn": "Email",
+      "activatedColumn": "Activated",
+      "loadError": "Unable to load enrolled students right now. Please try again."
+    },
+    "myCourses": {
+      "pageTitle": "Manage Courses",
+      "addCourse": "Add Course",
+      "imageColumn": "Image",
+      "titleColumn": "Title",
+      "categoryColumn": "Category",
+      "priceColumn": "Price",
+      "published": "Published",
+      "openAria": "Open {{title}}",
+      "unpublishAria": "Unpublish {{title}}",
+      "publishAria": "Publish {{title}}",
+      "viewCertificatesAria": "View certificates for {{title}}",
+      "manageDiscountAria": "Manage discount for {{title}}",
+      "viewEnrolledStudentsAria": "View enrolled students for {{title}}",
+      "deleteTitleNamed": "Delete {{title}}?",
+      "deleteTitleGeneric": "Delete this course?",
+      "courseDeleted": "{{title}} was deleted.",
+      "updateStatusError": "Unable to update the status right now. Please try again."
+    },
+    "studentLibrary": {
+      "pageTitle": "My Courses",
+      "noneEnrolledYet": "You haven't enrolled in any courses yet",
+      "browseCourses": "Browse courses",
+      "completedBadge": "Completed",
+      "reviewCourse": "Review Course",
+      "continueCourse": "Continue Course",
+      "loadError": "Unable to load your courses right now. Please try again."
+    },
+    "quizManagement": {
+      "noQuizYet": "No quiz yet for this course",
+      "createQuiz": "Create Quiz",
+      "passingScore": "Passing score: {{score}}%",
+      "editQuizAria": "Edit quiz",
+      "deleteQuizAria": "Delete quiz",
+      "questionsCount": "Questions ({{count}})",
+      "addQuestion": "Add question",
+      "noQuestionsYet": "No questions yet",
+      "editQuestionAria": "Edit question {{index}}",
+      "deleteQuestionAria": "Delete question {{index}}",
+      "deleteQuizTitle": "Delete this quiz?",
+      "deleteQuizDescription": "This will delete the quiz and all its questions. This cannot be undone.",
+      "deleteQuestionTitleNamed": "Delete \"{{text}}\"?",
+      "deleteQuestionTitleGeneric": "Delete this question?",
+      "quizDeleted": "Quiz deleted.",
+      "deleteQuizError": "Unable to delete this quiz right now. Please try again.",
+      "questionDeleted": "Question deleted.",
+      "deleteQuestionError": "Unable to delete this question right now. Please try again."
+    },
+    "quizFormModal": {
+      "createTitle": "Create quiz",
+      "editTitle": "Edit quiz",
+      "passingScoreLabel": "Passing score (%)*",
+      "passingScoreRange": "Passing score must be between 0 and 100.",
+      "quizCreated": "Quiz created.",
+      "quizUpdated": "Quiz updated.",
+      "alreadyExists": "A quiz already exists for this course.",
+      "saveError": "Unable to save this quiz right now. Please try again."
+    },
+    "questionFormModal": {
+      "addTitle": "Add question",
+      "editTitle": "Edit question",
+      "questionLabel": "Question*",
+      "optionsLabel": "Options*",
+      "optionPlaceholder": "Option {{index}}",
+      "optionTextAria": "Option {{index}} text",
+      "removeOptionAria": "Remove option {{index}}",
+      "addOption": "Add option",
+      "checkCorrectHint": "Check the box next to every correct option.",
+      "needAtLeastTwoOptions": "Each question must have at least 2 options.",
+      "needOneCorrectOption": "At least one option must be marked as correct.",
+      "questionAdded": "Question added.",
+      "questionUpdated": "Question updated.",
+      "saveError": "Unable to save this question right now. Please try again."
+    },
+    "quizPage": {
+      "backToCourse": "Back to {{title}}",
+      "pageTitle": "{{title}} — Quiz",
+      "quizLocked": "Quiz locked",
+      "quizLockedBody": "Complete all videos in this course before taking the quiz.",
+      "backToCourseLink": "Back to course",
+      "noQuizAvailable": "No quiz is available for this course yet.",
+      "loadError": "Unable to load the quiz right now. Please try again."
+    },
+    "quizTaking": {
+      "loadStatusError": "Unable to load your quiz status right now. Please try again.",
+      "passed": "Passed!",
+      "passedBadge": "Passed",
+      "notPassed": "Not passed",
+      "notPassedYet": "Not passed yet",
+      "scoreLine": "Score: {{score}}% — passing score: {{passingScore}}%",
+      "generating": "Generating...",
+      "getCertificate": "Get Your Certificate",
+      "retakeQuiz": "Retake Quiz",
+      "questionsLeftSingular": "{{count}} question left to answer",
+      "questionsLeftPlural": "{{count}} questions left to answer",
+      "submitting": "Submitting...",
+      "submitQuiz": "Submit Quiz",
+      "attemptHistory": "Attempt History",
+      "noAttemptsYet": "No attempts yet.",
+      "alreadyPassed": "You have already passed this quiz. Retaking is not allowed.",
+      "submitError": "Unable to submit your answers right now. Please try again.",
+      "certificateError": "Unable to generate your certificate right now. Please try again.",
+      "historyError": "Unable to load your attempt history right now."
+    },
+    "myCertificates": {
+      "pageTitle": "My Certificates",
+      "emptyBody": "You haven't earned any certificates yet — complete a course and pass its quiz to get started",
+      "issuedOn": "Issued {{date}}",
+      "loadError": "Unable to load your certificates right now. Please try again."
+    },
+    "certificateView": {
+      "notEarnedTitle": "You haven't earned this certificate yet",
+      "notEarnedBody": "Complete the course and pass its quiz to unlock your certificate.",
+      "goToQuiz": "Go to quiz",
+      "downloadPdf": "Download PDF",
+      "copyVerificationLink": "Copy verification link",
+      "linkCopied": "Link copied.",
+      "copyError": "Unable to copy the link. Please copy it manually.",
+      "pdfError": "Failed to generate PDF, please try again.",
+      "loadError": "Unable to load your certificate right now. Please try again."
+    },
+    "certificateVerify": {
+      "notFoundTitle": "Certificate not found",
+      "notFoundBody": "This number doesn't match any issued certificate.",
+      "verified": "Verified",
+      "loadError": "Unable to verify this certificate right now. Please try again."
+    },
+    "allCertificates": {
+      "cardTitle": "Certificates ({{count}})",
+      "noneIssuedYet": "No certificates issued yet",
+      "instructorColumn": "Instructor",
+      "scoreColumn": "Score",
+      "issuedColumn": "Issued",
+      "certificateNumberColumn": "Certificate #",
+      "loadError": "Unable to load certificates right now. Please try again."
+    },
+    "courseCertificates": {
+      "backToCourse": "Back to course",
+      "pageTitle": "{{title}} — Certificates",
+      "accessDeniedBody": "You don't have access to this course's certificates.",
+      "noneIssuedYet": "No certificates issued yet for this course"
+    }
+  },
+  "trainings": {
+    "list": {
+      "pageTitle": "Trainings",
+      "createTraining": "Create Training",
+      "loadingTrainings": "Loading trainings...",
+      "empty": "No trainings yet",
+      "instructorColumn": "Instructor",
+      "durationColumn": "Duration",
+      "startDateColumn": "Start date",
+      "durationDays": "{{count}} days",
+      "buy": "Buy",
+      "deleteTitleNamed": "Delete {{title}}?",
+      "deleteTitleGeneric": "Delete this training?",
+      "checkingImpact": "Checking what will be affected...",
+      "liveSessionSingular": "{{count}} live session",
+      "liveSessionPlural": "{{count}} live sessions",
+      "recordingSingular": "{{count}} recording",
+      "recordingPlural": "{{count}} recordings",
+      "activeSuffix": " ({{count}} active)",
+      "enrollmentSingular": "{{count}} enrollment{{activeSuffix}}",
+      "enrollmentPlural": "{{count}} enrollments{{activeSuffix}}",
+      "andJoiner": "and",
+      "deletionImpactBody": "This training has {{parts}}. Deleting it will permanently remove all of this — this cannot be undone.",
+      "loadError": "Unable to load trainings right now. Please try again.",
+      "trainingDeleted": "{{title}} was deleted.",
+      "deleteError": "Unable to delete this training right now. Please try again."
+    },
+    "purchaseModal": {
+      "title": "Buy this training",
+      "body": "Payment is handled manually by the administration. Contact us through one of the channels below to complete your registration for this training."
+    },
+    "myTrainings": {
+      "pageTitle": "My Trainings",
+      "noneEnrolledYet": "You're not enrolled in any training yet",
+      "browseTrainings": "Browse trainings",
+      "viewTraining": "View training",
+      "loadError": "Unable to load your trainings right now. Please try again."
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "liveSessionStatus": {
+      "scheduled": "Scheduled",
+      "live": "Live"
+    },
+    "detail": {
+      "notFoundTitle": "Training not found",
+      "notFoundBody": "This training may have been removed.",
+      "backToTrainings": "Back to trainings",
+      "accessDeniedBody": "You don't have access to this training.",
+      "replaceImage": "Replace image",
+      "sessionsAndRecordings": "Sessions & Recordings",
+      "liveSessions": "Live Sessions",
+      "recordings": "Recordings",
+      "addSession": "Add Session",
+      "enrollmentGateBody": "You need to be enrolled in this training to access its sessions and recordings.",
+      "sessionsTab": "Sessions",
+      "sessionsTabWithCount": "Sessions ({{count}})",
+      "noSessionsYet": "No live sessions yet",
+      "joinMeeting": "Join meeting",
+      "meetingLinkUnavailable": "Meeting link not yet available",
+      "noRecordingsYet": "No recordings yet",
+      "deleteSessionTitleNamed": "Delete {{title}}?",
+      "deleteSessionTitleGeneric": "Delete this session?",
+      "loadError": "Unable to load this training right now. Please try again.",
+      "imageUpdated": "Training image updated.",
+      "imageUpdateError": "Unable to update the image right now. Please try again.",
+      "sessionDeleted": "{{title}} was deleted.",
+      "deleteSessionError": "Unable to delete this session right now. Please try again."
+    },
+    "recordingSection": {
+      "loadingRecording": "Loading recording...",
+      "durationLabel": "Duration: {{duration}}",
+      "editAria": "Edit recording",
+      "replaceAria": "Replace video",
+      "deleteAria": "Delete recording",
+      "uploadRecording": "Upload Recording",
+      "deleteTitle": "Delete this recording?",
+      "enrollToWatch": "You need to be enrolled in this training to watch this recording.",
+      "loadError": "Unable to load the recording right now.",
+      "recordingDeleted": "Recording deleted.",
+      "deleteError": "Unable to delete this recording right now. Please try again.",
+      "videoReplaced": "Video replaced.",
+      "recordingUploaded": "Recording uploaded.",
+      "uploadError": "Unable to upload this recording right now. Please try again."
+    },
+    "recordingMetadataForm": {
+      "editTitle": "Edit recording",
+      "recordingUpdated": "Recording updated.",
+      "saveError": "Unable to save this recording right now. Please try again."
+    },
+    "liveSessionForm": {
+      "addTitle": "Add Live Session",
+      "editTitle": "Edit Live Session",
+      "sessionNotFound": "Session not found",
+      "mayHaveBeenRemoved": "This may have been removed.",
+      "backToTraining": "Back to training",
+      "trainingLabel": "Training:",
+      "startLabel": "Start*",
+      "endLabel": "End*",
+      "endAfterStart": "End must be after the start time.",
+      "meetingUrlLabel": "Meeting URL",
+      "meetingUrlHint": "Optional — add it now or fill it in later, before the session starts.",
+      "cancelSession": "Cancel session",
+      "reactivateSession": "Reactivate session",
+      "statusHint": "Scheduled, live and completed are set automatically from the start/end time. Cancelling is the only manual action.",
+      "createSession": "Create session",
+      "invalidUrl": "Enter a valid URL (e.g. https://meet.google.com/...).",
+      "loadSessionError": "Unable to load this session right now. Please try again.",
+      "sessionCreated": "Session created.",
+      "sessionUpdated": "Session updated.",
+      "saveError": "Unable to save this session right now. Please try again."
+    },
+    "form": {
+      "createTitle": "Create Training",
+      "editTitle": "Edit Training",
+      "imageLabel": "Training image (optional)",
+      "imagePreviewAlt": "Training image preview",
+      "instructorRequiredLabel": "Instructor*",
+      "instructorOptionalLabel": "Instructor (leave blank to keep the current instructor)",
+      "selectFormateur": "Select a formateur",
+      "keepCurrentInstructor": "Keep the current instructor",
+      "discountLabel": "Discount",
+      "startDateLabel": "Start date*",
+      "endDateLabel": "End date*",
+      "endDateAfterStart": "End date must be on or after the start date.",
+      "publish": "Publish",
+      "cancelTraining": "Cancel training",
+      "statusHint": "In progress and completed are set automatically from the start/end date.",
+      "createTraining": "Create training",
+      "selectInstructor": "Select the formateur this training will be assigned to.",
+      "trainingCreated": "Training created.",
+      "trainingUpdated": "Training updated.",
+      "saveError": "Unable to save this training right now. Please try again."
+    },
+    "enrollmentModal": {
+      "selectTraining": "Select a training",
+      "noneOpenForEnrollment": "No trainings are currently open for enrollment.",
+      "notAStudent": "This user is not a student.",
+      "studentOrTrainingNotFound": "Student or training not found.",
+      "notOpenForEnrollment": "This training isn't open for enrollment right now.",
+      "serviceUnavailable": "The user service is temporarily unavailable. Please try again shortly.",
+      "createError": "Unable to create this enrollment right now. Please try again."
+    },
+    "enrollmentManagement": {
+      "cardTitle": "Training Enrollments ({{count}})",
+      "allTrainings": "All trainings",
+      "revokeTitleNamed": "Revoke this student's access to {{training}}?",
+      "revokeDescription": "They will immediately lose access to this training's sessions and recordings.",
+      "enrollmentCreated": "Enrollment created for {{training}}.",
+      "enrollmentReactivated": "Enrollment re-activated for {{training}}.",
+      "alreadyHasAccess": "This student already has active access to this training."
+    },
+    "enrolledStudents": {
+      "pageTitle": "{{title}} — Enrolled Students",
+      "accessDeniedBody": "You don't have access to this training's enrolled students."
+    }
+  },
+  "forum": {
+    "postType": {
+      "course": "Course",
+      "training": "Training"
+    },
+    "list": {
+      "pageTitle": "Discussion Forums",
+      "pageSubtitle": "Join a dynamic community where learners and instructors connect to share knowledge, ask questions, and exchange ideas.",
+      "askYourQuestion": "Ask your question",
+      "tabAll": "All",
+      "tabTop": "Top",
+      "tabBookmarked": "Bookmarked",
+      "filters": "Filters",
+      "typeLabel": "Type",
+      "allTypes": "All types",
+      "allCourses": "All courses",
+      "noResults": "No results",
+      "loadError": "Unable to load posts right now. Please try again."
+    },
+    "postCard": {
+      "removeBookmark": "Remove bookmark",
+      "bookmarkThisPost": "Bookmark this post",
+      "removeUpvote": "Remove upvote",
+      "upvoteThisPost": "Upvote this post",
+      "bookmarkError": "Unable to update this bookmark right now. Please try again.",
+      "upvoteError": "Unable to update this upvote right now. Please try again.",
+      "postDeleted": "Post deleted.",
+      "deleteError": "Unable to delete this post right now. Please try again."
+    },
+    "commentItem": {
+      "editComment": "Edit comment",
+      "deleteComment": "Delete comment",
+      "deleteTitle": "Delete this comment?",
+      "updateError": "Unable to update this comment right now. Please try again.",
+      "deleteError": "Unable to delete this comment right now. Please try again."
+    },
+    "postDetail": {
+      "notFoundTitle": "Post not found",
+      "notFoundBody": "This post may have been removed.",
+      "backToForum": "Back to forum",
+      "commentsCount": "Comments ({{count}})",
+      "noCommentsYet": "No comments yet",
+      "commentCountSingular": "{{count}} comment",
+      "commentCountPlural": "{{count}} comments",
+      "addComment": "Add a comment",
+      "postComment": "Post comment",
+      "loadError": "Unable to load this post right now. Please try again.",
+      "loadCommentsError": "Unable to load comments right now. Please try again.",
+      "submitCommentError": "Unable to post this comment right now. Please try again."
+    },
+    "postFormModal": {
+      "editTitle": "Edit post",
+      "createTitle": "Create a new post",
+      "publishing": "Publishing...",
+      "publish": "Publish",
+      "requiredFieldsHint": "Fields marked with an asterisk (*) are required.",
+      "titleLabel": "Title *",
+      "titlePlaceholder": "Enter a title",
+      "typeLabel": "Type *",
+      "courseLabel": "Course *",
+      "chaptersLabel": "Chapters",
+      "selectChapter": "Select a chapter",
+      "lessonsLabel": "Lessons",
+      "selectLesson": "Select a lesson",
+      "trainingLabel": "Training *",
+      "liveSessionsLabel": "Live Sessions",
+      "selectLiveSession": "Select a live session",
+      "recordingsLabel": "Recordings",
+      "selectRecording": "Select a recording",
+      "noRecordingAvailable": "No recording available",
+      "bodyLabel": "Body *",
+      "checkReferences": "Please check the selected course/training references.",
+      "publishError": "Unable to publish this post right now. Please try again."
+    }
+  },
+  "notifications": {
+    "dropdown": {
+      "title": "Notifications",
+      "markAllAsRead": "Mark all as read",
+      "noneYet": "No notifications yet",
+      "viewAll": "View all",
+      "updateError": "Unable to update this notification right now.",
+      "markAllError": "Unable to mark all notifications as read right now."
+    },
+    "page": {
+      "cardTitle": "Notifications ({{count}})",
+      "markAsReadAria": "Mark '{{title}}' as read",
+      "deleteAria": "Delete notification {{title}}",
+      "deleteTitle": "Delete this notification?",
+      "loadError": "Unable to load notifications right now. Please try again.",
+      "notificationDeleted": "Notification deleted.",
+      "deleteError": "Unable to delete this notification right now. Please try again."
+    }
+  },
+  "profile": {
+    "pageTitle": "My Profile",
+    "changePasswordLink": "Change password",
+    "changePicture": "Change profile picture",
+    "pictureAlt": "Profile picture",
+    "changePhoto": "Change photo",
+    "emailLabel": "Email",
+    "roleLabel": "Role",
+    "phoneLabel": "Phone",
+    "bioLabel": "Bio",
+    "bioPlaceholder": "Tell us a bit about yourself",
+    "updateSuccess": "Profile updated successfully.",
+    "maxLength": "Must be {{length}} characters or fewer.",
+    "loadError": "Unable to load your profile right now. Please try again.",
+    "updateError": "Unable to update your profile right now. Please try again.",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "changePassword": {
+      "pageTitle": "Change Password",
+      "backToProfile": "Back to profile",
+      "currentPasswordLabel": "Current Password",
+      "changing": "Changing...",
+      "submit": "Change password",
+      "success": "Password changed successfully.",
+      "error": "Unable to change your password right now. Please try again."
+    },
+    "avatarPicker": {
+      "title": "Choose your avatar",
+      "previewAlt": "Avatar preview",
+      "presetAvatars": "Preset avatars",
+      "selectAvatarAria": "Select avatar {{id}}",
+      "avatarOptionAlt": "Avatar option {{id}}",
+      "or": "OR",
+      "dragDropPrompt": "Drag & drop an image here, or click to browse",
+      "done": "Done",
+      "loadPresetsError": "Unable to load preset avatars right now.",
+      "avatarUpdated": "Avatar updated.",
+      "updateAvatarError": "Unable to update your avatar right now. Please try again.",
+      "pictureUpdated": "Profile picture updated.",
+      "uploadError": "Unable to upload your profile picture right now. Please try again."
+    }
+  },
+  "admin": {
+    "users": {
+      "students": "Students",
+      "trainers": "Trainers",
+      "studentsTabWithCount": "Students ({{count}})",
+      "trainersTabWithCount": "Trainers ({{count}})",
+      "addStudent": "Add student",
+      "addTrainer": "Add trainer",
+      "searchStudents": "Search students by name or email",
+      "searchTrainers": "Search trainers by name or email",
+      "loadingStudents": "Loading students...",
+      "loadingTrainers": "Loading trainers...",
+      "noStudentsYet": "No students yet",
+      "noTrainersYet": "No trainers yet",
+      "photoColumn": "Photo",
+      "firstNameColumn": "First name",
+      "lastNameColumn": "Last name",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "deleteTitleGeneric": "Delete this user?",
+      "deleteTitleNamed": "Delete {{name}}?",
+      "loadError": "Unable to load users right now. Please try again.",
+      "userDeleted": "{{name}} was deleted.",
+      "deleteError": "Unable to delete this user right now. Please try again."
+    },
+    "userFormModal": {
+      "editStudent": "Edit student",
+      "editTrainer": "Edit trainer",
+      "roleLabel": "Role*",
+      "student": "Student",
+      "trainer": "Trainer",
+      "tempPasswordHint": "A temporary password will be generated and emailed to the new user.",
+      "profileImageUrlLabel": "Profile image URL",
+      "create": "Create",
+      "userCreated": "{{role}} created.",
+      "userUpdated": "{{role}} updated.",
+      "emailTaken": "This email is already registered.",
+      "userNoLongerExists": "This user no longer exists.",
+      "saveError": "Unable to save this user right now. Please try again."
+    }
+  },
+  "calendar": {
+    "todayWidget": {
+      "title": "Today",
+      "titleWithCount": "Today ({{count}})",
+      "noneToday": "No sessions today",
+      "loadError": "Unable to load today's sessions right now."
+    },
+    "upcomingWidget": {
+      "title": "Upcoming Sessions",
+      "titleWithCount": "Upcoming Sessions ({{count}})",
+      "none": "No upcoming sessions",
+      "loadError": "Unable to load upcoming sessions right now."
+    },
+    "eventModal": {
+      "checkingAccess": "Checking your access...",
+      "needEnrollmentToJoin": "You need an active enrollment to join this training's live sessions.",
+      "joinMeeting": "Join Meeting",
+      "watchRecording": "Watch Recording",
+      "recordingUnavailable": "This recording is no longer available.",
+      "needEnrollmentToWatch": "You need an active enrollment to watch this recording.",
+      "openRecordingError": "Unable to open the recording right now. Please try again."
+    },
+    "view": {
+      "pageTitle": "Calendar",
+      "pageSubtitle": "All your live sessions in one place — filter, browse, and jump straight into a session.",
+      "cardTitle": "Live Sessions Calendar",
+      "recordingAvailable": "Recording available",
+      "loadError": "Unable to load calendar events right now."
+    }
+  },
+  "dashboard": {
+    "student": {
+      "welcome": "Welcome!",
+      "welcomeWithName": "Welcome, {{name}}!",
+      "subtitle": "Here's where you left off.",
+      "continueLearning": "Continue Learning",
+      "noCoursesInProgress": "No courses in progress — browse the catalog to get started",
+      "upcomingLiveSessions": "Upcoming Live Sessions",
+      "noUpcomingSessions": "No upcoming sessions scheduled",
+      "recentCertificates": "Recent Certificates",
+      "issuedOn": "Issued {{date}}",
+      "noCertificatesYet": "No certificates earned yet",
+      "recommendedTrainings": "Recommended Trainings",
+      "viewAll": "View all",
+      "loadError": "Unable to load your dashboard right now. Please try again."
+    },
+    "formateur": {
+      "title": "My Performance",
+      "subtitle": "A summary of your own courses and trainings.",
+      "noContentYet": "You don't have any courses or trainings yet — create one to see your performance here.",
+      "myCourses": "My Courses",
+      "coursesYouOwn": "Courses you own",
+      "myTrainings": "My Trainings",
+      "trainingsYouOwn": "Trainings you own",
+      "totalStudents": "Total Students",
+      "courseTrainingBreakdown": "{{courseCount}} course, {{trainingCount}} training",
+      "contentPerformance": "My Content Performance",
+      "loadError": "Unable to load your performance data right now. Please try again."
+    },
+    "other": {
+      "useSidebar": "Use the sidebar to get started."
+    },
+    "admin": {
+      "loadingDashboard": "Loading dashboard...",
+      "titleColumn": "TITLE",
+      "typeColumn": "TYPE",
+      "enrollmentsColumn": "ENROLLMENTS",
+      "noEnrollmentActivity": "No enrollment activity yet",
+      "users": "Users",
+      "usersBreakdown": "{{students}} students, {{trainers}} trainers, {{admins}} admins",
+      "enrollments": "Enrollments",
+      "revenue": "Revenue",
+      "revenueBreakdown": "{{courseRevenue}} course, {{trainingRevenue}} training",
+      "certificates": "Certificates",
+      "issuedToDate": "Issued to date",
+      "recentEnrollments": "Recent Enrollments",
+      "studentColumn": "STUDENT",
+      "itemColumn": "ITEM",
+      "statusColumn": "STATUS",
+      "amountColumn": "AMOUNT",
+      "dateColumn": "DATE",
+      "noEnrollmentsYet": "No enrollments yet",
+      "recentForumActivity": "Recent Forum Activity",
+      "commentsTotal": "{{count}} comments total",
+      "noForumActivity": "No forum activity yet",
+      "top5Title": "Top 5 Courses & Top 5 Trainings (by Revenue)",
+      "coursesVsTrainings": "Courses vs Trainings",
+      "incomeOverview": "Income Overview",
+      "totalRevenueLast7Days": "Total Revenue, Last 7 Days",
+      "revenueAndEnrollmentsLast7Days": "Revenue & Enrollments (Last 7 Days)",
+      "unknown": "Unknown",
+      "loadError": "Unable to load dashboard data right now. Please try again."
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "body": "The page you're looking for doesn't exist or may have been moved.",
+    "goBack": "Go Back",
+    "backToHome": "Back to Home"
+  },
+  "toast": {
+    "dismiss": "Dismiss notification"
+  },
+  "landing": {
+    "nav": {
+      "toggleNavigation": "Toggle navigation",
+      "home": "Home",
+      "trainings": "Trainings",
+      "mentor": "Mentor",
+      "group": "Group",
+      "testimonials": "Testimonials",
+      "pricing": "Pricing",
+      "login": "Login",
+      "getStarted": "Get Started"
+    },
+    "hero": {
+      "badge": "New Trainings Available",
+      "titlePart1": "Grow Your Skills,",
+      "titlePart2": "Grow Your Career,",
+      "titlePart3": "with Omarise",
+      "subtitle": "Master in-demand skills through practical courses and live trainings, guided by real mentors — and earn a certificate to prove it.",
+      "startLearning": "Start Learning",
+      "youtubeChannel": "YouTube Channel",
+      "studentsLabel": "Students",
+      "imageAlt": "Students learning online",
+      "join50kLabel": "Join 50k+",
+      "availableNow": "Available Now"
+    },
+    "trainingsSection": {
+      "eyebrow": "Training",
+      "titlePart1": "Explore Our Popular",
+      "subtitle": "Live, instructor-led trainings across the subject areas our platform covers.",
+      "viewAll": "View All Trainings",
+      "categories": {
+        "webMobile": {
+          "title": "Web & Mobile Development",
+          "description": "Build modern websites and mobile apps with hands-on, instructor-led trainings.",
+          "badgeLabel": "Development"
+        },
+        "uiUx": {
+          "title": "UI/UX Design",
+          "description": "Design intuitive, beautiful interfaces backed by real user research and testing.",
+          "badgeLabel": "Design"
+        },
+        "dataScience": {
+          "title": "Data Science & Analytics",
+          "description": "Turn raw data into insight with practical, project-based data science trainings.",
+          "badgeLabel": "Data Science"
+        },
+        "digitalMarketing": {
+          "title": "Digital Marketing Pro",
+          "description": "Grow brands and drive results with practical, campaign-based digital marketing trainings.",
+          "badgeLabel": "Marketing"
+        }
+      }
+    },
+    "mentorsSection": {
+      "eyebrow": "Mentors",
+      "titlePart1": "Learn From Industry",
+      "titlePart2": "Experts",
+      "subtitle": "Our mentors are industry leaders with years of experience in their respective fields.",
+      "coursesLabel": "Courses",
+      "mentors": {
+        "johnSmith": {
+          "title": "Web Development Expert",
+          "bio": "8+ years experience in data analysis and machine learning. Former Data Scientist at Facebook."
+        },
+        "sarahJohnson": {
+          "title": "Digital Marketing Guru",
+          "bio": "10+ years experience in digital marketing and SEO strategies. Former Marketing Manager at Google."
+        },
+        "mikeChen": {
+          "title": "Data Science Specialist",
+          "bio": "7+ years experience in data analysis and machine learning. Former Data Scientist at Facebook."
+        },
+        "emmaDavis": {
+          "title": "Graphic Design Artist",
+          "bio": "9+ years experience in graphic design and visual arts. Former Creative Director at Adobe."
+        }
+      }
+    },
+    "social": {
+      "xProfile": "X profile",
+      "linkedinProfile": "LinkedIn profile",
+      "githubProfile": "GitHub profile"
+    },
+    "community": {
+      "eyebrow": "Community",
+      "titlePart1": "Join Our Thriving",
+      "titlePart2": "Learning Community",
+      "subtitle": "Learning is better together. Join our community of 50,000+ students and unlock collaborative features that accelerate your growth.",
+      "imageAlt": "Learning community",
+      "studyGroupsTitle": "Study Groups",
+      "studyGroupsBody": "Connect with like-minded learners and form study groups for collaborative learning.",
+      "forumsTitle": "Discussion Forums",
+      "forumsBody": "Engage in meaningful discussions and get answers from peers and mentors.",
+      "liveSessionsTitle": "Live Sessions",
+      "liveSessionsBody": "Join live Q&A sessions and workshops with industry experts.",
+      "peerSupportTitle": "Peer Support",
+      "peerSupportBody": "Get help and support from fellow learners anytime you need it.",
+      "globalCommunityTitle": "Global Community",
+      "globalCommunityBody": "Connect with students from 150+ countries worldwide."
+    },
+    "testimonialsSection": {
+      "titlePart1": "What Our",
+      "titlePart3": "Say",
+      "subtitle": "Join thousands of successful students who have transformed their careers with Omarise.",
+      "list": {
+        "alexThompson": {
+          "quote": "Omarise completely transformed my career. The web development bootcamp gave me the skills I needed to land my dream job at Meta. The mentors are incredible!",
+          "role": "Software Developer at Meta"
+        },
+        "jessicaLee": {
+          "quote": "The UI/UX design course was exactly what I needed. The practical projects and mentor feedback helped me build a portfolio that got me hired at Spotify.",
+          "role": "UX Designer at Spotify"
+        },
+        "davidPark": {
+          "quote": "I switched careers from marketing to data science thanks to Omarise. The structured curriculum and supportive community made the transition seamless.",
+          "role": "Data Analyst at Amazon"
+        },
+        "mariaGarcia": {
+          "quote": "As a freelancer, I needed flexible learning. Omarise's self-paced courses fit perfectly into my schedule. Highly recommend!",
+          "role": "Freelance Designer"
+        },
+        "jamesWilson": {
+          "quote": "The marketing course helped me understand how to grow my startup. The ROI has been incredible - best investment in my education.",
+          "role": "Startup Founder"
+        },
+        "emilyChen": {
+          "quote": "The combination of technical and business courses gave me a unique edge. I've recommended Omarise to all my colleagues.",
+          "role": "Product Manager at Google"
+        }
+      }
+    },
+    "pricing": {
+      "titlePart1": "Simple, Pay-As-You-",
+      "titlePart2": "Go",
+      "subtitle": "No subscriptions, no hidden fees — pay only for the courses and trainings you choose.",
+      "stepLabel": "Step {{step}}",
+      "steps": {
+        "createAccount": {
+          "title": "Create Your Account",
+          "description": "Sign up for free in seconds — browsing courses and trainings costs nothing."
+        },
+        "chooseWhatToLearn": {
+          "title": "Choose What to Learn",
+          "description": "Every course and training is priced individually. Pay once — no recurring subscription."
+        },
+        "contactUsToEnroll": {
+          "title": "Contact Us to Enroll",
+          "description": "Reach out by email, WhatsApp, or Facebook and our team will get you enrolled."
+        }
+      },
+      "ctaText": "Ready to get started? Reach out and our team will set up your enrollment.",
+      "emailUs": "Email Us",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "createFreeAccount": "Create Free Account"
+    },
+    "footer": {
+      "tagline": "Empowering learners with industry-leading courses, live trainings and expert mentors.",
+      "address": "Tunis, Tunisia",
+      "productHeading": "Product",
+      "companyHeading": "Company",
+      "supportHeading": "Support",
+      "accountHeading": "Account",
+      "helpCenter": "Help Center",
+      "contactUs": "Contact Us",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "createAccount": "Create account",
+      "copyright": "© {{year}} Omarise. All rights reserved."
+    }
+  }
+}

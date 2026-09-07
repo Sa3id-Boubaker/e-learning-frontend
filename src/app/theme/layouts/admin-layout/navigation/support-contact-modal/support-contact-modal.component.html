@@ -1,0 +1,25 @@
+@if (open) {
+  <div class="support-contact-modal-backdrop" (click)="onClose()">
+    <div
+      #panel
+      class="support-contact-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="supportContactModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onClose()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="support-contact-modal-header">
+        <h5 id="supportContactModalTitle" class="mb-0">{{ 'nav.supportModal.title' | translate }}</h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onClose()"></button>
+      </div>
+
+      <div class="support-contact-modal-body">
+        <p class="text-muted small mb-3">{{ 'nav.supportModal.body' | translate }}</p>
+        <app-admin-contact />
+      </div>
+    </div>
+  </div>
+}

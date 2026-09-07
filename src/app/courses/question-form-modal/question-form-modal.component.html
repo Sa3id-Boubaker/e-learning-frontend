@@ -1,0 +1,104 @@
+@if (open) {
+  <div class="question-form-modal-backdrop" (click)="onCancel()">
+    <div
+      #panel
+      class="question-form-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="questionFormModalTitle"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="onCancel()"
+      (keydown.tab)="onKeydownTab($event)"
+    >
+      <div class="question-form-modal-header">
+        <h5 id="questionFormModalTitle" class="mb-0">
+          {{ (mode === 'create' ? 'courses.questionFormModal.addTitle' : 'courses.questionFormModal.editTitle') | translate }}
+        </h5>
+        <button type="button" class="btn-close" [attr.aria-label]="'common.close' | translate" (click)="onCancel()"></button>
+      </div>
+
+      <div class="question-form-modal-body">
+        @if (serverMessage) {
+          <div class="alert alert-danger mb-3" role="alert">{{ serverMessage }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="form-group mb-3">
+            <label class="form-label" for="questionText">{{ 'courses.questionFormModal.questionLabel' | translate }}</label>
+            <textarea
+              class="form-control"
+              id="questionText"
+              rows="2"
+              formControlName="questionText"
+              [class.is-invalid]="controlInvalid('questionText')"
+            ></textarea>
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('questionText')">{{ messageFor('questionText') }}</div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="questionOrder">{{ 'courses.chapterFormModal.orderLabel' | translate }}</label>
+            <input
+              type="number"
+              min="1"
+              step="1"
+              class="form-control question-order-input"
+              id="questionOrder"
+              formControlName="order"
+              [class.is-invalid]="controlInvalid('order')"
+            />
+            <div class="invalid-feedback d-block" *ngIf="controlInvalid('order')">{{ messageFor('order') }}</div>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="form-label">{{ 'courses.questionFormModal.optionsLabel' | translate }}</label>
+            <div class="option-form-list" formArrayName="options">
+              @for (optionGroup of optionsArray.controls; track $index; let i = $index) {
+                <div class="option-form-row" [formGroupName]="i">
+                  <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" formControlName="correct" [id]="'optionCorrect' + i" />
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [placeholder]="'courses.questionFormModal.optionPlaceholder' | translate: { index: i + 1 }"
+                    formControlName="text"
+                    [attr.aria-label]="'courses.questionFormModal.optionTextAria' | translate: { index: i + 1 }"
+                  />
+                  <button
+                    type="button"
+                    class="btn-icon text-danger"
+                    [attr.aria-label]="'courses.questionFormModal.removeOptionAria' | translate: { index: i + 1 }"
+                    [disabled]="optionsArray.length <= 2"
+                    (click)="removeOption(i)"
+                  >
+                    <i antIcon type="delete" theme="outline"></i>
+                  </button>
+                </div>
+              }
+            </div>
+            @if (optionsHint) {
+              <div class="text-danger small mt-1">{{ optionsHint }}</div>
+            }
+            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addOption()">
+              <i antIcon type="plus" theme="outline" class="me-1"></i>
+              {{ 'courses.questionFormModal.addOption' | translate }}
+            </button>
+            <div class="form-text mt-1">{{ 'courses.questionFormModal.checkCorrectHint' | translate }}</div>
+          </div>
+        </form>
+      </div>
+
+      <div class="question-form-modal-footer">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="saving" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="saving || !isFormValid" (click)="submit()">
+          {{
+            (saving ? 'common.saving' : mode === 'create' ? 'courses.questionFormModal.addTitle' : 'common.saveChanges') | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

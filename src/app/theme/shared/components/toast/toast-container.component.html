@@ -1,0 +1,51 @@
+<div class="app-toast-viewport" aria-live="polite" aria-atomic="false">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div
+      class="app-toast app-toast--{{ toast.type }}"
+      [attr.role]="toast.type === 'error' ? 'alert' : 'status'"
+      [attr.aria-live]="toast.type === 'error' ? 'assertive' : 'polite'"
+    >
+      <span class="app-toast__icon" aria-hidden="true">
+        @switch (toast.type) {
+          @case ('success') {
+            <svg viewBox="0 0 20 20" width="20" height="20" fill="none">
+              <path d="M5 10.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          }
+          @case ('error') {
+            <svg viewBox="0 0 20 20" width="20" height="20" fill="none">
+              <path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          }
+          @case ('warning') {
+            <svg viewBox="0 0 20 20" width="20" height="20" fill="none">
+              <path d="M10 3l8.5 14.5H1.5L10 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M10 8v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              <circle cx="10" cy="14.5" r="0.9" fill="currentColor" />
+            </svg>
+          }
+          @case ('info') {
+            <svg viewBox="0 0 20 20" width="20" height="20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6" />
+              <path d="M10 9v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              <circle cx="10" cy="6.3" r="1" fill="currentColor" />
+            </svg>
+          }
+        }
+      </span>
+
+      <span class="app-toast__message">{{ toast.message }}</span>
+
+      <button
+        type="button"
+        class="app-toast__close"
+        [attr.aria-label]="'toast.dismiss' | translate"
+        (click)="toastService.dismiss(toast.id)"
+      >
+        <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+          <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  }
+</div>
