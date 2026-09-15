@@ -18,7 +18,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci --legacy-peer-deps'
-                sh 'npx ng version'
             }
         }
         stage('Test') {
