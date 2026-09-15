@@ -38,9 +38,9 @@ export class NavItemComponent {
         up_parent.classList.remove('active');
       } else {
         const sections = document.querySelectorAll('.coded-hasmenu');
-        for (let i = 0; i < sections.length; i++) {
-          sections[i].classList.remove('active');
-          sections[i].classList.remove('coded-trigger');
+        for (const section of sections) {
+          section.classList.remove('active');
+          section.classList.remove('coded-trigger');
         }
       }
 

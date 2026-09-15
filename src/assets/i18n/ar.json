@@ -96,10 +96,7 @@
     "common": {
       "correctFields": "يرجى تصحيح الحقول المحددة.",
       "correctField": "يرجى تصحيح الحقل المحدد.",
-      "genericError": "حدث خطأ ما، يرجى المحاولة مرة أخرى.",
-      "footerHome": "الرئيسية",
-      "footerPrivacyPolicy": "سياسة الخصوصية",
-      "footerContactUs": "اتصل بنا"
+      "genericError": "حدث خطأ ما، يرجى المحاولة مرة أخرى."
     },
     "signin": {
       "title": "تسجيل الدخول",
@@ -392,6 +389,7 @@
       "enrolledColumn": "تاريخ التسجيل",
       "actionsColumn": "الإجراءات",
       "noneFound": "لم يتم العثور على تسجيلات",
+      "tableCaption": "قائمة التسجيلات في الدورات",
       "clearStudentFilter": "مسح فلتر الطالب",
       "revokeAccessAria": "إلغاء الوصول إلى {{course}}",
       "revokeTitleNamed": "إلغاء وصول هذا الطالب إلى {{course}}؟",
@@ -413,6 +411,7 @@
       "noneEnrolledYet": "لا يوجد طلاب مسجلون بعد",
       "emailColumn": "البريد الإلكتروني",
       "activatedColumn": "تاريخ التفعيل",
+      "tableCaption": "قائمة الطلاب المسجلين",
       "loadError": "تعذّر تحميل الطلاب المسجلين في الوقت الحالي. يرجى المحاولة مرة أخرى."
     },
     "myCourses": {
@@ -423,6 +422,7 @@
       "categoryColumn": "الفئة",
       "priceColumn": "السعر",
       "published": "منشور",
+      "tableCaption": "قائمة دوراتك",
       "openAria": "فتح {{title}}",
       "unpublishAria": "إلغاء نشر {{title}}",
       "publishAria": "نشر {{title}}",
@@ -549,13 +549,15 @@
       "scoreColumn": "الدرجة",
       "issuedColumn": "تاريخ الإصدار",
       "certificateNumberColumn": "رقم الشهادة",
+      "tableCaption": "قائمة الشهادات الصادرة",
       "loadError": "تعذّر تحميل الشهادات في الوقت الحالي. يرجى المحاولة مرة أخرى."
     },
     "courseCertificates": {
       "backToCourse": "العودة إلى الدورة",
       "pageTitle": "{{title}} — الشهادات",
       "accessDeniedBody": "ليس لديك صلاحية الوصول إلى شهادات هذه الدورة.",
-      "noneIssuedYet": "لا توجد شهادات صادرة بعد لهذه الدورة"
+      "noneIssuedYet": "لا توجد شهادات صادرة بعد لهذه الدورة",
+      "tableCaption": "قائمة الشهادات الصادرة لهذه الدورة"
     }
   },
   "trainings": {
@@ -564,6 +566,7 @@
       "createTraining": "إنشاء تدريب",
       "loadingTrainings": "جارٍ تحميل التدريبات...",
       "empty": "لا توجد تدريبات بعد",
+      "tableCaption": "قائمة التدريبات",
       "instructorColumn": "المدرّب",
       "durationColumn": "المدة",
       "startDateColumn": "تاريخ البدء",
@@ -708,6 +711,7 @@
     },
     "enrollmentManagement": {
       "cardTitle": "تسجيلات التدريبات ({{count}})",
+      "tableCaption": "قائمة تسجيلات التدريبات",
       "allTrainings": "جميع التدريبات",
       "revokeTitleNamed": "إلغاء وصول هذا الطالب إلى {{training}}؟",
       "revokeDescription": "سيفقد الوصول إلى جلسات وتسجيلات هذا التدريب فوراً.",
@@ -869,6 +873,8 @@
       "loadingTrainers": "جارٍ تحميل المدرّبين...",
       "noStudentsYet": "لا يوجد طلاب بعد",
       "noTrainersYet": "لا يوجد مدرّبون بعد",
+      "studentsTableCaption": "قائمة الطلاب",
+      "trainersTableCaption": "قائمة المدرّبين",
       "photoColumn": "الصورة",
       "firstNameColumn": "الاسم الأول",
       "lastNameColumn": "اسم العائلة",
@@ -963,6 +969,7 @@
       "titleColumn": "العنوان",
       "typeColumn": "النوع",
       "enrollmentsColumn": "التسجيلات",
+      "contentPerformanceTableCaption": "توزيع أداء دوراتك وتدريباتك",
       "noEnrollmentActivity": "لا يوجد نشاط تسجيل بعد",
       "users": "المستخدمون",
       "usersBreakdown": "{{students}} طلاب، {{trainers}} مدرّبين، {{admins}} مسؤولين",
@@ -977,6 +984,7 @@
       "statusColumn": "الحالة",
       "amountColumn": "المبلغ",
       "dateColumn": "التاريخ",
+      "recentEnrollmentsTableCaption": "قائمة التسجيلات الأخيرة",
       "noEnrollmentsYet": "لا توجد تسجيلات بعد",
       "recentForumActivity": "نشاط المنتدى الأخير",
       "commentsTotal": "{{count}} تعليق إجمالاً",

@@ -101,9 +101,10 @@ export class TopPerformersChartComponent implements OnInit {
         y: {
           formatter: (val: number, opts?: { dataPointIndex: number }) => {
             const count = opts ? enrollmentCounts[opts.dataPointIndex] : undefined;
+            const enrollmentKey = count === 1 ? 'trainings.list.enrollmentSingular' : 'trainings.list.enrollmentPlural';
             const countLabel =
               count !== undefined
-                ? ` · ${translateService.instant(count === 1 ? 'trainings.list.enrollmentSingular' : 'trainings.list.enrollmentPlural', { count, activeSuffix: '' })}`
+                ? ` · ${translateService.instant(enrollmentKey, { count, activeSuffix: '' })}`
                 : '';
             return `${withCurrency(val)}${countLabel}`;
           }

@@ -17,7 +17,13 @@
       </div>
 
       <div class="video-player-modal-body">
-        <video [src]="video.videoUrl" controls autoplay class="video-player-modal-video" (ended)="onVideoEnded()"></video>
+        <video [src]="video.videoUrl" controls autoplay class="video-player-modal-video" (ended)="onVideoEnded()">
+          <!-- subtitleUrl vient de l'add-on de transcription Cloudinary (voir CloudinaryService) ;
+               absent tant que la transcription n'est pas prete, echoue silencieusement sans casser la video. -->
+          @if (video.subtitleUrl) {
+            <track kind="subtitles" [src]="video.subtitleUrl" srclang="en" label="English" default />
+          }
+        </video>
       </div>
     </div>
   </div>

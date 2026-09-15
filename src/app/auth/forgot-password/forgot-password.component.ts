@@ -8,11 +8,12 @@ import { finalize } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ApiErrorResponse, ForgotPasswordRequest } from '../models/auth.models';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
+import { SupportContactModalComponent } from '../../theme/layouts/admin-layout/navigation/support-contact-modal/support-contact-modal.component';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslatePipe],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslatePipe, SupportContactModalComponent],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
@@ -24,6 +25,7 @@ export class ForgotPasswordComponent {
   loading = false;
   serverMessage = '';
   fieldMessages: Partial<Record<keyof ForgotPasswordRequest, string>> = {};
+  supportModalOpen = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -64,6 +66,14 @@ export class ForgotPasswordComponent {
   controlInvalid(): boolean {
     const control = this.form.controls.email;
     return control.invalid && (control.touched || control.dirty);
+  }
+
+  openSupportModal(): void {
+    this.supportModalOpen = true;
+  }
+
+  onSupportModalClosed(): void {
+    this.supportModalOpen = false;
   }
 
   emailMessage(): string {

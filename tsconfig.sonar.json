@@ -1,0 +1,38 @@
+/* Config autonome dediee a l'analyse SonarQube uniquement.
+   PAS d'"extends" : SonarQube (bug connu) valide toute la chaine d'heritage
+   d'un tsconfig et ignore les surcharges faites via extends, donc on duplique
+   ici les options de tsconfig.json en changeant juste moduleResolution.
+   Ne pas utiliser ce fichier pour ng build / ng serve. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noImplicitOverride": true,
+    "allowSyntheticDefaultImports": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "es2020",
+    "useDefineForClassFields": false,
+    "lib": ["es2022", "dom"]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"]
+}

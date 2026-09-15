@@ -72,7 +72,7 @@ export class LanguageService {
     // 150ms was enough for the small profile dropdown but not the full sidebar nav (many more
     // items to re-render); 400ms comfortably covers it with no perceptible cost to this rare,
     // deliberate action.
-    void root.offsetHeight;
+    const _reflow = root.offsetHeight; // Force a synchronous reflow before the transition below.
     setTimeout(() => root.classList.remove('lang-switching'), 400);
   }
 

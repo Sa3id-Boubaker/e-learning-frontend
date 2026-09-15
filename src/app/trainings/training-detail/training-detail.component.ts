@@ -346,7 +346,6 @@ export class TrainingDetailComponent implements OnInit {
 
           if (status === 403) {
             this.sessionsVisible = false;
-            return;
           }
 
           // Sessions are a secondary section — a load failure here shouldn't block the rest of

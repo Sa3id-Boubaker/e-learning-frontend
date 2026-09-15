@@ -9,14 +9,14 @@ import { NavigationItem, NavigationItems } from 'src/app/theme/layouts/admin-lay
 import { IconService } from '@ant-design/icons-angular';
 import { GlobalOutline, NodeExpandOutline } from '@ant-design/icons-angular/icons';
 
-interface titleType {
+interface TitleType {
   url: string | boolean | undefined;
   title: string;
   breadcrumbs: unknown;
   type: string;
-  link?: string | undefined;
-  description?: string | undefined;
-  path?: string | undefined;
+  link?: string;
+  description?: string;
+  path?: string;
 }
 
 @Component({
@@ -38,8 +38,8 @@ export class BreadcrumbComponent {
 
   navigations: NavigationItem[];
   breadcrumbList: Array<string> = [];
-  navigationList!: titleType[];
-  componentList!: titleType[];
+  navigationList!: TitleType[];
+  componentList!: TitleType[];
 
   // Constructor
   constructor() {
@@ -75,7 +75,7 @@ export class BreadcrumbComponent {
     this.cdr.markForCheck();
   }
 
-  filterNavigation(navItems: NavigationItem[], activeLink: string): titleType | null {
+  filterNavigation(navItems: NavigationItem[], activeLink: string): TitleType | null {
     for (const navItem of navItems) {
       if (navItem.type === 'item' && 'url' in navItem && navItem.url === activeLink) {
         return {

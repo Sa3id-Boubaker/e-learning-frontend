@@ -97,7 +97,7 @@ export class GoogleSigninButtonComponent implements AfterViewInit, OnDestroy {
   }
 
   private renderGoogleButton(): void {
-    window.google!.accounts.id.initialize({
+    window.google?.accounts.id.initialize({
       client_id: environment.googleClientId,
       callback: (response) => this.handleGoogleCredential(response.credential)
     });
@@ -106,7 +106,7 @@ export class GoogleSigninButtonComponent implements AfterViewInit, OnDestroy {
     // re-render would stack a second Google-drawn button inside the same container.
     this.buttonRef().nativeElement.innerHTML = '';
 
-    window.google!.accounts.id.renderButton(this.buttonRef().nativeElement, {
+    window.google?.accounts.id.renderButton(this.buttonRef().nativeElement, {
       theme: 'outline',
       size: 'large',
       width: 300

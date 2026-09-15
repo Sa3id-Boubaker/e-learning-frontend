@@ -26,8 +26,8 @@ export class SpinnerComponent implements OnDestroy {
 
   // Constructor
   constructor() {
-    this.router.events.subscribe(
-      (event) => {
+    this.router.events.subscribe({
+      next: (event) => {
         if (event instanceof NavigationStart) {
           this.isSpinnerVisible = true;
           this.cdr.markForCheck();
@@ -36,11 +36,11 @@ export class SpinnerComponent implements OnDestroy {
           this.cdr.markForCheck();
         }
       },
-      () => {
+      error: () => {
         this.isSpinnerVisible = false;
         this.cdr.markForCheck();
       }
-    );
+    });
   }
 
   // life cycle event

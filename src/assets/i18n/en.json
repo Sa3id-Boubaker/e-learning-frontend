@@ -96,10 +96,7 @@
     "common": {
       "correctFields": "Please correct the highlighted fields.",
       "correctField": "Please correct the highlighted field.",
-      "genericError": "Something went wrong, please try again.",
-      "footerHome": "Home",
-      "footerPrivacyPolicy": "Privacy Policy",
-      "footerContactUs": "Contact us"
+      "genericError": "Something went wrong, please try again."
     },
     "signin": {
       "title": "Login",
@@ -392,6 +389,7 @@
       "enrolledColumn": "Enrolled",
       "actionsColumn": "Actions",
       "noneFound": "No enrollments found",
+      "tableCaption": "List of course enrollments",
       "clearStudentFilter": "Clear student filter",
       "revokeAccessAria": "Revoke access to {{course}}",
       "revokeTitleNamed": "Revoke this student's access to {{course}}?",
@@ -413,6 +411,7 @@
       "noneEnrolledYet": "No students enrolled yet",
       "emailColumn": "Email",
       "activatedColumn": "Activated",
+      "tableCaption": "List of enrolled students",
       "loadError": "Unable to load enrolled students right now. Please try again."
     },
     "myCourses": {
@@ -423,6 +422,7 @@
       "categoryColumn": "Category",
       "priceColumn": "Price",
       "published": "Published",
+      "tableCaption": "List of your courses",
       "openAria": "Open {{title}}",
       "unpublishAria": "Unpublish {{title}}",
       "publishAria": "Publish {{title}}",
@@ -549,13 +549,15 @@
       "scoreColumn": "Score",
       "issuedColumn": "Issued",
       "certificateNumberColumn": "Certificate #",
+      "tableCaption": "List of issued certificates",
       "loadError": "Unable to load certificates right now. Please try again."
     },
     "courseCertificates": {
       "backToCourse": "Back to course",
       "pageTitle": "{{title}} — Certificates",
       "accessDeniedBody": "You don't have access to this course's certificates.",
-      "noneIssuedYet": "No certificates issued yet for this course"
+      "noneIssuedYet": "No certificates issued yet for this course",
+      "tableCaption": "List of certificates issued for this course"
     }
   },
   "trainings": {
@@ -564,6 +566,7 @@
       "createTraining": "Create Training",
       "loadingTrainings": "Loading trainings...",
       "empty": "No trainings yet",
+      "tableCaption": "List of trainings",
       "instructorColumn": "Instructor",
       "durationColumn": "Duration",
       "startDateColumn": "Start date",
@@ -708,6 +711,7 @@
     },
     "enrollmentManagement": {
       "cardTitle": "Training Enrollments ({{count}})",
+      "tableCaption": "List of training enrollments",
       "allTrainings": "All trainings",
       "revokeTitleNamed": "Revoke this student's access to {{training}}?",
       "revokeDescription": "They will immediately lose access to this training's sessions and recordings.",
@@ -869,6 +873,8 @@
       "loadingTrainers": "Loading trainers...",
       "noStudentsYet": "No students yet",
       "noTrainersYet": "No trainers yet",
+      "studentsTableCaption": "List of students",
+      "trainersTableCaption": "List of trainers",
       "photoColumn": "Photo",
       "firstNameColumn": "First name",
       "lastNameColumn": "Last name",
@@ -963,6 +969,7 @@
       "titleColumn": "TITLE",
       "typeColumn": "TYPE",
       "enrollmentsColumn": "ENROLLMENTS",
+      "contentPerformanceTableCaption": "Performance breakdown of your courses and trainings",
       "noEnrollmentActivity": "No enrollment activity yet",
       "users": "Users",
       "usersBreakdown": "{{students}} students, {{trainers}} trainers, {{admins}} admins",
@@ -977,6 +984,7 @@
       "statusColumn": "STATUS",
       "amountColumn": "AMOUNT",
       "dateColumn": "DATE",
+      "recentEnrollmentsTableCaption": "List of recent enrollments",
       "noEnrollmentsYet": "No enrollments yet",
       "recentForumActivity": "Recent Forum Activity",
       "commentsTotal": "{{count}} comments total",

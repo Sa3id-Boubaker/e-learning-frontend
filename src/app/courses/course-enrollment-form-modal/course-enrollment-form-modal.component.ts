@@ -143,12 +143,15 @@ export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy 
   }
 
   submit(): void {
-    if (!this.canSubmit) {
+    // Garde explicite sur selectedStudent (en plus de canSubmit) : TypeScript ne fait pas
+    // remonter le narrowing d'un getter separe jusqu'ici, donc ce guard est necessaire pour
+    // que "student" soit type AdminUserResponse (et pas AdminUserResponse | null) plus bas.
+    if (!this.canSubmit || !this.selectedStudent) {
       return;
     }
 
     const courseId = this.courseControl.value;
-    const student = this.selectedStudent as AdminUserResponse;
+    const student = this.selectedStudent;
 
     this.serverMessage = '';
     this.submitting = true;

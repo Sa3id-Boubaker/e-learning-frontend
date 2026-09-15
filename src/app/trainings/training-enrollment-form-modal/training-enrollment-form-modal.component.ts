@@ -148,12 +148,12 @@ export class TrainingEnrollmentFormModalComponent implements OnChanges, OnDestro
   }
 
   submit(): void {
-    if (!this.canSubmit) {
+    if (!this.canSubmit || !this.selectedStudent) {
       return;
     }
 
     const trainingId = this.trainingControl.value;
-    const student = this.selectedStudent as AdminUserResponse;
+    const student = this.selectedStudent;
 
     this.serverMessage = '';
     this.submitting = true;

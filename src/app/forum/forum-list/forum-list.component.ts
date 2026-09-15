@@ -17,7 +17,7 @@ import { FORUM_POST_TYPE_OPTIONS, getForumPostTypeLabel } from '../forum-post-ty
 import { ForumPostCardComponent } from '../forum-post-card/forum-post-card.component';
 import { ForumPostFormModalComponent } from '../forum-post-form-modal/forum-post-form-modal.component';
 import { ForumPostResponse, ForumPostType } from '../models/forum.models';
-import { ForumService } from '../forum.service';
+import { ForumPostSort, ForumService } from '../forum.service';
 
 const CATALOG_PAGE_SIZE = 100;
 
@@ -143,10 +143,12 @@ export class ForumListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.loadError = '';
 
+    const sortMode: ForumPostSort = this.activeTab === 'popular' ? 'popular' : 'recent';
+
     const request$ =
       this.activeTab === 'bookmarked'
         ? this.forumService.listBookmarked(this.currentPage, this.pageSize)
-        : this.forumService.listPosts(this.activeTab === 'popular' ? 'popular' : 'recent', this.currentPage, this.pageSize, {
+        : this.forumService.listPosts(sortMode, this.currentPage, this.pageSize, {
             type: (this.typeFilterControl.value as ForumPostType) || undefined,
             courseId: this.courseFilterControl.value || undefined,
             trainingId: this.trainingFilterControl.value || undefined

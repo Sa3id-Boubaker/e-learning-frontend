@@ -96,10 +96,7 @@
     "common": {
       "correctFields": "Veuillez corriger les champs signalés.",
       "correctField": "Veuillez corriger le champ signalé.",
-      "genericError": "Une erreur est survenue, veuillez réessayer.",
-      "footerHome": "Accueil",
-      "footerPrivacyPolicy": "Politique de confidentialité",
-      "footerContactUs": "Nous contacter"
+      "genericError": "Une erreur est survenue, veuillez réessayer."
     },
     "signin": {
       "title": "Connexion",
@@ -392,6 +389,7 @@
       "enrolledColumn": "Inscrit le",
       "actionsColumn": "Actions",
       "noneFound": "Aucune inscription trouvée",
+      "tableCaption": "Liste des inscriptions aux cours",
       "clearStudentFilter": "Effacer le filtre étudiant",
       "revokeAccessAria": "Révoquer l'accès à {{course}}",
       "revokeTitleNamed": "Révoquer l'accès de cet étudiant à {{course}} ?",
@@ -413,6 +411,7 @@
       "noneEnrolledYet": "Aucun étudiant inscrit pour le moment",
       "emailColumn": "Email",
       "activatedColumn": "Activé le",
+      "tableCaption": "Liste des étudiants inscrits",
       "loadError": "Impossible de charger les étudiants inscrits pour le moment. Veuillez réessayer."
     },
     "myCourses": {
@@ -423,6 +422,7 @@
       "categoryColumn": "Catégorie",
       "priceColumn": "Prix",
       "published": "Publié",
+      "tableCaption": "Liste de vos cours",
       "openAria": "Ouvrir {{title}}",
       "unpublishAria": "Dépublier {{title}}",
       "publishAria": "Publier {{title}}",
@@ -549,13 +549,15 @@
       "scoreColumn": "Score",
       "issuedColumn": "Émis le",
       "certificateNumberColumn": "N° de certificat",
+      "tableCaption": "Liste des certificats émis",
       "loadError": "Impossible de charger les certificats pour le moment. Veuillez réessayer."
     },
     "courseCertificates": {
       "backToCourse": "Retour au cours",
       "pageTitle": "{{title}} — Certificats",
       "accessDeniedBody": "Vous n'avez pas accès aux certificats de ce cours.",
-      "noneIssuedYet": "Aucun certificat émis pour le moment pour ce cours"
+      "noneIssuedYet": "Aucun certificat émis pour le moment pour ce cours",
+      "tableCaption": "Liste des certificats émis pour ce cours"
     }
   },
   "trainings": {
@@ -564,6 +566,7 @@
       "createTraining": "Créer une formation",
       "loadingTrainings": "Chargement des formations...",
       "empty": "Aucune formation pour le moment",
+      "tableCaption": "Liste des formations",
       "instructorColumn": "Formateur",
       "durationColumn": "Durée",
       "startDateColumn": "Date de début",
@@ -708,6 +711,7 @@
     },
     "enrollmentManagement": {
       "cardTitle": "Inscriptions aux formations ({{count}})",
+      "tableCaption": "Liste des inscriptions aux formations",
       "allTrainings": "Toutes les formations",
       "revokeTitleNamed": "Révoquer l'accès de cet étudiant à {{training}} ?",
       "revokeDescription": "Il/elle perdra immédiatement l'accès aux sessions et enregistrements de cette formation.",
@@ -869,6 +873,8 @@
       "loadingTrainers": "Chargement des formateurs...",
       "noStudentsYet": "Aucun étudiant pour le moment",
       "noTrainersYet": "Aucun formateur pour le moment",
+      "studentsTableCaption": "Liste des étudiants",
+      "trainersTableCaption": "Liste des formateurs",
       "photoColumn": "Photo",
       "firstNameColumn": "Prénom",
       "lastNameColumn": "Nom",
@@ -963,6 +969,7 @@
       "titleColumn": "TITRE",
       "typeColumn": "TYPE",
       "enrollmentsColumn": "INSCRIPTIONS",
+      "contentPerformanceTableCaption": "Répartition des performances de vos cours et formations",
       "noEnrollmentActivity": "Aucune activité d'inscription pour le moment",
       "users": "Utilisateurs",
       "usersBreakdown": "{{students}} étudiants, {{trainers}} formateurs, {{admins}} administrateurs",
@@ -977,6 +984,7 @@
       "statusColumn": "STATUT",
       "amountColumn": "MONTANT",
       "dateColumn": "DATE",
+      "recentEnrollmentsTableCaption": "Liste des inscriptions récentes",
       "noEnrollmentsYet": "Aucune inscription pour le moment",
       "recentForumActivity": "Activité récente du forum",
       "commentsTotal": "{{count}} commentaires au total",

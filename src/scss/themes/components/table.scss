@@ -7,6 +7,10 @@
   }
   thead th {
     padding: 0.9rem 0.75rem;
+    background-color: $gray-100;
+    border-top: 1px solid $gray-300;
+    border-bottom: 2px solid $gray-300;
+    font-size: 12px;
   }
   td,
   th {
@@ -24,12 +28,6 @@
     th {
       border: none !important;
     }
-  }
-  thead th {
-    background-color: $gray-100;
-    border-top: 1px solid $gray-300;
-    border-bottom: 2px solid $gray-300;
-    font-size: 12px;
   }
 }
 

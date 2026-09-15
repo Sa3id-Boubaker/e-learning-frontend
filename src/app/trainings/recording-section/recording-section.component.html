@@ -15,7 +15,11 @@
         </button>
       </div>
     } @else if (recording) {
-      <video [src]="recording.videoUrl" controls class="recording-video-player"></video>
+      <video [src]="recording.videoUrl" controls class="recording-video-player">
+        @if (recording.subtitleUrl) {
+          <track kind="subtitles" [src]="recording.subtitleUrl" srclang="en" label="English" default />
+        }
+      </video>
 
       <div class="d-flex align-items-center justify-content-between mt-2">
         <span class="text-muted small">

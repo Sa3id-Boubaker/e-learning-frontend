@@ -66,17 +66,17 @@ export class NavCollapseComponent {
       parent = parent.parentElement!;
     }
 
-    parent = (parent as HTMLElement).parentElement!;
+    parent = parent.parentElement!;
 
     const sections = document.querySelectorAll('.coded-hasmenu');
-    for (let i = 0; i < sections.length; i++) {
-      if (sections[i] !== parent) {
-        sections[i].classList.remove('coded-trigger');
+    for (const section of sections) {
+      if (section !== parent) {
+        section.classList.remove('coded-trigger');
       }
     }
 
     let first_parent = parent.parentElement!;
-    let pre_parent = ((parent as HTMLElement).parentElement as HTMLElement).parentElement!;
+    let pre_parent = (parent.parentElement as HTMLElement).parentElement!;
     if (first_parent.classList.contains('coded-hasmenu')) {
       do {
         first_parent.classList.add('coded-trigger');
@@ -85,7 +85,7 @@ export class NavCollapseComponent {
     } else if (pre_parent.classList.contains('coded-submenu')) {
       do {
         pre_parent.parentElement?.classList.add('coded-trigger');
-        pre_parent = (((pre_parent as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).parentElement!;
+        pre_parent = ((pre_parent.parentElement as HTMLElement).parentElement as HTMLElement).parentElement!;
       } while (pre_parent.classList.contains('coded-submenu'));
     }
     parent.classList.toggle('coded-trigger');

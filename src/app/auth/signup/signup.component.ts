@@ -9,11 +9,12 @@ import { AuthService } from '../auth.service';
 import { ApiErrorResponse, SignupRequest } from '../models/auth.models';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
 import { GoogleSigninButtonComponent } from '../google-signin-button/google-signin-button.component';
+import { SupportContactModalComponent } from '../../theme/layouts/admin-layout/navigation/support-contact-modal/support-contact-modal.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, GoogleSigninButtonComponent, TranslatePipe],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, GoogleSigninButtonComponent, TranslatePipe, SupportContactModalComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -29,6 +30,7 @@ export class SignupComponent {
   loading = false;
   serverMessage = '';
   fieldMessages: Partial<Record<keyof SignupRequest, string>> = {};
+  supportModalOpen = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -66,6 +68,14 @@ export class SignupComponent {
         this.handleError(error?.error as ApiErrorResponse | undefined, error?.status as number | undefined);
       }
     });
+  }
+
+  openSupportModal(): void {
+    this.supportModalOpen = true;
+  }
+
+  onSupportModalClosed(): void {
+    this.supportModalOpen = false;
   }
 
   controlInvalid(controlName: keyof SignupRequest): boolean {

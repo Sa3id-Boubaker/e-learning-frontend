@@ -63,8 +63,7 @@ function fromDatetimeLocalValue(value: string): string {
 @Component({
   selector: 'app-live-session-form',
   imports: [SharedModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './live-session-form.component.html',
-  styleUrl: './live-session-form.component.scss'
+  templateUrl: './live-session-form.component.html'
 })
 export class LiveSessionFormComponent implements OnInit, OnDestroy {
   private readonly fb = inject(FormBuilder);

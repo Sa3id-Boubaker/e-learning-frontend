@@ -83,6 +83,12 @@
         background-color: #fff;
       }
     }
+
+    + .btn-link-#{$color} {
+      background: shift-color($value, $soft-bg-level);
+      color: $value;
+      border-color: shift-color($value, $soft-bg-level);
+    }
   }
 
   .btn-link-#{$color} {
@@ -108,15 +114,6 @@
     &:not(:disabled):not(.disabled).active,
     &:not(:disabled):not(.disabled):active,
     .show > &.dropdown-toggle {
-      background: shift-color($value, $soft-bg-level);
-      color: $value;
-      border-color: shift-color($value, $soft-bg-level);
-    }
-  }
-
-  .btn-check:active,
-  .btn-check:checked {
-    + .btn-link-#{$color} {
       background: shift-color($value, $soft-bg-level);
       color: $value;
       border-color: shift-color($value, $soft-bg-level);
