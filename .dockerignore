@@ -1,0 +1,12 @@
+.git
+.github
+.claude
+.scannerwork
+
+node_modules
+dist
+.angular
+coverage
+
+.env
+.env.*

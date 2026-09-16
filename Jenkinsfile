@@ -48,6 +48,13 @@ pipeline {
                 }
             }
         }
+        stage('Docker Build') {
+            steps {
+                sh 'docker version'
+                sh "docker build -t omarise-frontend:${env.BUILD_NUMBER} ."
+                sh "docker images --filter=reference='omarise-frontend'"
+            }
+        }
     }
     post {
         success {
