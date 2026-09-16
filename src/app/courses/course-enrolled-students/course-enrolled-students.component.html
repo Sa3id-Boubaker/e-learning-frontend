@@ -38,26 +38,22 @@
           @if (enrollments.length === 0) {
             <div class="text-center text-muted py-4">{{ 'courses.enrolledStudents.noneEnrolledYet' | translate }}</div>
           } @else {
-            <div class="table-responsive">
-              <table class="table table-hover mb-0" appEnrollmentsTableHead>
-                <tbody>
-                  @for (enrollment of enrollments; track enrollment.id) {
-                    <tr>
-                      <td>{{ enrollment.studentName ?? enrollment.studentId }}</td>
-                      <td class="text-muted">{{ enrollment.studentEmail ?? '—' }}</td>
-                      <td>{{ enrollment.amountAtEnrollment | currencyDt }}</td>
-                      <td>
-                        <span class="badge" [ngClass]="getEnrollmentStatusBadgeClass(enrollment.enrollmentStatus)">{{
-                          getEnrollmentStatusLabel(enrollment.enrollmentStatus) | translate
-                        }}</span>
-                      </td>
-                      <td class="text-muted">{{ formatSessionDate(enrollment.enrolledAt) }}</td>
-                      <td class="text-muted">{{ formatSessionDate(enrollment.activatedAt) }}</td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
+            <app-enrollments-table>
+              @for (enrollment of enrollments; track enrollment.id) {
+                <tr>
+                  <td>{{ enrollment.studentName ?? enrollment.studentId }}</td>
+                  <td class="text-muted">{{ enrollment.studentEmail ?? '—' }}</td>
+                  <td>{{ enrollment.amountAtEnrollment | currencyDt }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="getEnrollmentStatusBadgeClass(enrollment.enrollmentStatus)">{{
+                      getEnrollmentStatusLabel(enrollment.enrollmentStatus) | translate
+                    }}</span>
+                  </td>
+                  <td class="text-muted">{{ formatSessionDate(enrollment.enrolledAt) }}</td>
+                  <td class="text-muted">{{ formatSessionDate(enrollment.activatedAt) }}</td>
+                </tr>
+              }
+            </app-enrollments-table>
 
             <div class="d-flex align-items-center justify-content-between mt-3">
               <span class="text-muted small">{{ 'courses.list.showingRange' | translate: { start: pageStart, end: pageEnd, total: totalElements } }}</span>
