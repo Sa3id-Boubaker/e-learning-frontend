@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AdminUserService } from '../../admin/admin-user.service';
 import { AdminUserResponse } from '../../admin/models/admin-user.models';
-import { pickStudent, submitEnrollment } from '../../admin/student-selection';
+import { StudentSearchFormBase, submitEnrollment } from '../../admin/student-selection';
 import { ApiErrorResponse } from '../../auth/models/auth.models';
 import { SharedModule } from '../../theme/shared/shared.module';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
@@ -43,12 +43,12 @@ const SEARCH_RESULT_LIMIT = 5;
   templateUrl: './course-enrollment-form-modal.component.html',
   styleUrl: './course-enrollment-form-modal.component.scss'
 })
-export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy {
+export class CourseEnrollmentFormModalComponent extends StudentSearchFormBase implements OnChanges, OnDestroy {
   private readonly courseService = inject(CourseService);
   private readonly adminUserService = inject(AdminUserService);
   private readonly enrollmentService = inject(EnrollmentService);
   private readonly toastService = inject(ToastService);
-  private readonly cdr = inject(ChangeDetectorRef);
+  readonly cdr = inject(ChangeDetectorRef);
   private readonly iconService = inject(IconService);
   private readonly translateService = inject(TranslateService);
   private readonly destroy$ = new Subject<void>();
@@ -74,6 +74,7 @@ export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy 
   serverMessage = '';
 
   constructor() {
+    super();
     this.iconService.addIcon(...[SearchOutline, CheckCircleOutline]);
 
     // Same pattern as TrainingEnrollmentFormModalComponent: any keystroke invalidates a previous
@@ -136,23 +137,9 @@ export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy 
     }, 150);
   }
 
-  selectStudent(student: AdminUserResponse): void {
-    pickStudent(this, student);
-  }
-
   submit(): void {
     const courseId = this.courseControl.value;
-
-    submitEnrollment(
-      this,
-      (studentId) => this.enrollmentService.createEnrollment(studentId, courseId),
-      (enrollment) => this.created.emit(enrollment),
-      (error) => this.handleCreateError(error),
-      () => {
-        this.submitting = false;
-        this.cdr.markForCheck();
-      }
-    );
+    submitEnrollment(this, (studentId) => this.enrollmentService.createEnrollment(studentId, courseId));
   }
 
   onKeydownTab(event: Event): void {
@@ -235,7 +222,7 @@ export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy 
       });
   }
 
-  private handleCreateError(error: unknown): void {
+  handleCreateError(error: unknown): void {
     const httpError = error as { status?: number; error?: ApiErrorResponse };
     const status = httpError?.status;
 
