@@ -38,7 +38,7 @@ pipeline {
                 sh 'npx ng build --configuration production'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('SonarQube Analysis & Quality Gate') {
             steps {
                 withSonarQubeEnv('SonarQube-Local') {
                     script {
@@ -46,10 +46,6 @@ pipeline {
                         sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=omarise-frontend -Dsonar.sources=src -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/.angular/**,**/coverage/** -Dsonar.typescript.tsconfigPaths=tsconfig.sonar.json"
                     }
                 }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
