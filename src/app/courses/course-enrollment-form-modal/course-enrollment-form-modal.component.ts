@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AdminUserService } from '../../admin/admin-user.service';
 import { AdminUserResponse } from '../../admin/models/admin-user.models';
-import { applyStudentPick, requireSelectedStudent } from '../../admin/student-selection';
+import { pickStudent, submitEnrollment } from '../../admin/student-selection';
 import { ApiErrorResponse } from '../../auth/models/auth.models';
 import { SharedModule } from '../../theme/shared/shared.module';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
@@ -137,36 +137,22 @@ export class CourseEnrollmentFormModalComponent implements OnChanges, OnDestroy 
   }
 
   selectStudent(student: AdminUserResponse): void {
-    this.selectedStudent = student;
-    applyStudentPick(this.studentSearchControl, student);
-    this.studentResultsOpen = false;
-    this.studentResults = [];
+    pickStudent(this, student);
   }
 
   submit(): void {
-    const student = requireSelectedStudent(this.canSubmit, this.selectedStudent);
-
-    if (!student) {
-      return;
-    }
-
     const courseId = this.courseControl.value;
 
-    this.serverMessage = '';
-    this.submitting = true;
-
-    this.enrollmentService
-      .createEnrollment(student.id, courseId)
-      .pipe(
-        finalize(() => {
-          this.submitting = false;
-          this.cdr.markForCheck();
-        })
-      )
-      .subscribe({
-        next: (enrollment) => this.created.emit(enrollment),
-        error: (error) => this.handleCreateError(error)
-      });
+    submitEnrollment(
+      this,
+      (studentId) => this.enrollmentService.createEnrollment(studentId, courseId),
+      (enrollment) => this.created.emit(enrollment),
+      (error) => this.handleCreateError(error),
+      () => {
+        this.submitting = false;
+        this.cdr.markForCheck();
+      }
+    );
   }
 
   onKeydownTab(event: Event): void {
