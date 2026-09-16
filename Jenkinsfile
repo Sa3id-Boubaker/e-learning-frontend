@@ -26,7 +26,9 @@ pipeline {
                     def hasTestTarget = sh(script: "npx ng config projects.mantis-free-version.architect.test > /dev/null 2>&1", returnStatus: true) == 0
                     def specCount = sh(script: "find src -name '*.spec.ts' | wc -l", returnStdout: true).trim()
                     if (hasTestTarget && specCount != '0') {
-                        sh 'npx ng test --watch=false --browsers=ChromeHeadless'
+                        // Vitest (via @angular/build:unit-test) runs on jsdom by default when no
+                        // --browsers is given — no headless Chrome needed on the Jenkins agent.
+                        sh 'npx ng test --watch=false'
                     } else {
                         echo "NO TESTS CONFIGURED: no 'test' architect target and/or no *.spec.ts files found (${specCount} found). Skipping test execution — nothing to run. Add a test setup to enable this stage."
                     }

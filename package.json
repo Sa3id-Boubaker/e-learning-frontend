@@ -59,7 +59,9 @@
     "@typescript-eslint/parser": "^8.59.3",
     "baseline-browser-mapping": "2.10.29",
     "eslint": "10.3.0",
+    "jsdom": "latest",
     "prettier": "3.8.3",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "latest"
   }
 }
