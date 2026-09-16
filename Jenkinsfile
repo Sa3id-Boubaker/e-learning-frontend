@@ -4,11 +4,6 @@ pipeline {
         nodejs 'Node24'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'dev', credentialsId: 'github-ssh-omarise-frontend', url: 'git@github.com:Sa3id-Boubaker/e-learning-frontend.git'
-            }
-        }
         stage('Verify Environment') {
             steps {
                 sh 'node -v'
