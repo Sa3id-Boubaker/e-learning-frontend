@@ -10,11 +10,12 @@ import { ApiErrorResponse, SigninRequest } from '../models/auth.models';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
 import { GoogleSigninButtonComponent } from '../google-signin-button/google-signin-button.component';
 import { SupportContactModalComponent } from '../../theme/layouts/admin-layout/navigation/support-contact-modal/support-contact-modal.component';
+import { AuthFooterComponent } from '../auth-footer/auth-footer.component';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, GoogleSigninButtonComponent, TranslatePipe, SupportContactModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, GoogleSigninButtonComponent, TranslatePipe, SupportContactModalComponent, AuthFooterComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })

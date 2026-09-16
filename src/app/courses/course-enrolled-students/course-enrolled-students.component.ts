@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ApiErrorResponse } from '../../auth/models/auth.models';
 import { SharedModule } from '../../theme/shared/shared.module';
+import { EnrollmentsTableHeadComponent } from '../../theme/shared/components/enrollments-table/enrollments-table.component';
 import { formatSessionDate } from '../../trainings/format-session-date-time';
 import { getEnrollmentStatusBadgeClass, getEnrollmentStatusLabel } from '../enrollment-status';
 import { CourseService } from '../course.service';
@@ -13,7 +14,7 @@ import { EnrollmentResponse } from '../models/enrollment.models';
 
 @Component({
   selector: 'app-course-enrolled-students',
-  imports: [SharedModule, RouterLink],
+  imports: [SharedModule, RouterLink, EnrollmentsTableHeadComponent],
   templateUrl: './course-enrolled-students.component.html',
   styleUrl: './course-enrolled-students.component.scss'
 })

@@ -9,11 +9,12 @@ import { AuthService } from '../auth.service';
 import { ApiErrorResponse, ForgotPasswordRequest } from '../models/auth.models';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
 import { SupportContactModalComponent } from '../../theme/layouts/admin-layout/navigation/support-contact-modal/support-contact-modal.component';
+import { AuthFooterComponent } from '../auth-footer/auth-footer.component';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslatePipe, SupportContactModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslatePipe, SupportContactModalComponent, AuthFooterComponent],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })

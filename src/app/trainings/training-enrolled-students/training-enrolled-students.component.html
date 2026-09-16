@@ -39,18 +39,7 @@
             <div class="text-center text-muted py-4">{{ 'courses.enrolledStudents.noneEnrolledYet' | translate }}</div>
           } @else {
             <div class="table-responsive">
-              <table class="table table-hover mb-0">
-                <caption class="visually-hidden">{{ 'courses.enrolledStudents.tableCaption' | translate }}</caption>
-                <thead>
-                  <tr>
-                    <th>{{ 'courses.enrollmentModal.studentLabel' | translate }}</th>
-                    <th>{{ 'courses.enrolledStudents.emailColumn' | translate }}</th>
-                    <th>{{ 'courses.enrollmentManagement.amountColumn' | translate }}</th>
-                    <th>{{ 'courses.enrollmentManagement.statusLabel' | translate }}</th>
-                    <th>{{ 'courses.enrollmentManagement.enrolledColumn' | translate }}</th>
-                    <th>{{ 'courses.enrolledStudents.activatedColumn' | translate }}</th>
-                  </tr>
-                </thead>
+              <table class="table table-hover mb-0" appEnrollmentsTableHead>
                 <tbody>
                   @for (enrollment of enrollments; track enrollment.id) {
                     <tr>

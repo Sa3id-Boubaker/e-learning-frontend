@@ -20,6 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AdminUserService } from '../../admin/admin-user.service';
 import { AdminUserResponse } from '../../admin/models/admin-user.models';
+import { applyStudentPick, requireSelectedStudent } from '../../admin/student-selection';
 import { ApiErrorResponse } from '../../auth/models/auth.models';
 import { SharedModule } from '../../theme/shared/shared.module';
 import { ToastService } from '../../theme/shared/components/toast/toast.service';
@@ -142,18 +143,19 @@ export class TrainingEnrollmentFormModalComponent implements OnChanges, OnDestro
 
   selectStudent(student: AdminUserResponse): void {
     this.selectedStudent = student;
-    this.studentSearchControl.setValue(`${student.firstName} ${student.lastName}`, { emitEvent: false });
+    applyStudentPick(this.studentSearchControl, student);
     this.studentResultsOpen = false;
     this.studentResults = [];
   }
 
   submit(): void {
-    if (!this.canSubmit || !this.selectedStudent) {
+    const student = requireSelectedStudent(this.canSubmit, this.selectedStudent);
+
+    if (!student) {
       return;
     }
 
     const trainingId = this.trainingControl.value;
-    const student = this.selectedStudent;
 
     this.serverMessage = '';
     this.submitting = true;
