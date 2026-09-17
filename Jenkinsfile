@@ -71,6 +71,16 @@ pipeline {
                 sh "docker images --filter=reference='${env.REGISTRY}/${env.REGISTRY_NAMESPACE}/omarise-frontend'"
             }
         }
+
+        stage('Cleanup Old GHCR Versions') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'omarise-docker-registry', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_TOKEN')]) {
+                    withEnv(['PACKAGE_NAME=omarise-frontend']) {
+                        sh 'chmod +x scripts/cleanup-ghcr-package.sh && ./scripts/cleanup-ghcr-package.sh || true'
+                    }
+                }
+            }
+        }
     }
     post {
         success {
