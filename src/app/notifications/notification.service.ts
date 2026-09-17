@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, EMPTY, Observable, catchError, distinctUntilChanged, map, of, switchMap, throwError, timer } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
 import { PageResponse } from '../admin/models/admin-user.models';
 import { ApiErrorResponse } from '../auth/models/auth.models';
 import { AuthService } from '../auth/auth.service';
@@ -92,7 +91,7 @@ export class NotificationService {
 
   /** Opens the SSE connection used by NotificationStreamService. */
   connectToStream(): EventSource {
-    return new EventSource(`${environment.apiUrl}${NOTIFICATIONS_STREAM_PATH}`, { withCredentials: true });
+    return new EventSource(NOTIFICATIONS_STREAM_PATH, { withCredentials: true });
   }
 
   /** Lets a caller nudge the badge right after a local mutation (read/read-all/delete) instead of waiting for the next poll tick. */
