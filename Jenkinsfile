@@ -6,6 +6,7 @@ pipeline {
     environment {
         REGISTRY = 'ghcr.io'
         REGISTRY_NAMESPACE = 'sa3id-boubaker'
+        KUBE_NAMESPACE = 'omarise'
     }
     stages {
         stage('Verify Environment') {
@@ -81,10 +82,46 @@ pipeline {
                 }
             }
         }
+
+        stage('Kubernetes Deploy') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl version --client'
+                    sh "kubectl get namespace ${env.KUBE_NAMESPACE}"
+                    sh "kubectl set image deployment/frontend frontend=${env.REGISTRY}/${env.REGISTRY_NAMESPACE}/omarise-frontend:${env.BUILD_NUMBER} -n ${env.KUBE_NAMESPACE}"
+                }
+            }
+        }
+
+        stage('Kubernetes Rollout Verification') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
+                    script {
+                        try {
+                            sh "kubectl rollout status deployment/frontend -n ${env.KUBE_NAMESPACE} --timeout=180s"
+                        } catch (err) {
+                            echo "Rollout failed for frontend — collecting diagnostics."
+                            sh """
+                                set +e
+                                echo '--- kubectl get pods -n ${env.KUBE_NAMESPACE} ---'
+                                kubectl get pods -n ${env.KUBE_NAMESPACE}
+                                echo '--- kubectl describe deployment/frontend -n ${env.KUBE_NAMESPACE} ---'
+                                kubectl describe deployment/frontend -n ${env.KUBE_NAMESPACE}
+                                echo '--- kubectl describe pods -l app=frontend -n ${env.KUBE_NAMESPACE} ---'
+                                kubectl describe pods -l app=frontend -n ${env.KUBE_NAMESPACE}
+                                echo '--- kubectl logs deployment/frontend -n ${env.KUBE_NAMESPACE} --tail=100 ---'
+                                kubectl logs deployment/frontend -n ${env.KUBE_NAMESPACE} --tail=100
+                            """
+                            error("Kubernetes rollout failed for frontend")
+                        }
+                    }
+                }
+            }
+        }
     }
     post {
         success {
-            echo 'Frontend build succeeded: dist/browser is ready, SonarQube Quality Gate passed, image pushed to registry.'
+            echo 'Frontend build succeeded: dist/browser is ready, SonarQube Quality Gate passed, image pushed to registry, Kubernetes deployment rolled out.'
         }
         failure {
             echo 'Frontend pipeline failed — check the stage logs above.'
