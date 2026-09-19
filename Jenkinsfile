@@ -118,6 +118,32 @@ pipeline {
                 }
             }
         }
+
+        stage('Sync k8s Manifest to Git (backend repo)') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-omarise-backend', keyFileVariable: 'SSH_KEY')]) {
+                    sh '''
+                        set -e
+                        export GIT_SSH_COMMAND="ssh -i $SSH_KEY -o StrictHostKeyChecking=accept-new"
+                        rm -rf .k8s-sync-backend
+                        git clone --depth 1 --branch dev git@github.com:Sa3id-Boubaker/e-learning-backend.git .k8s-sync-backend
+                        cd .k8s-sync-backend
+                        git config user.email "jenkins-ci@omarise.local"
+                        git config user.name "Jenkins CI"
+                        sed -i "s#image: ${REGISTRY}/${REGISTRY_NAMESPACE}/omarise-frontend:.*#image: ${REGISTRY}/${REGISTRY_NAMESPACE}/omarise-frontend:${BUILD_NUMBER}#" k8s/frontend/deployment.yaml
+                        if git diff --quiet -- k8s/frontend/deployment.yaml; then
+                            echo "k8s/frontend/deployment.yaml deja a jour, rien a committer."
+                        else
+                            git add k8s/frontend/deployment.yaml
+                            git commit -m "chore(k8s): sync frontend image tag to build ${BUILD_NUMBER}"
+                            git push origin HEAD:dev
+                        fi
+                        cd ..
+                        rm -rf .k8s-sync-backend
+                    '''
+                }
+            }
+        }
     }
     post {
         success {
