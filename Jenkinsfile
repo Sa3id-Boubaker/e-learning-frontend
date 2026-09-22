@@ -17,7 +17,7 @@ pipeline {
         KUBE_NAMESPACE = 'omarise'
     }
     stages {
-        stage('CI') {
+        stage('Pipeline') {
             when {
                 // Skip entirely when the triggering commit is a k8s-manifest-sync
                 // push tagged [skip ci] - either this pipeline's own future syncs,
@@ -33,6 +33,8 @@ pipeline {
                     }
                 }
             }
+            stages {
+            stage('CI') {
             stages {
             stage('Verify Environment') {
                 steps {
@@ -83,6 +85,11 @@ pipeline {
                     sh "docker images --filter=reference='omarise-frontend'"
                 }
             }
+            }
+            }
+
+            stage('CD') {
+            stages {
             stage('Docker Login') {
                 steps {
                     withCredentials([usernamePassword(credentialsId: 'omarise-docker-registry', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_TOKEN')]) {
@@ -190,6 +197,8 @@ pipeline {
                         '''
                     }
                 }
+            }
+            }
             }
             }
         }
