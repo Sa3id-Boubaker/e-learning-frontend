@@ -161,7 +161,29 @@ pipeline {
                             else
                                 git add k8s/frontend/deployment.yaml
                                 git commit -m "chore(k8s): sync frontend image tag to build ${BUILD_NUMBER} [skip ci]"
-                                git push origin HEAD:dev
+
+                                # dev can move between this shallow clone and the push below (e.g.
+                                # the backend pipeline's own sync commit landing first). Retry a
+                                # few times, rebasing this one sync commit onto the latest dev each
+                                # time, instead of failing an otherwise-successful deployment over a
+                                # losing race.
+                                ATTEMPT=1
+                                MAX_ATTEMPTS=5
+                                until git push origin HEAD:dev; do
+                                    if [ "$ATTEMPT" -ge "$MAX_ATTEMPTS" ]; then
+                                        echo "git push failed after $MAX_ATTEMPTS attempts - giving up."
+                                        exit 1
+                                    fi
+                                    echo "Push rejected (dev moved), rebasing and retrying (attempt $ATTEMPT/$MAX_ATTEMPTS)..."
+                                    git fetch origin dev
+                                    if ! git rebase origin/dev; then
+                                        git rebase --abort
+                                        echo "Rebase conflict while syncing k8s/frontend/deployment.yaml onto dev - manual resolution needed."
+                                        exit 1
+                                    fi
+                                    ATTEMPT=$((ATTEMPT+1))
+                                    sleep 3
+                                done
                             fi
                             cd ..
                             rm -rf .k8s-sync-backend
